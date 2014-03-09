@@ -19,4 +19,5 @@
 .env
 
 # Ignore RubyMine metadata
-.idea/
+/.idea
+/.idea/*
