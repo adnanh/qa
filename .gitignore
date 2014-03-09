@@ -17,3 +17,6 @@
 
 # Ignore sensitive data settings
 .env
+
+# Ignore RubyMine metadata
+.idea/
