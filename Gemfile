@@ -53,3 +53,9 @@ gem 'sass-rails'
 # Use Bootstrap 3
 gem 'bootstrap-sass'
 
+# Epic foreign key support (IN DB)
+gem 'foreigner'
+gem 'immigrant'
+
+# Forced SOAP support. it's bad, mkaaaay
+gem 'wash_out'
