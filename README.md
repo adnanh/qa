@@ -1,7 +1,7 @@
 Q/A System
 ==
 
-Simple Q/A system written as a single page web application.
+Simple Q/A system written as a single page web application using RoR and JavaScript.
 
 Teo, [NWT Document is here.](https://github.com/adnanh/qa/wiki/NWT-document)
 
