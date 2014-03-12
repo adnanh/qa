@@ -1,4 +1,10 @@
 Qa::Application.routes.draw do
+  get "rest/c_priv"
+  get "rest/r_priv"
+  get "rest/u_priv"
+  get "rest/d_priv"
+  get "rest/c_log"
+  get "rest/r_log"
   get "application/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -7,6 +13,7 @@ Qa::Application.routes.draw do
   root 'application#index'
 
   wash_out :exception_thrower
+  wash_out :soap
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
