@@ -7,12 +7,12 @@ Qa::Application.routes.draw do
 
   wash_out :soap
 
-  post "rest/privilege" => 'rest#c_priv'
+  put "rest/privilege" => 'rest#c_priv'
   get "rest/privilege" => 'rest#r_priv'
   get "rest/privilege/:id" => 'rest#r_priv'
 
-  get "rest/u_priv"
-  get "rest/d_priv"
+  post 'rest/privileges/:privilege_id' => 'rest#u_priv'
+  delete 'rest/privileges/:privilege_id' => 'rest#d_priv'
   get "rest/c_log"
   get "rest/r_log"
 
