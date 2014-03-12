@@ -121,7 +121,7 @@ class RestController < ApplicationController
     if(params[:message].nil?)
       render :json => {:success => :false}
     else
-      Log.log(:message)
+      Log.log(params[:message], request.remote_ip)
       render :json => {:success => :true}
     end
   end
