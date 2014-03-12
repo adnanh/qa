@@ -5,29 +5,61 @@ class SoapController < ApplicationController
     map :privilege_id => :integer, :name => :string, :description => :string
   end
 
-  soap_action 'u_priv',
-              :args => { :privilege => Privilege},
+  # For create
+  #<?xml version="1.0" encoding="utf-8"?>
+  #    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  #<soap:Body>
+  #<c_priv xmlns="urn:WashOut">
+  #<privilege>
+  #<privilege_id></privilege_id>
+  #         <name>blah</name>
+  #<description>blah</description>
+  #       </privilege>
+  #</c_priv>
+  #   </soap:Body>
+  #</soap:Envelope>
+
+  soap_action 'c_priv',
+              :args => { :privilege => Privilege },
               :return => { :privilege => Privilege }
   def c_priv
-    privilege = UserPrivilege.new(:name => params[:name], :description => params[:description])
+
+    if params[:privilege].nil?
+      render :soap => { :privilege => nil }
+      return
+    end
+
+    privilege = UserPrivilege.new(:name => params[:privilege][:name], :description => params[:privilege][:description])
 
     begin
       privilege.save!
     rescue ActiveRecord::RecordInvalid
-      render :soap => { :error => true }
+      render :soap => { :privilege => nil }
       return
     end
 
-    soap_privilege = Privilege.new
-    soap_privilege.privilege_id = privilege.id
-    soap_privilege.name = privilege.name
-    soap_privilege.description = privilege.description
-
-    render :soap => soap_privilege
+    render :soap => { :privilege => { :privilege_id => privilege.id, :name => privilege.name, :description => privilege.description } }
     return
   end
 
+  soap_action 'r_priv',
+              :args => { :privilege_id => :integer },
+              :return => { :privileges => { :privilege => [Privilege] } }
   def r_priv
+    if !params[:privilege_id].nil?
+      privileges = UserPrivilege.where(:id => params[:privilege_id])
+    else
+      privileges = UserPrivilege.all
+    end
+
+    privs = []
+
+    privileges.each do |privilege|
+      privs.push( {  :privilege_id => privilege.id, :name => privilege.name, :description => privilege.description } )
+    end
+
+    render :soap => { :privileges => { :privilege => privs } }
+
   end
 
   soap_action 'u_priv',
