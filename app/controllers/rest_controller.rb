@@ -68,8 +68,16 @@ class RestController < ApplicationController
   end
 
   def c_log
+    if(params[:message].nil?)
+      render :json => {:success => :false}
+    else
+      Log.log(:message)
+      render :json => {:success => :true}
+    end
   end
 
   def r_log
+    logs = Log.all
+    render :json => logs
   end
 end
