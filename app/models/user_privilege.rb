@@ -1,8 +1,6 @@
 class UserPrivilege < ActiveRecord::Base
   has_many :users
 
-  attr_accessor :name, :description
-
   validates :name, :description, :presence => true
   validates :name, :uniqueness => true
 

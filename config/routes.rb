@@ -1,19 +1,20 @@
 Qa::Application.routes.draw do
-  get "rest/c_priv"
-  get "rest/r_priv"
-  get "rest/u_priv"
-  get "rest/d_priv"
-  get "rest/c_log"
-  get "rest/r_log"
-  get "application/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'application#index'
 
-  wash_out :exception_thrower
   wash_out :soap
+
+  post "rest/privilege" => 'rest#c_priv'
+  get "rest/privilege" => 'rest#r_priv'
+  get "rest/privilege/:id" => 'rest#r_priv'
+
+  get "rest/u_priv"
+  get "rest/d_priv"
+  get "rest/c_log"
+  get "rest/r_log"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
