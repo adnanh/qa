@@ -12,7 +12,15 @@
  *= require_tree .
  */
 
+$navbar-height: 70px;
+$navbar-brand-padding-vertical: 0px;
 @import "bootstrap";
+
+.navbar-brand
+{
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
 body {
   padding-top: 50px;
