@@ -5,6 +5,10 @@ class SoapController < ApplicationController
     map :privilege_id => :integer, :name => :string, :description => :string
   end
 
+  class LogSOAP < WashOut::Type
+    map :logitem_id => :integer, :ip_address => :string, :datetime => :string, :description => :string
+  end
+
   def c_priv
   end
 
@@ -54,23 +58,23 @@ class SoapController < ApplicationController
 
   soap_action 'c_log',
               :args => {:message => :string },
-              :return => {:success => :string}
+              :return => {:success => :boolean}
   def c_log
     if(params[:message].nil?)
-      Log.log(:message)
-      render :soap => {:success => :false.to_s}
+      Log.log(params[:message],request.ip)
+      render :soap => {:success => :false}
     else
-      render :soap => {:success => :true.to_s}
+      render :soap => {:success => :true}
     end
   end
 
   soap_action 'r_log',
       :arg => {},
-      :return => {:logs => :string }
+      :return => { :logs => { :element => [LogSOAP]}}
 
   def r_log
     lgs = Log.all
-    render :soap => {:logs => lgs.to_s}
+    render :soap => {:logs => {:element => lgs}}
   end
 end
 

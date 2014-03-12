@@ -41,4 +41,6 @@ class ExceptionThrowerController < ApplicationController
   end
 
   #TODO: try out type definition
+
+
 end
