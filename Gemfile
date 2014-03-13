@@ -53,6 +53,9 @@ gem 'sass-rails'
 # Use Bootstrap 3
 gem 'bootstrap-sass'
 
+# Bootstrap themes
+# gem 'bootswatch-rails'
+
 # Epic foreign key support (IN DB)
 gem 'foreigner'
 gem 'immigrant'
