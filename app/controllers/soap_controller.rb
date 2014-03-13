@@ -6,7 +6,7 @@ class SoapController < ApplicationController
   end
 
   class LogSOAP < WashOut::Type
-    map :logitem_id => :integer, :ip_address => :string, :datetime => :string, :description => :string
+    map :ip_address => :string, :datetime => :string, :description => :string
   end
 
   # For create
@@ -120,12 +120,16 @@ class SoapController < ApplicationController
   end
 
   soap_action 'r_log',
-      :arg => {},
-      :return => { :logs => { :element => [LogSOAP]}}
+              :args => {},
+              :return => { :logs => { :log => [Privilege] } }
 
   def r_log
-    lgs = Log.all
-    render :soap => {:logs => {:element => lgs}}
+      lgs = Log.all
+      lgss = []
+    lgs.each do |log|
+      lgss.push( {  :ip_address => log.ip_address, :datetime => log.created_at, :description => log.description } )
+    end
+    render :soap => { :logs => { :log => lgss } }
   end
 end
 
