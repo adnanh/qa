@@ -1,4 +1,10 @@
 Qa::Application.routes.draw do
+  get "question/create"
+  get "question/get"
+  get "question/update"
+  get "question/delete"
+  get "question/open"
+  get "question/close"
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   # The priority is based upon order of creation: first created -> highest priority.
