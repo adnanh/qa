@@ -2,8 +2,6 @@ class PrivateMessage < ActiveRecord::Base
   belongs_to :sender, :class_name => 'User', :foreign_key => :sender_id
   belongs_to :receiver, :class_name => 'User', :foreign_key => :receiver_id
 
-  attr_accessor :title, :content
-
   validates_presence_of :title, :content, :sender_status, :receiver_status, :sender, :receiver
 
   validates_length_of :title, :maximum => 255, :allow_blank => false
@@ -31,8 +29,6 @@ class PrivateMessage < ActiveRecord::Base
   def receiver_status
     RECEIVER_STATUS.key(read_attribute(:receiver_status))
   end
-
-
 
   def receiver_status_id
     read_attribute(:receiver_status)

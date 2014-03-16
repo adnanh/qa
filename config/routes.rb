@@ -1,9 +1,11 @@
 Qa::Application.routes.draw do
-  get "private_message/create"
-  get "private_message/delete"
-  get "private_message/inbox"
-  get "private_message/outbox"
-  get "private_message/get"
+  get "messages/inbox" => "private_message#inbox"
+  get "messages/outbox" => "private_message#outbox"
+  get "messages/unread" => "private_message#check"
+  post "messages" => "private_message#create"
+  get "messages/:message_id" => "private_message#get"
+  delete "messages/:message_id" => "private_message#delete"
+
   get "private_message/check"
 
   get "question/create"
