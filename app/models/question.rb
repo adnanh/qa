@@ -1,10 +1,8 @@
 class Question < ActiveRecord::Base
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
   belongs_to :editor, :class_name => 'User', :foreign_key => :editor_id
-  has_many :answers
-  has_many :votes, :as => :disqsable
-
-  attr_accessor :author, :title, :content, :tags, :open, :status_description, :views, :editor
+  has_many :answers, :dependent => :destroy
+  has_many :votes, :as => :disqsable, :dependent => :destroy
 
   validates_presence_of :author, :title, :content, :tags, :open, :views
 
