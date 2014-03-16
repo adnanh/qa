@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   def index
-    @users = Users.all
+    @users = User.all
   end
 
   def logged_in_test
