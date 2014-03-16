@@ -2,7 +2,7 @@ class QuestionController < ApplicationController
   include QaHelper
 
   before_filter :require_logged_in, :except => [:get]
-  before_filter :require_admin, :only => [:delete]
+  before_filter :require_admin, :only => [:delete, :open_question, :close_question]
 
   # request is filtered by require_logged_in
   # cannot be logged in if is banned, so thats dealt with
@@ -164,9 +164,34 @@ class QuestionController < ApplicationController
     end
   end
 
-  def open
+  # requires admin
+  def open_question
     respond_to do |format|
       format.json {
+        question_id = extract_int params, :question_id
+
+        # if bad request
+        if question_id.nil?
+          render :json => reply(false, t(:missing_params))
+        # if request okay
+        else
+          question = Question.where(id: question_id).first
+
+          if question.nil?
+            render :json => reply(false, t(:no_such_question))
+          elsif question.open
+            render :json => reply(false, t(:question_already_open_fail))
+          else
+            question.status_description = nil
+            question.open = true
+
+            if question.save
+              render :json => reply(true, t(:question_open_success))
+            else
+              render :json => reply(false, t(:question_open_failure))
+            end
+          end
+        end
 
       }
       format.html {
@@ -176,10 +201,36 @@ class QuestionController < ApplicationController
     end
   end
 
-  def close
+  # requires admin
+  def close_question
     respond_to do |format|
       format.json {
+        question_id = extract_int params, :question_id
+        explanation = params[:explanation]
+        # if bad request
+        if question_id.nil? || explanation.nil?
+          render :json => reply(false, t(:missing_params))
+          # if request okay
+        else
+          question = Question.where(id: question_id).first
 
+          if question.nil?
+            render :json => reply(false, t(:no_such_question))
+          elsif !question.open
+            render :json => reply(false, t(:question_already_closed_fail))
+          else
+            question.status_description = explanation
+            question.open = false
+            question.valid?
+            puts question.errors.full_messages
+
+            if question.save
+              render :json => reply(true, t(:question_close_success))
+            else
+              render :json => reply(false, t(:question_close_failure))
+            end
+          end
+        end
       }
       format.html {
         render :status => :method_not_allowed, :nothing => true

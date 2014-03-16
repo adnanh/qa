@@ -38,8 +38,8 @@ Qa::Application.routes.draw do
     get 'questions/:question_id' => :get
     post 'questions/:question_id' => :update
     delete 'questions/:question_id' => :delete
-    post 'questions/question_id/open' => :open
-    post 'questions/:question_id/close' => :close
+    post 'questions/:question_id/open' => :open_question
+    post 'questions/:question_id/close' => :close_question
   end
 
   # Example of regular route:

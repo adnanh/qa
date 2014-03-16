@@ -4,7 +4,7 @@ class Question < ActiveRecord::Base
   has_many :answers, :dependent => :destroy
   has_many :votes, :as => :disqsable, :dependent => :destroy
 
-  validates_presence_of :author, :title, :content, :tags, :open, :views
+  validates_presence_of :author, :title, :content, :tags, :views
 
   validates_length_of :title, :maximum => 255, :allow_blank => false
   validates_length_of :content, :maximum => 10000, :allow_blank => false
