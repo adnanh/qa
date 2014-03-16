@@ -7,6 +7,11 @@ Qa::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'application#index'
 
+
+  get 'admin' => 'application#admin_test'
+  get 'loggedin' => 'application#logged_in_test'
+
+
   wash_out :soap
 
   put "rest/privilege" => 'rest#c_priv'
