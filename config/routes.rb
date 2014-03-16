@@ -1,4 +1,10 @@
 Qa::Application.routes.draw do
+  get "private_message/create"
+  get "private_message/delete"
+  get "private_message/inbox"
+  get "private_message/outbox"
+  get "private_message/get"
+  get "private_message/check"
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   # The priority is based upon order of creation: first created -> highest priority.
