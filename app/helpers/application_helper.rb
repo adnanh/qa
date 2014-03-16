@@ -28,4 +28,13 @@ module ApplicationHelper
     end
     return false
   end
+
+  def reply(success, message, objname = nil, object = nil)
+    if objname.nil?
+      return {success: success, message: message}
+    else
+      return {success: success, message: message, objname => object}
+    end
+
+  end
 end
