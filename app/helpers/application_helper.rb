@@ -4,17 +4,44 @@ module ApplicationHelper
   end
 
   def require_logged_in
-    authenticate_user!
+    respond_to do |format|
+      format.json {
+        if !user_signed_in?
+            render :json => reply(false, "Unauthorized"), :status => :unauthorized
+            return
+        end
+      }
+
+      format.html {
+        authenticate_user!
+      }
+    end
   end
 
   def require_admin
-    if user_signed_in?
-      if current_user.user_privilege_id != 2
-        flash[:alert] = "You do not have sufficient privileges to access the requested page."
-        redirect_to root_path
-      end
-    else
-      authenticate_user!
+    respond_to do |format|
+      format.json {
+        if user_signed_in?
+          if current_user.user_privilege_id != 2
+            render :json => reply(false, "You do not have sufficient privileges to access the requested service"), :status => :unauthorized
+            return
+          end
+        else
+          render :json => reply(false, "You do not have sufficient privileges to access the requested service"), :status => :unauthorized
+          return
+        end
+      }
+
+      format.html {
+        if user_signed_in?
+          if current_user.user_privilege_id != 2
+            flash[:alert] = "You do not have sufficient privileges to access the requested page."
+            redirect_to root_path
+          end
+        else
+          authenticate_user!
+        end
+      }
     end
   end
 
