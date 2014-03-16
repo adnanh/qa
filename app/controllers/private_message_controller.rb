@@ -1,4 +1,6 @@
 class PrivateMessageController < ApplicationController
+  before_filter :require_logged_in, :except => []
+
   def create
     respond_to do |format|
       format.json {
