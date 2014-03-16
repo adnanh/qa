@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140310212958) do
+ActiveRecord::Schema.define(version: 20140316005727) do
 
   create_table "answers", force: true do |t|
     t.integer  "author_id",   null: false
@@ -93,23 +93,28 @@ ActiveRecord::Schema.define(version: 20140310212958) do
   add_index "user_privileges", ["name"], name: "index_user_privileges_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "username",          limit: 16,                 null: false
-    t.string   "password",          limit: 32,                 null: false
-    t.string   "salt",              limit: 45,                 null: false
-    t.string   "flair"
-    t.boolean  "banned",                       default: false, null: false
-    t.string   "email",                                        null: false
-    t.integer  "karma",                        default: 0,     null: false
-    t.boolean  "email_public",                 default: false, null: false
-    t.datetime "last_login"
-    t.boolean  "activated",                    default: false, null: false
-    t.string   "activation_code",   limit: 45
-    t.integer  "user_privilege_id",                            null: false
+    t.string   "username",               limit: 16,                 null: false
+    t.string   "flair",                             default: ""
+    t.boolean  "banned",                            default: false, null: false
+    t.integer  "karma",                             default: 0,     null: false
+    t.boolean  "email_public",                      default: false, null: false
+    t.integer  "user_privilege_id",                                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email",                             default: "",    null: false
+    t.string   "encrypted_password",                default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                     default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["user_privilege_id"], name: "users_user_privilege_id_fk", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 

@@ -11,6 +11,18 @@
 <%= render :partial => 'header' %>
 
 <div class="container">
+  <% unless notice.nil? %>
+      <div class="alert alert-info">
+        <%= notice %>
+      </div>
+  <% end %>
+
+  <% unless alert.nil? %>
+      <div class="alert alert-danger">
+        <%= alert %>
+      </div>
+  <% end %>
+
   <%= yield %>
 </div><!-- /.container -->
 

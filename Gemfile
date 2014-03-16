@@ -62,3 +62,9 @@ gem 'immigrant'
 
 # Forced SOAP support. it's bad, mkaaaay
 gem 'wash_out'
+
+# Devise for user authentication
+gem 'devise'
+
+# Bcrypt for secure passwords
+gem 'bcrypt'
