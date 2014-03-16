@@ -64,4 +64,8 @@ module ApplicationHelper
     end
 
   end
+
+  def extract_int(params, symbol)
+    Integer(params[symbol]) if params.has_key?(symbol) and params[symbol].is_integer?
+  end
 end

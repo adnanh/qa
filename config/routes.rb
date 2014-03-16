@@ -8,13 +8,6 @@ Qa::Application.routes.draw do
 
   get "private_message/check"
 
-  get "question/create"
-  get "question/get"
-  get "question/update"
-  get "question/delete"
-  get "question/open"
-  get "question/close"
-
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -38,6 +31,16 @@ Qa::Application.routes.draw do
   delete 'rest/privileges/:privilege_id' => 'rest#d_priv'
   get "rest/c_log"
   get "rest/r_log"
+
+
+  controller :question do
+    put 'questions' => :create
+    get 'questions/:question_id' => :get
+    post 'questions/:question_id' => :update
+    delete 'questions/:question_id' => :delete
+    post 'questions/question_id/open' => :open
+    post 'questions/:question_id/close' => :close
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
