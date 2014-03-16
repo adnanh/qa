@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_filter :require_logged_in, :only => [:logged_in_test]
   before_filter :require_admin, :only => [:admin_test]
+  before_filter :set_locale
 
   def index
   end
@@ -41,5 +42,9 @@ class ApplicationController < ActionController::Base
       return current_user.user_privilege_id == 2;
     end
     return false
+  end
+
+  def set_locale
+    I18n.locale = session[:locale] || params[:locale] || I18n.default_locale
   end
 end

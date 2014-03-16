@@ -1,0 +1,5 @@
+# Bosnian localization file
+# Lokalizacijska datoteka za bosanski jezik
+
+bs:
+  hello: "Zdravstvuj, miru!"
