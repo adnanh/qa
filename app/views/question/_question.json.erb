@@ -1,0 +1,66 @@
+{
+    "success": true,
+    "message": "Question fetched successfully",
+    "question": {
+        "id": <%= @question.id %>,
+        "author": {
+            "id": <%= @question.author_id %>,
+            "username": "<%= @question.author.username %>"
+        },
+        "created_at": "<%= @question.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+        "title": "<%= @question.title %>",
+        "content": <%= @question.content.to_json.html_safe %>,
+        "tags": "<%= @question.tags %>",
+        "open": <%= @question.open %>,
+        <% if !@question.open %>
+            "status_description": "<%= @question.status_description %>",
+        <% end %>
+        "views": <%= @question.views %>,
+        "upvotes": <%= @qvotes.where(value: true).count %>,
+        "downvotes": <%= @qvotes.where(value: false).count %>,
+        <% if !@user.nil? %>
+        <% uvote_present = @uvote.present? %>
+        "user_has_voted": <%= uvote_present %>,
+          <% if uvote_present %>
+            "user_vote_value": <%= @uvote.value %>,
+          <% end %>
+        <% end %>
+        <% if !@question.editor_id.nil? %>
+        "editor": {
+            "id": <%= @question.editor_id %>,
+            "username": "<%= @question.editor.username %>"
+        },
+        "edited_at": "<%= @question.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+        <% end %>
+        "answers": [
+          <% @answers.each_with_index do |answer, ind| %>
+            {
+                "id": <%= answer.id %>,
+                "author": {
+                    "id": <%= answer.author_id %>,
+                    "username": "<%= answer.author.username %>"
+                },
+                "created_at": "<%= answer.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+                "upvotes": <%= answer.votes.where(value: true).count %>,
+                "downvotes": <%= answer.votes.where(value: false).count %>,
+                "accepted": <%= answer.accepted %>,
+                <% if !@user.nil? %>
+                <% avote = answer.votes.where(user_id: @user.id).first %>
+                "user_has_voted": <%= avote.present? %>,
+                  <% if avote.present? %>
+                    "user_vote_value": <%= avote.value %>,
+                  <% end %>
+                <% end %>
+                <% if !answer.editor_id.nil? %>
+                "editor": {
+                    "id": <%= answer.editor_id %>,
+                    "username": "<%= answer.editor.username %>"
+                },
+                "edited_at": "<%= answer.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+                <% end %>
+                "content": <%= answer.content.to_json.html_safe %>
+            } <%= ',' if ind!=(@question.answers.length-1) %>
+          <% end %>
+        ]
+    }
+}

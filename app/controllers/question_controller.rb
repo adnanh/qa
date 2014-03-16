@@ -36,10 +36,35 @@ class QuestionController < ApplicationController
     end
   end
 
+  #gets question by its ID with all answers
   def get
     respond_to do |format|
       format.json {
+        question_id = extract_int params, :question_id
 
+        #if bad request
+        if question_id.nil?
+          render :json => reply(false, t(:missing_params))
+
+        #if okay
+        else
+          @question = Question.where(id: question_id).first
+
+          if @question.nil?
+            render :json => reply(false, t(:no_such_question))
+          else
+            # fetch all the data
+            @user = current_user
+            @qvotes = @question.votes
+            @uvote
+            @uvote = @qvotes.where(user_id: @user.id).first unless @user.nil?
+
+            @answers = @question.answers
+
+            # custom render
+            render :partial => 'question', :layout => false
+          end
+        end
       }
       format.html {
         render :status => :method_not_allowed, :nothing => true

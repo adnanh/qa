@@ -5,6 +5,7 @@ class CreateAnswers < ActiveRecord::Migration
       t.integer :editor_id
       t.integer :question_id, :null => false
       t.text :content, :limit => 10000, :null => false
+      t.boolean :accepted, :null => false, :default => false
 
       t.timestamps
     end

@@ -4,9 +4,8 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   has_many :votes, :as => :disqsable
 
-  attr_accessor :author, :content, :editor, :question, :votes
 
-  validates_presence_of :author, :content
+  validates_presence_of :author, :content, :accepted
 
   validates_length_of :content, :maximum => 10000, :allow_blank => false
 end
