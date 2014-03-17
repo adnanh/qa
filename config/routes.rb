@@ -38,8 +38,16 @@ Qa::Application.routes.draw do
     get 'questions/:question_id' => :get
     post 'questions/:question_id' => :update
     delete 'questions/:question_id' => :delete
-    post 'questions/question_id/open' => :open
-    post 'questions/:question_id/close' => :close
+    post 'questions/:question_id/open' => :open_question
+    post 'questions/:question_id/close' => :close_question
+  end
+
+  controller :answer do
+    put 'question/:question_id/answers' => :create
+    post 'question/:question_id/answers/:answer_id' => :update
+    delete 'question/:question_id/answers/:answer_id' => :delete
+    post 'question/:question_id/answers/:answer_id/pick' => :pick
+    post 'question/:question_id/answers/:answer_id/unpick' => :unpick
   end
 
   controller :admin do

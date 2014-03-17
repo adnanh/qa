@@ -41,9 +41,10 @@ class AddDeviseToUsers < ActiveRecord::Migration
     # add_index :users, :unlock_token,         :unique => true
   end
 
-  def self.down
-    # By default, we don't want to make any assumption about how to roll back a migration when your
-    # model already existed. Please edit below which fields you would like to remove in this migration.
-    raise ActiveRecord::IrreversibleMigration
-  end
+ # we dont need to worry about this but could prove useful sometime later
+ # def self.down
+ #   # By default, we don't want to make any assumption about how to roll back a migration when your
+ #   # model already existed. Please edit below which fields you would like to remove in this migration.
+ #   raise ActiveRecord::IrreversibleMigration
+ #  end
 end
