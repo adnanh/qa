@@ -68,3 +68,6 @@ gem 'devise'
 
 # Bcrypt for secure passwords
 gem 'bcrypt'
+
+# AngularJS for rails pipeline
+gem 'angularjs-rails'

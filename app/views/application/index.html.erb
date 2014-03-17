@@ -1,25 +1,11 @@
-<p class="lead">Tonem kao titanik, nad glavom mi upitnik...</p>
+<div id="qa">
+  <p class="lead">Hello</p>
+  I can add: {{ 1+2 }}.
+</div>
 
-<p>TEST LOKALIZACIJE: <%= t(:hello) %> </p>
-
-<% unless @users.size == 0 %>
-    <p class="lead">Registered users</p>
-    <div class="col-lg-3">
-      <table class="table table-striped table-hover ">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Username</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @users.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= user.username %></td>
-            </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-<% end %>
+<script>
+    angular.element(document.getElementById('qa')).ready(function() {
+        angular.module('qa', []);
+        angular.bootstrap(document, ['qa']);
+    });
+</script>
