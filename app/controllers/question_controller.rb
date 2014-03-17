@@ -158,8 +158,6 @@ class QuestionController < ApplicationController
         end
       }
       format.html {
-        render :status => :method_not_allowed, :nothing => true
-        return
       }
     end
   end

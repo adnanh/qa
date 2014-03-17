@@ -14,6 +14,6 @@ class CreateUsers < ActiveRecord::Migration
 
     add_index :users, :username, :unique => true
 
-    add_foreign_key 'users', 'user_privileges', name:'users_user_privilege_id_fk'
+    add_foreign_key 'users', 'user_privileges', name: 'users_user_privilege_id_fk'
   end
 end

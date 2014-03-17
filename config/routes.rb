@@ -42,6 +42,21 @@ Qa::Application.routes.draw do
     post 'questions/:question_id/close' => :close
   end
 
+  controller :admin do
+    get 'users/:user_id/ban' => :ban
+    get 'users/:user_id/unban' => :unban
+    get 'users/:user_id/promote' =>:promote
+    get 'users/:user_id/demote' =>:demote
+    post 'users/edit' =>:edit
+    post 'users/:user_id/edit' =>:edit
+    get 'users/:user_id/profile' =>:profile
+    get 'users/profile' =>:profile
+  end
+
+  controller :log do
+    get 'logs' => :get_logs
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

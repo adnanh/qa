@@ -14,10 +14,11 @@
 ActiveRecord::Schema.define(version: 20140316172153) do
 
   create_table "answers", force: true do |t|
-    t.integer  "author_id",   null: false
+    t.integer  "author_id",                   null: false
     t.integer  "editor_id"
-    t.integer  "question_id", null: false
-    t.text     "content",     null: false
+    t.integer  "question_id",                 null: false
+    t.text     "content",                     null: false
+    t.boolean  "accepted",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
