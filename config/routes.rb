@@ -42,6 +42,14 @@ Qa::Application.routes.draw do
     post 'questions/:question_id/close' => :close_question
   end
 
+  controller :answer do
+    put 'question/:question_id/answers' => :create
+    post 'question/:question_id/answers/:answer_id' => :update
+    delete 'question/:question_id/answers/:answer_id' => :delete
+    post 'question/:question_id/answers/:answer_id/pick' => :pick
+    post 'question/:question_id/answers/:answer_id/unpick' => :unpick
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

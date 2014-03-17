@@ -23,7 +23,7 @@ class QuestionController < ApplicationController
         else
 
           if question.save
-            render :json => reply(true, t(:question_creation_successful))
+            render :json => reply(true, t(:question_creation_successful),'question_id', question.id)
           else
             render :json => reply(false, t(:question_creation_failed))
           end
@@ -221,8 +221,6 @@ class QuestionController < ApplicationController
           else
             question.status_description = explanation
             question.open = false
-            question.valid?
-            puts question.errors.full_messages
 
             if question.save
               render :json => reply(true, t(:question_close_success))
