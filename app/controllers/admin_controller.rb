@@ -223,6 +223,35 @@ end
   end
 
   def get_users
+# this action shall execute only after is_admin filter
+  respond_to do |format|
+    if (!params.has_key?(:banned_users_only) || !params.has_key?(:include_users) || !params.has_key?(:include_admins) || !params.has_key?(:search_terms) ||  !params.has_key?(:starting_from))
+      # if there is a parameter missing
+      format.json{render :json => reply(false,t(:missing_parameters))}
+    else
+      items_to_load = Rails.application.config.DEFAULT_NUMBER_OF_ITEMS_TO_LOAD
 
+      # all parameters are present, let's filter it
+      banned = params[:banned_users_only] == 'true' ? 1 : 0
+      is_user = params[:include_users] == 'true' ? 1 : 0
+      is_adm = params[:include_admins] == 'true' ? 1 : 0
+
+      priv_array = []
+      if is_user==1
+        priv_array.append(0)
+      end
+      if is_adm==1
+        priv_array.append(1)
+      end
+
+      search_term = params[:search_terms]
+      count = params[:starting_from].to_i
+
+      @users = User.where("(name LIKE :search_term OR surname LIKE :search_term OR username LIKE :search_term OR email_main LIKE :search_term ) AND is_banned = :is_banned AND user_privilege_id IN (:priv_array)", {is_banned: banned, priv_array: priv_array, search_term: "%#{search_term}%" })
+      @count = @users.count
+      @users = @users.offset(count).limit(items_to_load)
+      format.json{render :json => reply(true,'','users',@users)}
+    end
   end
+    end
 end
