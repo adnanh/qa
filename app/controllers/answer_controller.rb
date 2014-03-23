@@ -136,6 +136,8 @@ class AnswerController < ApplicationController
           if answer.nil?
             render :json => reply(false, t(:no_such_answer))
           # record exists
+          elsif !is_admin_or_author?(current_user,answer)
+            render :json => reply(false, t(:answer_pick_insufficient_privileges))
           else
             # accept it
             answer.accepted = true unless answer.accepted?
@@ -175,6 +177,8 @@ class AnswerController < ApplicationController
           if answer.nil?
             render :json => reply(false, t(:no_such_answer))
             # record exists
+          elsif !is_admin_or_author?(current_user,answer)
+            render :json => reply(false, t(:answer_unpick_insufficient_privileges))
           else
             # de-accept it :D
             answer.accepted = false unless !answer.accepted?

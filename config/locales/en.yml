@@ -1,23 +1,39 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+# English localization file
 en:
   hello: "Hello world"
+  missing_params: "Required parameters are missing from request"
+  question_creation_successful: "Question successfully posted."
+  question_creation_failed: "Question posting failed due to a database error."
+  no_such_question: "No question found."
+  question_edit_insufficient_privileges: "You cannot edit this question."
+  question_edit_invalid_new_values: "Question editing failed because changes are invalid."
+  question_editing_successful: "Question successfully edited."
+  question_editing_failed: "Question editing failed due to a database error."
+  question_deletion_successful: "Question successfully deleted."
+  question_deletion_failed: "Question deletion failed due to a database error."
+  question_already_open_fail: "Question is already opened."
+  question_open_success: "Question opened successfully."
+  question_open_failure: "Question could not be reopened due to a database error."
+  question_already_closed_fail: "Question is already closed."
+  question_close_success: "Question closed successfully."
+  question_close_failure: "Question could not be closed due to a database error."
+
+  answer_creation_invalid_question: "Could not post answer for non-existent question."
+  answer_creation_successful: "Answer successfully posted."
+  answer_creation_failed: "Answer posting failed due to a database error."
+  no_such_answer: "Non-existent answer."
+  answer_edit_insufficient_privileges: "You cannot edit this answer."
+  answer_edit_invalid_new_values: "Answer editing failed because changes are invalid."
+  answer_editing_successful: "Answer successfully edited."
+  answer_editing_failed: "Answer editing failed due to a database error."
+  answer_deletion_successful: "Answer successfully deleted."
+  answer_deletion_failed: "Answer deletion failed due to a database error."
+  answer_pick_success: "Answer successfully marked as correct."
+  answer_pick_insufficient_privileges: "You cannot mark answer as correct."
+  answer_pick_failure: "Could not mark answer as correct due to a database error."
+  answer_unpick_insufficient_privileges: "You cannot unmark answer."
+  answer_unpick_success: "Correct mark successfully removed from the answer."
+  answer_unpick_failure: "Correct mark could not be removed from the answer due to a database error."
+
+
+
