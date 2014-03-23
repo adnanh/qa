@@ -8,6 +8,8 @@ Qa::Application.routes.draw do
 
   get "private_message/check"
 
+  get "ajaxtest" => "application#ajax_test"
+
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   # The priority is based upon order of creation: first created -> highest priority.

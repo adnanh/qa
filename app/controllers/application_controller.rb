@@ -20,4 +20,17 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale = session[:locale] || params[:locale] || I18n.default_locale
   end
+
+  def ajax_test
+    respond_to do |format|
+      format.json {
+        if is_logged_in?
+          render :json => { response: "<span style=\"color: green;\">You are logged in as " + current_user.username + "...</span>" }
+        else
+          render :json => { response: "<span style=\"color: red;\">You are not logged in...</span>" }
+        end
+      }
+      format.html { render :nothing => true }
+    end
+  end
 end
