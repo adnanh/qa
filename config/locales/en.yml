@@ -17,7 +17,6 @@ en:
   question_already_closed_fail: "Question is already closed."
   question_close_success: "Question closed successfully."
   question_close_failure: "Question could not be closed due to a database error."
-
   answer_creation_invalid_question: "Could not post answer for non-existent question."
   answer_creation_successful: "Answer successfully posted."
   answer_creation_failed: "Answer posting failed due to a database error."
@@ -34,6 +33,6 @@ en:
   answer_unpick_insufficient_privileges: "You cannot unmark answer."
   answer_unpick_success: "Correct mark successfully removed from the answer."
   answer_unpick_failure: "Correct mark could not be removed from the answer due to a database error."
-
+  recaptcha_error: "The code you have entered does not appear to valid. Please enter the code exactly as it appears on the image."
 
 

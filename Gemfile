@@ -71,3 +71,6 @@ gem 'bcrypt'
 
 # AngularJS for rails pipeline
 gem 'angularjs-rails'
+
+# ReCaptcha
+gem 'recaptcha', :require => 'recaptcha/rails'
