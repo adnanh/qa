@@ -24,5 +24,6 @@ module Qa
     # appwide constants
     config.USER_PRIV = 1
     config.ADMIN_PRIV = 2
+    config.PAGE_SIZE = 10
   end
 end

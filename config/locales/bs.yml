@@ -34,3 +34,4 @@ bs:
   answer_unpick_success: "Status prihvaćenosti uspješno sklonjen sa zadatog odgovora."
   answer_unpick_failure: "Status prihvaćenosti sa zadatog odgovora nije bilo moguće skloniti uslijed greške u bazi podataka."
   recaptcha_error: "Kod koji ste unijeli nije ispravan. Molimo unesite kod u potpunosti kako je prikazan na slici."
+  get_users_success: "Korisnici uspješno dohvaćeni iz baze."

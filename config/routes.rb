@@ -61,6 +61,7 @@ Qa::Application.routes.draw do
     post 'users/:user_id/edit' =>:edit
     get 'users/:user_id/profile' =>:profile
     get 'users/profile' =>:profile
+    get 'users' => :get_users
   end
 
   controller :log do

@@ -11,6 +11,7 @@
 <%= render :partial => 'header' %>
 
 <div class="container">
+  <!-- this fucks up ng-view !!!! -->
   <% unless notice.nil? %>
       <div class="alert alert-info">
         <%= notice %>
@@ -22,6 +23,7 @@
         <%= alert %>
       </div>
   <% end %>
+  <!-- this fucks up ng-view end -->
 
   <%= yield %>
 

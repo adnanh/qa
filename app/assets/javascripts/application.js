@@ -17,6 +17,8 @@
 //= require angular-animate
 //= require angular-route
 //= require angular/controllers/master
+//= require angular/controllers/admin-panel
 //= require angular/directives/master
 //= require angular/services/master
+//= require angular/lib/angular-bootstrap/ui-bootstrap-tpls-0.10.0.js
 //= require_tree .
