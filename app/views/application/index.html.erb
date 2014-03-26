@@ -1,15 +1,1 @@
-<div id="qa">
-  <p class="lead">Hello</p>
-  I can add: {{ 1+2 }}.
-</div>
-
-<div>
-
-  <script type="text/javascript">
-      function queryWS() {
-          $.get("/ajaxtest.json", function( data ) { $("#response").html(data.response) });
-      }
-  </script>
-
-  <p id="response"></p><a href="#" onclick="return queryWS();">Test me</a>
-</div>
+<div ng-view></div>
