@@ -89,7 +89,6 @@ class AdminController < ApplicationController
   def profile
     respond_to do |format|
       if params[:user_id]
-        if current_user.is_admin?
           @target_user = User.where(id: params[:user_id]).first
           if @target_user.nil?
             format.json {
@@ -100,11 +99,6 @@ class AdminController < ApplicationController
               render :json => reply(true, '', 'user', @target_user)
             }
           end
-        else
-          format.json {
-            render :json => reply(false, t(:bad_privilegies))
-          }
-        end
       else
         format.json {
           render :json => reply(true, '', 'user', current_user)

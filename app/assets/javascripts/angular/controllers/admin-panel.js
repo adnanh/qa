@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('AdminCtrl', ['$scope', 'Administration',
-    function ($scope, AdministrationSrv) {
+ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location',
+    function ($scope, AdministrationSrv,$location) {
         $scope.users = [];
         $scope.current_page = 1;
         $scope.items_per_page = 10;
@@ -37,7 +37,7 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration',
             AdministrationSrv.ban(user).success(
                     function (data){
                         if(data.success)
-                            console.log('ban');
+                            console.log('ban'+user.id);
                             user.banned = true;
                     })
                 .error(
@@ -50,7 +50,7 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration',
             AdministrationSrv.unban(user).success(
                 function (data){
                     if(data.success)
-                        console.log('ban');
+                        console.log('unban'+ user.id);
                         user.banned = false;
                 })
                 .error(
@@ -87,5 +87,27 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration',
                     console.log(status);
                 });
         };
+
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
+
+
     }
+]);
+
+ctrl_module.controller('EditCtrl', ['$scope', 'Administration','$location','$routeParams',
+    function ($scope, AdministrationSrv,$routeParams) {
+        $scope.user_id = $routeParams;
+            AdministrationSrv.get_user($routeParams.user_id).success(
+            function(data){
+                if(data.success)
+                    $scope.user = data.user;
+            })
+            .error(
+                function (data, status) {
+                    console.log(status);
+                });
+
+        }
 ]);

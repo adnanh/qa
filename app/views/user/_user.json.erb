@@ -1,0 +1,16 @@
+{
+    "success": true,
+    "message": "<%=t(:get_user_success)%>",
+    "response": {
+        "user": [
+            {
+                "id": <%= @user.id %>,
+                "username": "<%= @user.username %>",
+                "email": "<%= @user.email %>",
+                "registered": "<%= @user.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+                "banned": <%= @user.banned %>,
+                "privilege": "<%= @user.user_privilege.name %>",
+                "privilege_id": <%= @user.user_privilege_id %>
+            } ]
+    }
+}

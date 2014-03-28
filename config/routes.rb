@@ -59,7 +59,6 @@ Qa::Application.routes.draw do
     get 'users/demote' =>:demote
     post 'users/edit' =>:edit
     post 'users/:user_id/edit' =>:edit
-    get 'users/:user_id/profile' =>:profile
     get 'users/profile' =>:profile
     get 'users' => :get_users
   end

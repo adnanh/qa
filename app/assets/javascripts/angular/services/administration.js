@@ -59,6 +59,17 @@ services_module.factory('Administration', [
                         }
                     };
                     return $http(ajax_config);
+                },
+            get_user:
+                function(param_id){
+                    var ajax_config = {
+                            'method': 'GET',
+                            'url': 'users/profile.json',
+                            params:{
+                                user_id:param_id
+                            }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }
