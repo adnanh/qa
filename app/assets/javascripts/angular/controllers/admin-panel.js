@@ -34,13 +34,58 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration',
         $scope.page_selected(1);
 
         $scope.ban = function(user){
-            console.log('ban');
+            AdministrationSrv.ban(user).success(
+                    function (data){
+                        if(data.success)
+                            console.log('ban');
+                            user.banned = true;
+                    })
+                .error(
+                function (data, status) {
+                    console.log(status);
+                });
         };
 
         $scope.unban = function(user) {
-            console.log('unban');
+            AdministrationSrv.unban(user).success(
+                function (data){
+                    if(data.success)
+                        console.log('ban');
+                        user.banned = false;
+                })
+                .error(
+                function (data, status) {
+                    console.log(status);
+                });
+        };
+
+        $scope.promote = function(user){
+            AdministrationSrv.promote(user).success(
+                function(data){
+                    if(data.success)
+                        user.privilege_id = 2;
+                        user.privilege = 'Administrator';
+                        console.log('promote'+ user.id);
+                })
+                .error(
+                function(data, status){
+                    console.log(status);
+                });
         };
 
 
+        $scope.demote = function(user){
+            AdministrationSrv.demote(user).success(
+                function(data){
+                    if(data.success)
+                        user.privilege_id = 1;
+                        user.privilege = 'Registered user';
+                        console.log('demote'+ user.id);
+                })
+                .error(
+                function(data, status){
+                    console.log(status);
+                });
+        };
     }
 ]);

@@ -15,6 +15,50 @@ services_module.factory('Administration', [
                         }
                     };
                     return $http(ajax_config);
+                },
+            ban:
+                function(user){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'users/ban.json',
+                        params: {
+                            user_id: user.id
+                        }
+                    };
+                    return $http(ajax_config);
+                },
+            unban:
+                function(user){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'users/unban.json',
+                        params: {
+                            user_id: user.id
+                        }
+                    };
+                    return $http(ajax_config);
+                },
+            promote:
+                function(user){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'users/promote.json',
+                        params:{
+                            user_id: user.id
+                        }
+                    };
+                    return $http(ajax_config);
+                },
+            demote:
+                function(user){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'users/demote.json',
+                        params:{
+                            user_id: user.id
+                        }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

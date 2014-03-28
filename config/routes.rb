@@ -53,10 +53,10 @@ Qa::Application.routes.draw do
   end
 
   controller :admin do
-    get 'users/:user_id/ban' => :ban
-    get 'users/:user_id/unban' => :unban
-    get 'users/:user_id/promote' =>:promote
-    get 'users/:user_id/demote' =>:demote
+    get 'users/ban' => :ban
+    get 'users/unban' => :unban
+    get 'users/promote' =>:promote
+    get 'users/demote' =>:demote
     post 'users/edit' =>:edit
     post 'users/:user_id/edit' =>:edit
     get 'users/:user_id/profile' =>:profile
