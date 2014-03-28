@@ -2,12 +2,22 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location',
-    function ($scope, AdministrationSrv,$location) {
+ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18n',
+    function ($scope, AdministrationSrv,$location,i18n) {
         $scope.users = [];
         $scope.current_page = 1;
         $scope.items_per_page = 10;
         $scope.total_users = 0;
+
+        // include i18n reference to current scope
+        $scope.i18n = i18n;
+
+        $scope.change_loc = function(new_loc){
+            i18n.load_locale(new_loc);
+        };
+
+        // this is how you use i18n to template strings
+        // i18n.translations.HELLO_WORLD
 
         $scope.get_page = function (page, search_by) {
             AdministrationSrv.get_users(page, search_by)
@@ -109,5 +119,5 @@ ctrl_module.controller('EditCtrl', ['$scope', 'Administration','$location','$rou
                     console.log(status);
                 });
 
-        }
+    }
 ]);
