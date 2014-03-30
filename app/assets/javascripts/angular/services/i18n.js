@@ -1,7 +1,7 @@
 var services_module = angular.module('qa.services');
 
-services_module.service('i18n', ['$http',
-    function($http){
+services_module.service('i18n', ['$http', '$cookies',
+    function($http,$cookies){
         this.t = {};
         this.locale = "";
 
@@ -27,7 +27,7 @@ services_module.service('i18n', ['$http',
         };
 
         this.set_locale = function(new_locale){
-            var ajax_confix = {
+           var ajax_confix = {
                 'url': '/locale/set',
                 'method': 'POST',
                 data: {

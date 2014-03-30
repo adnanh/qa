@@ -2,6 +2,7 @@
 
 var qa_app = angular.module('qa', [
     'ngRoute',
+    'ngCookies',
     'qa.services',
     'qa.directives',
     'qa.controllers',
