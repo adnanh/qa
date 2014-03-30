@@ -1,3 +1,17 @@
 {
-    "HELLO_WORLD": "Zdravstvuj, miru!"
+    "HELLO_WORLD": "Zdravstvuj, miru!",
+    "HOMEPAGE": "Početna",
+    "ASK": "Pitaj",
+    "ADMIN_PANEL": "Administracija",
+    "LANGUAGE": "Jezik",
+    "ENGLISH": "Engleski",
+    "BOSNIAN": "B/H/S",
+    "SEARCH": "Pretraži",
+    "WELCOME": "Dobrodošli",
+    "EDIT_PROFILE": "Uređivanje profila",
+    "LOGOUT": "Odjavite se",
+    "MESSAGES": "Poruke",
+    "SIGN_IN": "Prijavite se",
+    "OR": "ili",
+    "CREATE_NEW_ACCOUNT": "napravite novi korisnički račun"
 }

@@ -74,3 +74,6 @@ gem 'angularjs-rails'
 
 # ReCaptcha
 gem 'recaptcha', :require => 'recaptcha/rails'
+
+# Read locale from http request
+gem 'http_accept_language'
