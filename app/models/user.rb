@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   has_many :sent_private_messages, :foreign_key => 'sender_id', :class_name => 'PrivateMessage'
   has_many :received_private_messages, :foreign_key => 'receiver_id', :class_name => 'PrivateMessage'
 
+  has_attached_file :image
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
+
   before_create :set_default_privileges
 
   validates :username, :email, :uniqueness => true

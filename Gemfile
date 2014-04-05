@@ -74,3 +74,6 @@ gem 'angularjs-rails'
 
 # ReCaptcha
 gem 'recaptcha', :require => 'recaptcha/rails'
+
+#PaperClip for UserImages
+gem 'paperclip', '~> 3.1'
