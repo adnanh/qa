@@ -48,10 +48,6 @@ GEM
     bootstrap-sass (3.1.1.0)
       sass (~> 3.2)
     builder (3.1.4)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.4)
-      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     debug_inspector (0.0.2)
     devise (3.2.3)
@@ -68,7 +64,6 @@ GEM
     foreigner (1.6.1)
       activerecord (>= 3.0.0)
     hike (1.2.3)
-    http_accept_language (2.0.1)
     i18n (0.6.9)
     immigrant (0.1.6)
       activerecord (>= 3.0)
@@ -89,11 +84,6 @@ GEM
     mysql2 (0.3.11-x86-mingw32)
     nori (2.3.0)
     orm_adapter (0.5.0)
-    paperclip (3.5.4)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
-      mime-types
     polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -161,12 +151,10 @@ DEPENDENCIES
   devise
   dotenv-rails
   foreigner
-  http_accept_language
   immigrant
   jbuilder (~> 1.2)
   jquery-rails
   mysql2 (= 0.3.11)
-  paperclip (~> 3.1)
   rails (= 4.0.3)
   recaptcha
   sass-rails
