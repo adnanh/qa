@@ -74,3 +74,9 @@ gem 'angularjs-rails'
 
 # ReCaptcha
 gem 'recaptcha', :require => 'recaptcha/rails'
+
+#PaperClip for UserImages
+gem 'paperclip', '~> 3.1'
+
+# Read locale from http request
+gem 'http_accept_language'
