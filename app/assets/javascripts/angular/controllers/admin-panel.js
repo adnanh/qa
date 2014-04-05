@@ -98,10 +98,10 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
     }
 ]);
 
-ctrl_module.controller('EditCtrl', ['$scope', 'Administration','$location','$routeParams',
+ctrl_module.controller('EditCtrl', ['$scope', 'Administration','$routeParams',
     function ($scope, AdministrationSrv,$routeParams) {
-        $scope.user_id = $routeParams;
-            AdministrationSrv.get_user($routeParams.user_id).success(
+        console.log(JSON.stringify($routeParams));
+        AdministrationSrv.get_user($routeParams.user_id).success(
             function(data){
                 if(data.success)
                     $scope.user = data.user;
