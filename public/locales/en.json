@@ -1,0 +1,17 @@
+{
+    "HELLO_WORLD": "Hello, world!",
+    "HOMEPAGE": "Home",
+    "ASK": "Ask",
+    "ADMIN_PANEL": "Admin panel",
+    "LANGUAGE": "Language",
+    "ENGLISH": "English",
+    "BOSNIAN": "B/H/S",
+    "SEARCH": "Search",
+    "WELCOME": "Welcome",
+    "EDIT_PROFILE": "Edit profile",
+    "LOGOUT": "Logout",
+    "MESSAGES": "Messages",
+    "SIGN_IN": "Sign in",
+    "OR": "or",
+    "CREATE_NEW_ACCOUNT": "create new account"
+}

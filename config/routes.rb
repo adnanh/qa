@@ -67,6 +67,11 @@ Qa::Application.routes.draw do
     get 'logs' => :get_logs
   end
 
+  controller :locale do
+    get 'locale/read' => :get
+    post 'locale/set' => :set
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

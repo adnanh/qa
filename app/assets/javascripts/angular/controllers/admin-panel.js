@@ -2,8 +2,10 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location',
-    function ($scope, AdministrationSrv,$location) {
+ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18n',
+    function ($scope, AdministrationSrv,$location,i18n) {
+        $scope.i18n = i18n; // include i18n reference to current scope
+
         $scope.users = [];
         $scope.current_page = 1;
         $scope.items_per_page = 10;
@@ -109,5 +111,5 @@ ctrl_module.controller('EditCtrl', ['$scope', 'Administration','$location','$rou
                     console.log(status);
                 });
 
-        }
+    }
 ]);

@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require angular
 //= require angular-animate
+//= require angular-cookies
 //= require angular-route
 //= require angular/controllers/master
 //= require angular/controllers/admin-panel
