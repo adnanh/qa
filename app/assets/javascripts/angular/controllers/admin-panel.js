@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18n',
-    function ($scope, AdministrationSrv,$location,i18n) {
+ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18n','AppAlert',
+    function ($scope, AdministrationSrv,$location,i18n,AppAlert) {
         $scope.i18n = i18n; // include i18n reference to current scope
 
         $scope.users = [];
@@ -38,12 +38,17 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
         $scope.ban = function(user){
             AdministrationSrv.ban(user).success(
                     function (data){
-                        if(data.success)
+                        if(data.success){
+                            AppAlert.add("success", "User banned.");
                             console.log('ban'+user.id);
                             user.banned = true;
+                        }else{
+                            AppAlert.add("danger", "User not banned.");
+                        }
                     })
                 .error(
                 function (data, status) {
+                    AppAlert.add("danger", "User not banned.");
                     console.log(status);
                 });
         };
@@ -51,12 +56,17 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
         $scope.unban = function(user) {
             AdministrationSrv.unban(user).success(
                 function (data){
-                    if(data.success)
+                    if(data.success){
+                        AppAlert.add("success", "User unbanned.");
                         console.log('unban'+ user.id);
                         user.banned = false;
+                    }else{
+                        AppAlert.add("danger", "User not unbanned.");
+                    }
                 })
                 .error(
                 function (data, status) {
+                    AppAlert.add("danger", "User not unbanned.");
                     console.log(status);
                 });
         };
@@ -64,13 +74,18 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
         $scope.promote = function(user){
             AdministrationSrv.promote(user).success(
                 function(data){
-                    if(data.success)
+                    if(data.success){
+                        AppAlert.add("success", "User promoted.");
                         user.privilege_id = 2;
                         user.privilege = 'Administrator';
                         console.log('promote'+ user.id);
+                    }else{
+                        AppAlert.add("danger", "User not promoted.");
+                    }
                 })
                 .error(
                 function(data, status){
+                    AppAlert.add("danger", "User not promoted.");
                     console.log(status);
                 });
         };
@@ -79,13 +94,18 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
         $scope.demote = function(user){
             AdministrationSrv.demote(user).success(
                 function(data){
-                    if(data.success)
+                    if(data.success){
+                        AppAlert.add("success", "User demoted.");
                         user.privilege_id = 1;
                         user.privilege = 'Registered user';
                         console.log('demote'+ user.id);
+                    }else{
+                        AppAlert.add("danger", "User not demoted.");
+                    }
                 })
                 .error(
                 function(data, status){
+                    AppAlert.add("danger", "User not demoted.");
                     console.log(status);
                 });
         };
@@ -100,7 +120,6 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
 
 ctrl_module.controller('EditCtrl', ['$scope', 'Administration','$routeParams',
     function ($scope, AdministrationSrv,$routeParams) {
-        console.log(JSON.stringify($routeParams));
         AdministrationSrv.get_user($routeParams.user_id).success(
             function(data){
                 if(data.success)
