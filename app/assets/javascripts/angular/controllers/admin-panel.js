@@ -39,16 +39,16 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
             AdministrationSrv.ban(user).success(
                     function (data){
                         if(data.success){
-                            AppAlert.add("success", "User banned.");
+                            AppAlert.add("success", data.message);
                             console.log('ban'+user.id);
                             user.banned = true;
                         }else{
-                            AppAlert.add("danger", "User not banned.");
+                            AppAlert.add("danger", data.message);
                         }
                     })
                 .error(
                 function (data, status) {
-                    AppAlert.add("danger", "User not banned.");
+                    AppAlert.add("danger", i18n.t.ERROR);
                     console.log(status);
                 });
         };
@@ -57,16 +57,16 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
             AdministrationSrv.unban(user).success(
                 function (data){
                     if(data.success){
-                        AppAlert.add("success", "User unbanned.");
+                        AppAlert.add("success", data.message);
                         console.log('unban'+ user.id);
                         user.banned = false;
                     }else{
-                        AppAlert.add("danger", "User not unbanned.");
+                        AppAlert.add("danger", data.message);
                     }
                 })
                 .error(
                 function (data, status) {
-                    AppAlert.add("danger", "User not unbanned.");
+                    AppAlert.add("danger", i18n.t.ERROR);
                     console.log(status);
                 });
         };
@@ -75,17 +75,17 @@ ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18
             AdministrationSrv.promote(user).success(
                 function(data){
                     if(data.success){
-                        AppAlert.add("success", "User promoted.");
+                        AppAlert.add("success", data.message);
                         user.privilege_id = 2;
                         user.privilege = 'Administrator';
                         console.log('promote'+ user.id);
                     }else{
-                        AppAlert.add("danger", "User not promoted.");
+                        AppAlert.add("danger", data.message);
                     }
                 })
                 .error(
                 function(data, status){
-                    AppAlert.add("danger", "User not promoted.");
+                    AppAlert.add("danger", i18n.t.ERROR);
                     console.log(status);
                 });
         };

@@ -6,7 +6,7 @@ class AdminController < ApplicationController
       if (!params.has_key?(:user_id))
         # error processing bc no id has been specified
         format.json {
-          render :json => reply(false, t(:missing_parameter))
+          render :json => reply(false, t(:missing_params))
         }
       else
         # id has been specified
@@ -14,11 +14,11 @@ class AdminController < ApplicationController
         if user_to_ban.nil?
           # attempt to ban a non-existing user?
           format.json {
-            render :json => reply(false, t(:false_parameter))
+            render :json => reply(false, t(:no_such_user))
           }
         elsif user_to_ban.id == current_user.id
           format.json {
-            render :json => reply(false, t(:impossible))
+            render :json => reply(false, t(:impossible_to_ban_yourself))
           }
         else
           if user_to_ban.banned?
@@ -55,12 +55,12 @@ class AdminController < ApplicationController
       format.json {
         if (!params.has_key?(:user_id))
           # error processing bc no id has been specified
-          render :json => reply(false, t(:missing_parameter))
+          render :json => reply(false, t(:missing_params))
         else
           user_to_unban = User.where(id: params[:user_id]).first
           if user_to_unban.nil?
             # attempt to unban a non-existing user?
-            render :json => reply(false, t(:false_parameter))
+            render :json => reply(false, t(:no_such_user))
           else
             if !user_to_unban.banned?
               # attempt to unban a user that is not banned
@@ -92,7 +92,7 @@ class AdminController < ApplicationController
           @target_user = User.where(id: params[:user_id]).first
           if @target_user.nil?
             format.json {
-              render :json => reply(false, t(:false_parameter))
+              render :json => reply(false, t(:missing_params))
             }
           else
             format.json {
@@ -117,7 +117,7 @@ class AdminController < ApplicationController
           if @target_user.nil?
             # and target user does not exist
             format.json {
-              render :json => reply(false, t(:false_parameter))
+              render :json => reply(false, t(:missing_params))
             }
           else
             #and target user exists
@@ -171,7 +171,7 @@ class AdminController < ApplicationController
         else
           # and changes are invalid
           format.json {
-            render :json => reply(false, t(:bad_arguments))
+            render :json => reply(false, t(:bad_arguments_user_edit))
             return
           }
         end
@@ -184,15 +184,15 @@ class AdminController < ApplicationController
       format.json {
         if (!params.has_key?(:user_id))
           # error processing bc no id has been specified
-          render :json => reply(false, t(:missing_parameter))
+          render :json => reply(false, t(:missing_params))
         else
           # id has been specified
           user_to_promote = User.where(id: params[:user_id]).first
           if user_to_promote.nil?
             # attempt to promote a non-existing user?
-            render :json => reply(false, t(:false_parameter))
+            render :json => reply(false, t(:no_such_user))
           elsif user_to_promote.id == current_user.id
-            render :json => reply(false, t(:impossible))
+            render :json => reply(false, t(:impossible_to_promote_yourself))
           else
             if user_to_promote.user_privilege_id == 2
               # attempt to promote a user that is already admin
@@ -223,15 +223,15 @@ class AdminController < ApplicationController
       format.json {
         if (!params.has_key?(:user_id))
           # error processing bc no id has been specified
-          render :json => reply(false, t(:missing_parameter))
+          render :json => reply(false, t(:missing_params))
         else
           # id has been specified
           user_to_demote = User.where(id: params[:user_id]).first
           if user_to_demote.nil?
             # attempt to demote a non-existing user?
-            render :json => reply(false, t(:false_parameter))
+            render :json => reply(false, t(:no_such_user))
           elsif user_to_demote.id == current_user.id
-            render :json => reply(false, t(:impossible))
+            render :json => reply(false, t(:impossible_to_demote_yourself))
           else
             if user_to_demote.user_privilege_id == 1
               # attempt to demote a user that is already only user

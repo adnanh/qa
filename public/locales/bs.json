@@ -13,5 +13,20 @@
     "MESSAGES": "Poruke",
     "SIGN_IN": "Prijavite se",
     "OR": "ili",
-    "CREATE_NEW_ACCOUNT": "napravite novi korisnički račun"
+    "CREATE_NEW_ACCOUNT": "napravite novi korisnički račun",
+    "USER_SEARCH": "Korisničko ime, e-mail ili bez parametara pretrage",
+    "USER_ID": "Korisnički ID",
+    "AVATAR": "Slika",
+    "USERNAME": "Korisničko ime",
+    "EMAIL": "Email",
+    "PRIVILEGES": "Privilegije",
+    "BANNED": "Banovan",
+    "REGISTERED": "Registriran od",
+    "OPTIONS": "Mogućnosti",
+    "UNBAN": "Odbanuj",
+    "BAN": "Banuj",
+    "PROMOTE": "U admina",
+    "DEMOTE": "U korisnika",
+    "MATCH": "Traži",
+    "UNKNOWN_ERROR": "Neočekivana greška!"
 }

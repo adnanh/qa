@@ -13,5 +13,20 @@
     "MESSAGES": "Messages",
     "SIGN_IN": "Sign in",
     "OR": "or",
-    "CREATE_NEW_ACCOUNT": "create new account"
+    "CREATE_NEW_ACCOUNT": "create new account",
+    "USER_SEARCH": "Username, email or leave blank",
+    "USER_ID": "User ID",
+    "AVATAR": "Avatar",
+    "USERNAME": "Username",
+    "EMAIL": "Email",
+    "PRIVILEGES": "Privileges",
+    "BANNED": "Banned",
+    "REGISTERED": "Registered on",
+    "OPTIONS": "Options",
+    "UNBAN": "Unban",
+    "BAN": "Ban",
+    "PROMOTE": "Promote",
+    "DEMOTE": "Demote",
+    "MATCH": "Match",
+    "UNKNOWN_ERROR": "Unexpected error!"
 }
