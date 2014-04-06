@@ -17,6 +17,7 @@
         <table class="table table-bordered table-hover">
             <tr>
                 <th>User ID</th>
+                <th>Avatar</th>
                 <th>Username</th>
                 <th>E-mail</th>
                 <th>Privileges</th>
@@ -26,6 +27,7 @@
             </tr>
             <tr ng-repeat="user in users">
                 <td class="col-sm-1">{{user.id}}</td>
+                <td>{{user.image.url}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.privilege}}</td>

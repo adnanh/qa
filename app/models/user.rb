@@ -11,7 +11,10 @@ class User < ActiveRecord::Base
   has_many :received_private_messages, :foreign_key => 'receiver_id', :class_name => 'PrivateMessage'
 
   has_attached_file :image
-  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
+  validates_attachment_content_type :image,:styles => {
+      :thumb => "100x100#",
+      :small  => "150x150>",
+      :medium => "200x200" }, :content_type => ["image/jpg", "image/jpeg", "image/png"]
 
   before_create :set_default_privileges
 

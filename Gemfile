@@ -41,7 +41,7 @@ group :development do
   gem "binding_of_caller"
 end
 
-# MySQL gem
+  # MySQL gem
 gem 'mysql2', '0.3.11'
 
 # Use MySQL database as session store
@@ -80,3 +80,5 @@ gem 'paperclip', '~> 3.1'
 
 # Read locale from http request
 gem 'http_accept_language'
+
+gem 'rmagick'
