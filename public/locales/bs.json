@@ -28,5 +28,7 @@
     "PROMOTE": "U admina",
     "DEMOTE": "U korisnika",
     "MATCH": "Traži",
-    "UNKNOWN_ERROR": "Neočekivana greška!"
+    "UNKNOWN_ERROR": "Neočekivana greška!",
+    "USER_ADMINISTRATION": "Upravljanje korisnicima",
+    "SITE_STATS": "Statistike stranice"
 }

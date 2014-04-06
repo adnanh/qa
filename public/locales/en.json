@@ -28,5 +28,7 @@
     "PROMOTE": "Promote",
     "DEMOTE": "Demote",
     "MATCH": "Match",
-    "UNKNOWN_ERROR": "Unexpected error!"
+    "UNKNOWN_ERROR": "Unexpected error!",
+    "USER_ADMINISTRATION": "User administration",
+    "SITE_STATS": "Site stats"
 }
