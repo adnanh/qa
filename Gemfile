@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # For sensitive data
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails', :groups => [:development, :production, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
@@ -39,6 +39,7 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'rmagick'
 end
 
   # MySQL gem
@@ -80,5 +81,3 @@ gem 'paperclip', '~> 3.1'
 
 # Read locale from http request
 gem 'http_accept_language'
-
-gem 'rmagick'
