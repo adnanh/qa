@@ -14,34 +14,41 @@
         </div>
     </form>
     <div>
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>User ID</th>
-                <th>Avatar</th>
-                <th>Username</th>
-                <th>E-mail</th>
-                <th>Privileges</th>
-                <th>Banned</th>
-                <th>Registered on</th>
-                <th>Options</th>
-            </tr>
-            <tr ng-repeat="user in users">
-                <td class="col-sm-1">{{user.id}}</td>
-                <td>{{user.image.url}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.privilege}}</td>
-                <td class="col-sm-1">{{user.banned}}</td>
-                <td>{{user.registered}}</td>
-                <td>
-                    <button ng-show="user.banned" ng-click="unban(user)" class="btn btn-default btn-xs">Unban</button>
-                    <button ng-show="!user.banned" ng-click="ban(user)" class="btn btn-default btn-xs">Ban</button>
-                    <button class="btn btn-default btn-xs" ng-click="go('/edit/'+user.id+'/')">Edit profile</button>
-                    <button ng-show="user.privilege_id==1" ng-click="promote(user)" class="btn btn-default btn-xs">Promote</button>
-                    <button ng-show="user.privilege_id==2" ng-click="demote(user)" class="btn btn-default btn-xs">Demote</button>
-                </td>
-            </tr>
-        </table>
+        <accordion close-others="true">
+            <accordion-group ng-repeat="user in users">
+                <accordion-heading>
+                    {{user.username}}
+                </accordion-heading>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Avatar</th>
+                        <th>Username</th>
+                        <th>E-mail</th>
+                        <th>Privileges</th>
+                        <th>Banned</th>
+                        <th>Registered on</th>
+                        <th>Options</th>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-1">{{user.id}}</td>
+                        <td>{{user.image.url}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.privilege}}</td>
+                        <td class="col-sm-1">{{user.banned}}</td>
+                        <td>{{user.registered}}</td>
+                        <td>
+                            <button ng-show="user.banned" ng-click="unban(user)" class="btn btn-default btn-xs">Unban</button>
+                            <button ng-show="!user.banned" ng-click="ban(user)" class="btn btn-default btn-xs">Ban</button>
+                            <button class="btn btn-default btn-xs" ng-click="go('/edit/'+user.id+'/')">Edit profile</button>
+                            <button ng-show="user.privilege_id==1" ng-click="promote(user)" class="btn btn-default btn-xs">Promote</button>
+                            <button ng-show="user.privilege_id==2" ng-click="demote(user)" class="btn btn-default btn-xs">Demote</button>
+                        </td>
+                    </tr>
+                </table>
+            </accordion-group>
+        </accordion>
         <div class="text-center">
             <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
                         boundary-links="true" on-select-page="page_selected(page)"> </pagination>
