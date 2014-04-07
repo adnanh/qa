@@ -30,5 +30,9 @@
     "MATCH": "Traži",
     "UNKNOWN_ERROR": "Neočekivana greška!",
     "USER_ADMINISTRATION": "Upravljanje korisnicima",
-    "SITE_STATS": "Statistike stranice"
+    "SITE_STATS": "Statistike stranice",
+    "USER_REGISTRATION_STATS": "Statistika registracije korisnika",
+    "PICK_DATE": "Odaberite početni dan",
+    "R_DAILY_CHART": "Broj registracija po danu",
+    "R_DISTR_CHART": "Ukupno potvrđenih registracija"
 }

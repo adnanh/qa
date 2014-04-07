@@ -30,5 +30,9 @@
     "MATCH": "Match",
     "UNKNOWN_ERROR": "Unexpected error!",
     "USER_ADMINISTRATION": "User administration",
-    "SITE_STATS": "Site stats"
+    "SITE_STATS": "Site stats",
+    "USER_REGISTRATION_STATS": "User registration statistics",
+    "PICK_DATE": "Pick day",
+    "R_DAILY_CHART": "Registrations per day",
+    "R_DISTR_CHART": "Confirmed registrations"
 }
