@@ -2,6 +2,12 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
+ctrl_module.controller('AdminPageCtrl', ['$scope', 'i18n',
+    function ($scope, i18n){
+        $scope.i18n = i18n;
+    }
+])
+
 ctrl_module.controller('AdminCtrl', ['$scope', 'Administration','$location','i18n','AppAlert',
     function ($scope, AdministrationSrv,$location,i18n,AppAlert) {
         $scope.i18n = i18n; // include i18n reference to current scope
