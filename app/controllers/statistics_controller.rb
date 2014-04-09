@@ -66,7 +66,7 @@ end
 # A-grade awesomeness
 class ComplexQueries < ActiveRecord::Base
   def self.registrations_daily(start_date)
-    self.connection.execute(sanitize_sql(['SELECT DATE(confirmation_sent_at), count(*) FROM users WHERE confirmation_sent_at > DATE(?) GROUP BY DAY(confirmation_sent_at)', start_date]))
+    self.connection.execute(sanitize_sql(['SELECT DATE(confirmation_sent_at) as date_result, count(*) FROM users WHERE confirmation_sent_at > DATE(?) GROUP BY DAY(confirmation_sent_at) ORDER BY date_result ASC', start_date]))
   end
 
   def self.registrations_distribution(start_date)
