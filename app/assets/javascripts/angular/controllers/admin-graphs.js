@@ -35,7 +35,7 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
             data: [{x: 'wut', y: [5]}]
         };
         $scope.r_daily_config = {
-            title : i18n.t.R_DAILY_CHART,
+            //title : i18n.t.R_DAILY_CHART,
             tooltips: true,
             labels : false,
             legend : {
@@ -51,7 +51,7 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
             data: [{x: 'wut', y: [5]}]
         };
         $scope.r_distr_config = {
-            title : i18n.t.R_DISTR_CHART,
+            //title : i18n.t.R_DISTR_CHART,
             tooltips: true,
             labels : false,
             legend: {

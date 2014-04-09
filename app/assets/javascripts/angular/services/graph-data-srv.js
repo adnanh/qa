@@ -7,7 +7,6 @@ services_module.factory('GraphDataSrv', [
         return {
             get_registrations_per_day_since:
                 function(start_date){
-                    console.log(start_date);
                     var ajax_config = {
                         'method': 'GET',
                         'url': 'statistics/registrations/daily.json',
