@@ -37,5 +37,11 @@
     "R_DISTR_CHART": "Ukupno potvrđenih registracija",
     "CONFIRMED": "Potvrđeno",
     "UNCONFIRMED": "Nepotvrđeno",
-    "NUMBER_OF_REGISTRATIONS": "Registracija"
+    "NUMBER_OF_REGISTRATIONS": "Registracija",
+    "ANSW_DAILY_CHART": "Broj odgovora po danu",
+    "NUMBER_OF_ANSWERS": "Broj odgovora",
+    "ANSWER_STATS": "Statistika odgovora",
+    "ANSW_DISTR_CHART": "Odnos odgovorenih/neodgovorenih pitanja",
+    "ANSWERED": "Odgovoreni",
+    "UNANSWERED": "Neodgovoreni"
 }

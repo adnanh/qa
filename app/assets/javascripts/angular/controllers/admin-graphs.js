@@ -1,5 +1,6 @@
 /**
  * Created by XZone on 4/7/14.
+ * Modified by pv0 on 4/9/14.
  */
 
 var ctrl_module = angular.module('qa.controllers');
@@ -60,6 +61,36 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
             }
         };
 
+        // answers daily graph
+        $scope.answ_daily_type = 'line';
+        $scope.r_daily_data = {
+            series: ['Answers'],
+            data: [{x: 'Data', y: [5]}]
+        };
+        $scope.answ_daily_config = {
+            tooltips: true,
+            labels : false,
+            legend : {
+                display: true,
+                position:'right'
+            }
+        };
+
+        // answers distr graph
+        $scope.answ_distr_type = 'pie';
+        $scope.answ_distr_data = {
+            series: ['Answers'],
+            data: [{x: 'Data', y: [5]}]
+        };
+        $scope.r_distr_config = {
+            tooltips: true,
+            labels : false,
+            legend: {
+                display: true,
+                position: 'right'
+            }
+        };
+
         $scope.response_to_graph_data = function(sname, response){
             var response_processed = [];
             for (var i=0; i<response.length;i++){
@@ -88,6 +119,22 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
                     {
                         x: i18n.t.UNCONFIRMED,
                         y: [response.total-response.confirmed]
+                    }
+                ]
+            }
+        };
+
+        $scope.response_distr_answers_to_data = function (response){
+            return {
+                series: ['DATA'],
+                data: [
+                    {
+                        x: i18n.t.ANSWERED,
+                        y: [response.answered]
+                    },
+                    {
+                        x: i18n.t.UNANSWERED,
+                        y: [response.unanswered]
                     }
                 ]
             }
@@ -134,12 +181,56 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
                 );
         };
 
+        $scope.refresh_registrations_distribution_graph();
+
+        $scope.refresh_answers_daily_graph = function () {
+            GraphDataSrv.get_answers_per_day_since(JSON.stringify($scope.dt).substr(1,10))
+                .success(
+                function(data){
+                    if (data.success){
+                        if (data.response.length > 0)
+                            $scope.answ_daily_data = $scope.response_to_graph_data(i18n.t.NUMBER_OF_ANSWERS,data.response);
+                    }
+                    else {
+                        console.log('kaboom because: '+data.reason);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    console.log('kaboomed with: '+status);
+                }
+            );
+        };
+
+        $scope.refresh_answers_daily_graph();
+
+        $scope.refresh_answers_distribution_graph = function () {
+            GraphDataSrv.get_answered_distribution()
+                .success(
+                function(data){
+                    if (data.success){
+                        $scope.answ_distr_data =  $scope.response_distr_answers_to_data(data.response);;
+                    }
+                    else {
+                        console.log('kaboom because: '+data.reason);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    console.log('kaboomed with: '+status);
+                }
+            );
+        };
+
+        $scope.refresh_answers_distribution_graph();
+
         $scope.do_refresh = function() {
             $scope.refresh_registrations_daily_graph();
             $scope.refresh_registrations_distribution_graph();
+            $scope.refresh_answers_daily_graph();
         };
-
-        $scope.refresh_registrations_distribution_graph();
 
         $scope.open = function($event) {
             $event.preventDefault();

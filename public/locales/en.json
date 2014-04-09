@@ -37,5 +37,11 @@
     "R_DISTR_CHART": "Confirmed registrations",
     "CONFIRMED": "Confirmed",
     "UNCONFIRMED": "Unconfirmed",
-    "NUMBER_OF_REGISTRATIONS": "Registrations"
+    "NUMBER_OF_REGISTRATIONS": "Registrations",
+    "ANSW_DAILY_CHART": "Answers per day",
+    "NUMBER_OF_ANSWERS": "Answer count",
+    "ANSWER_STATS": "Answer statistics",
+    "ANSW_DISTR_CHART": "Answered/Unanswered questions ratio",
+    "ANSWERED": "Answered",
+    "UNANSWERED": "Unanswered"
 }
