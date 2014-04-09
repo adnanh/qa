@@ -76,10 +76,16 @@
                             </p>
                         </div>
                     </div>
-                    <h4>{{i18n.t.R_DAILY_CHART}}</h4>
-                    <div ac-chart="r_daily_type" style="height:400px;width:600px;" ac-data="r_daily_data" ac-config="r_daily_config" id='r_daily' class='chart'></div>
-                    <h4>{{i18n.t.R_DISTR_CHART}}</h4>
-                    <div ac-chart="r_distr_type"  style="height:400px;width:600px;" ac-data="r_distr_data" ac-config="r_distr_config" id='r_distribution' class='chart'></div>
+                    <div class="pull-left">
+                        <h4>{{i18n.t.R_DAILY_CHART}}</h4> <hr/>
+                        <div ac-chart="r_daily_type" style="height:400px;width:500px;" ac-data="r_daily_data" ac-config="r_daily_config" id='r_daily' class='chart'></div>
+                    </div>
+                    <div class="pull-right">
+                        <h4>{{i18n.t.R_DISTR_CHART}}</h4> <hr/>
+                        <div ac-chart="r_distr_type"  style="height:400px;width:500px;" ac-data="r_distr_data" ac-config="r_distr_config" id='r_distribution' class='chart'></div>
+                    </div>
+
+
                 </div>
 
                 <div>
