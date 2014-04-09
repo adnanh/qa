@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <p class="input-group">
-                                <input type="text" placeholder="{{i18.n.PICK_DATE}}" class="form-control" datepicker-popup="{{'yyyy-MM-dd'}}" ng-model="dt" is-open="opened" ng-required="true" close-text="Close" />
+                                <input type="text" placeholder="{{i18.n.PICK_DATE}}" class="form-control" datepicker-popup="{{'yyyy-MM-dd'}}" max="week_ago" ng-model="dt" is-open="opened" ng-required="true" close-text="Close" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                      <button class="btn btn-default" ng-click="do_refresh()">REFRESH</button>
@@ -76,8 +76,10 @@
                             </p>
                         </div>
                     </div>
-                    <div ac-chart="r_daily_type" style="height:400px;width:500px;" ac-data="r_daily_data" ac-config="r_daily_config" id='r_daily' class='chart'></div>
-                    <div ac-chart="r_distr_type"  style="height:400px;width:500px;" ac-data="r_distr_data" ac-config="r_distr_config" id='r_distribution' class='chart'></div>
+                    <h4>{{i18n.t.R_DAILY_CHART}}</h4>
+                    <div ac-chart="r_daily_type" style="height:400px;width:600px;" ac-data="r_daily_data" ac-config="r_daily_config" id='r_daily' class='chart'></div>
+                    <h4>{{i18n.t.R_DISTR_CHART}}</h4>
+                    <div ac-chart="r_distr_type"  style="height:400px;width:600px;" ac-data="r_distr_data" ac-config="r_distr_config" id='r_distribution' class='chart'></div>
                 </div>
 
                 <div>
@@ -89,7 +91,5 @@
                 </div>
             </div>
         </tab>
-
     </tabset>
-
 </div>

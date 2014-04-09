@@ -6,45 +6,57 @@ var ctrl_module = angular.module('qa.controllers');
 
 ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
     function ($scope, i18n, GraphDataSrv){
+        $scope.subtract_days = function(date, number_of_days){
+            return new Date(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate() - number_of_days,
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds(),
+                date.getMilliseconds()
+            );
+        };
 
         $scope.today = function() {
-            $scope.dt = new Date();
+            var today = new Date();
+            $scope.dt = $scope.subtract_days(today,7);
         };
         $scope.today();
 
+        $scope.week_ago = $scope.subtract_days(new Date(),7);
+
         $scope.i18n = i18n;
 
+        // registrations daily graph
         $scope.r_daily_type = 'line';
-
         $scope.r_daily_data = {
-            series: ['Number'],
+            series: ['whatever'],
             data: [{x: 'wut', y: [5]}]
         };
-
         $scope.r_daily_config = {
-            title : 'Daily chart',
+            title : i18n.t.R_DAILY_CHART,
             tooltips: true,
             labels : false,
-            legend: {
+            legend : {
                 display: true,
-                position: 'left'
+                position:'right'
             }
         };
 
+        // registrations distr graph
         $scope.r_distr_type = 'pie';
-
         $scope.r_distr_data = {
-            series: ['Number'],
+            series: ['whatever'],
             data: [{x: 'wut', y: [5]}]
         };
-
         $scope.r_distr_config = {
-            title : 'Daily chart',
+            title : i18n.t.R_DISTR_CHART,
             tooltips: true,
             labels : false,
             legend: {
                 display: true,
-                position: 'left'
+                position: 'right'
             }
         };
 
@@ -70,11 +82,11 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
                 series: ['lol'],
                 data: [
                     {
-                        x: 'Confirmed',
+                        x: i18n.t.CONFIRMED,
                         y: [response.confirmed]
                     },
                     {
-                        x: 'Unconfirmed',
+                        x: i18n.t.UNCONFIRMED,
                         y: [response.total-response.confirmed]
                     }
                 ]
@@ -86,7 +98,8 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
                 .success(
                     function(data){
                         if (data.success){
-                            $scope.r_daily_data = $scope.response_to_graph_data('Number',data.response);
+                            if (data.response.length > 0)
+                                $scope.r_daily_data = $scope.response_to_graph_data(i18n.t.NUMBER_OF_REGISTRATIONS,data.response);
                         }
                         else {
                             console.log('kaboom because: '+data.reason);

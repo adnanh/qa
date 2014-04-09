@@ -34,5 +34,8 @@
     "USER_REGISTRATION_STATS": "User registration statistics",
     "PICK_DATE": "Pick day",
     "R_DAILY_CHART": "Registrations per day",
-    "R_DISTR_CHART": "Confirmed registrations"
+    "R_DISTR_CHART": "Confirmed registrations",
+    "CONFIRMED": "Confirmed",
+    "UNCONFIRMED": "Unconfirmed",
+    "NUMBER_OF_REGISTRATIONS": "Registrations"
 }

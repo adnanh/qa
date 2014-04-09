@@ -34,5 +34,8 @@
     "USER_REGISTRATION_STATS": "Statistika registracije korisnika",
     "PICK_DATE": "Odaberite početni dan",
     "R_DAILY_CHART": "Broj registracija po danu",
-    "R_DISTR_CHART": "Ukupno potvrđenih registracija"
+    "R_DISTR_CHART": "Ukupno potvrđenih registracija",
+    "CONFIRMED": "Potvrđeno",
+    "UNCONFIRMED": "Nepotvrđeno",
+    "NUMBER_OF_REGISTRATIONS": "Registracija"
 }
