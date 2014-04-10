@@ -176,6 +176,10 @@ class AdminController < ApplicationController
           }
         end
       end
+      format.html {
+        render :status => :method_not_allowed, :nothing => true
+        return
+      }
     end
   end
 
