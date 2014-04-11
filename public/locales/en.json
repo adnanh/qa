@@ -43,5 +43,10 @@
     "ANSWER_STATS": "Answer statistics",
     "ANSW_DISTR_CHART": "Answered/Unanswered questions ratio",
     "ANSWERED": "Answered",
-    "UNANSWERED": "Unanswered"
+    "UNANSWERED": "Unanswered",
+    "NORMAL_USERS": "Normal users",
+    "ADMINISTRATORS": "Administrators",
+    "PRIVILEGES_DISTR_CHART": "Privilege distribution",
+    "QUESTIONS_DAILY_CHART": "Questions per day",
+    "NUMBER_OF_QUESTIONS": "Number of questions"
 }

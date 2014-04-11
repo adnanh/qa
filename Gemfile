@@ -39,6 +39,13 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+
+  #  /!\ If developing on windows /!\
+  #
+  # Install http://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/binaries/ImageMagick-6.7.7-10-Q16-windows-dll.exe
+  # into a path without spaces (for example: e:/ImageMagick). Make sure to check the option to add the ImageMagick to system PATH.
+  # Then install rmagick gem with:
+  # gem install rmagick --platform=ruby -- --with-opt-lib=e:/ImageMagick/lib --with-opt-include=e:/ImageMagick/include
   gem 'rmagick'
 end
 

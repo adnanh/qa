@@ -119,6 +119,60 @@ class StatisticsController < ApplicationController
     end
   end
 
+  # requires admin
+  # input - starting datetime
+  # output - standard + response {kvp's day, questions}
+  def questions_daily
+    respond_to do |format|
+      format.json {
+        puts params
+        if (!params.has_key?(:start_date))
+          render :json => reply(false, t(:missing_params))
+        else
+          # date is specified
+          results = ComplexQueries.questions_daily params[:start_date]
+          if results.nil?
+            render :json => reply(false, t(:unknown_error))
+          else
+            arr = []
+            results.each{
+                |h|
+              arr.append({day: h[0], count: h[1]})
+            }
+
+            arr = [{day: params[:start_date], count: 0}] unless arr.length > 0
+
+            render :json => reply(true,'','response',arr)
+          end
+        end
+      }
+      format.html {
+        render :status => :method_not_allowed, :nothing => true
+        return
+      }
+    end
+  end
+
+  # requires admin
+  # input - nothing
+  # output - standard + response {normal user count, administrator count}
+  def privilege_distribution
+    respond_to do |format|
+      format.json {
+          normal_users = ComplexQueries.privilege_distribution(1)
+          administrators = ComplexQueries.privilege_distribution(2)
+          if normal_users.nil? or administrators.nil?
+            render :json => reply(false, t(:unknown_error))
+          else
+            render :json => reply(true,'','response',{ normal: normal_users.first.first, administrators: administrators.first.first })
+          end
+      }
+      format.html {
+        render :status => :method_not_allowed, :nothing => true
+        return
+      }
+    end
+  end
 end
 
 # A-grade awesomeness
@@ -131,8 +185,16 @@ class ComplexQueries < ActiveRecord::Base
     self.connection.execute(sanitize_sql(['SELECT sum(CASE WHEN confirmed_at IS NOT NULL THEN 1 ELSE 0 END), count(*) FROM users WHERE confirmation_sent_at > DATE(?)', start_date]))
   end
 
+  def self.privilege_distribution(privilege_id)
+    self.connection.execute(sanitize_sql(['SELECT count(*) FROM users WHERE user_privilege_id = ?', privilege_id]))
+  end
+
   def self.answers_daily(start_date)
     self.connection.execute(sanitize_sql(['SELECT DATE(created_at) as date_result, count(*) FROM answers WHERE created_at > DATE(?) GROUP BY DAY(created_at) ORDER BY date_result ASC', start_date]))
+  end
+
+  def self.questions_daily(start_date)
+    self.connection.execute(sanitize_sql(['SELECT DATE(created_at) as date_result, count(*) FROM questions WHERE created_at > DATE(?) GROUP BY DAY(created_at) ORDER BY date_result ASC', start_date]))
   end
 
   def self.answered_vs_unanswered

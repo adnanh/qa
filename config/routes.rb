@@ -77,6 +77,8 @@ Qa::Application.routes.draw do
     get 'statistics/registrations/distribution' => :registrations_distribution
     get 'statistics/answers/daily' => :answers_daily
     get 'statistics/answers/distribution' => :answered_distribution
+    get 'statistics/privileges/distribution' => :privilege_distribution
+    get 'statistics/questions/daily' => :questions_daily
   end
 
   # Example of regular route:

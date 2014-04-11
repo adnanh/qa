@@ -2,69 +2,69 @@
     <tabset>
         <tab heading="{{i18n.t.USER_ADMINISTRATION}}">
             <div ng-controller="AdminCtrl">
-            <div>
-                <alert ng-repeat="alert in alerts" type="alert.type" close="alert.close()">{{ alert.msg }}</alert>
-            </div>
-            <form class="form-horizontal" name="search_form" role="form">
-                <div class="form-group">
-                    <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>
-                    <div class="col-sm-6">
-                        <input placeholder="{{i18n.t.USER_SEARCH}}" type="text" class="form-control" placeholder="example@example.com" ng-model="search_by" name="search_by" id="search_by" autofocus>
+                <br/>
+                <div>
+                    <alert ng-repeat="alert in alerts" type="alert.type" close="alert.close()">{{ alert.msg }}</alert>
+                </div>
+                <form class="form-horizontal" name="search_form" role="form">
+                    <div class="form-group">
+                        <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>
+                        <div class="col-sm-6">
+                            <input placeholder="{{i18n.t.USER_SEARCH}}" type="text" class="form-control" placeholder="example@example.com" ng-model="search_by" name="search_by" id="search_by" autofocus>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-default" ng-click="page_selected(1)" >{{i18n.t.SEARCH}}</button>
+                        </div>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-default" ng-click="page_selected(1)" >{{i18n.t.SEARCH}}</button>
+                </form>
+                <div>
+                    <accordion close-others="true">
+                        <accordion-group ng-repeat="user in users">
+                            <accordion-heading>
+                                {{user.username}}
+                            </accordion-heading>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>{{i18n.t.USER_ID}}</th>
+                                    <th>{{i18n.t.AVATAR}}</th>
+                                    <th>{{i18n.t.USERNAME}}</th>
+                                    <th>{{i18n.t.EMAIL}}</th>
+                                    <th>{{i18n.t.PRIVILEGES}}</th>
+                                    <th>{{i18n.t.BANNED}}</th>
+                                    <th>{{i18n.t.REGISTERED}}</th>
+                                    <th>{{i18n.t.OPTIONS}}</th>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-1">{{user.id}}</td>
+                                    <td>{{user.image.url}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.privilege}}</td>
+                                    <td class="col-sm-1">{{user.banned}}</td>
+                                    <td>{{user.registered}}</td>
+                                    <td>
+                                        <button ng-show="user.banned" ng-click="unban(user)" class="btn btn-default btn-xs">{{i18n.t.UNBAN}}</button>
+                                        <button ng-show="!user.banned" ng-click="ban(user)" class="btn btn-default btn-xs">{{i18n.t.BAN}}</button>
+                                        <button class="btn btn-default btn-xs" ng-hide="true" ng-click="go('/edit/'+user.id+'/')">{{i18n.t.EDIT_PROFILE}}</button>
+                                        <button ng-show="user.privilege_id==1" ng-click="promote(user)" class="btn btn-default btn-xs">{{i18n.t.PROMOTE}}</button>
+                                        <button ng-show="user.privilege_id==2" ng-click="demote(user)" class="btn btn-default btn-xs">{{i18n.t.DEMOTE}}</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </accordion-group>
+                    </accordion>
+                    <div class="text-center">
+                        <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
+                                    boundary-links="true" on-select-page="page_selected(page)"> </pagination>
                     </div>
                 </div>
-            </form>
-            <div>
-                <accordion close-others="true">
-                    <accordion-group ng-repeat="user in users">
-                        <accordion-heading>
-                            {{user.username}}
-                        </accordion-heading>
-                        <table class="table table-bordered table-hover">
-                            <tr>
-                                <th>{{i18n.t.USER_ID}}</th>
-                                <th>{{i18n.t.AVATAR}}</th>
-                                <th>{{i18n.t.USERNAME}}</th>
-                                <th>{{i18n.t.EMAIL}}</th>
-                                <th>{{i18n.t.PRIVILEGES}}</th>
-                                <th>{{i18n.t.BANNED}}</th>
-                                <th>{{i18n.t.REGISTERED}}</th>
-                                <th>{{i18n.t.OPTIONS}}</th>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-1">{{user.id}}</td>
-                                <td>{{user.image.url}}</td>
-                                <td>{{user.username}}</td>
-                                <td>{{user.email}}</td>
-                                <td>{{user.privilege}}</td>
-                                <td class="col-sm-1">{{user.banned}}</td>
-                                <td>{{user.registered}}</td>
-                                <td>
-                                    <button ng-show="user.banned" ng-click="unban(user)" class="btn btn-default btn-xs">{{i18n.t.UNBAN}}</button>
-                                    <button ng-show="!user.banned" ng-click="ban(user)" class="btn btn-default btn-xs">{{i18n.t.BAN}}</button>
-                                    <button class="btn btn-default btn-xs" ng-hide="true" ng-click="go('/edit/'+user.id+'/')">{{i18n.t.EDIT_PROFILE}}</button>
-                                    <button ng-show="user.privilege_id==1" ng-click="promote(user)" class="btn btn-default btn-xs">{{i18n.t.PROMOTE}}</button>
-                                    <button ng-show="user.privilege_id==2" ng-click="demote(user)" class="btn btn-default btn-xs">{{i18n.t.DEMOTE}}</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </accordion-group>
-                </accordion>
-                <div class="text-center">
-                    <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
-                                boundary-links="true" on-select-page="page_selected(page)"> </pagination>
-                </div>
-            </div>
             </div>
         </tab>
 
         <tab heading="{{i18n.t.SITE_STATS}}">
             <div ng-controller="AdminGraphsCtrl">
+                <br/>
                 <div class="clearfix">
-                    <hr>
-
                     <div class="row">
                         <div class="col-md-4">
                             <p class="input-group">
@@ -73,45 +73,68 @@
                                     <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                      <button class="btn btn-default" ng-click="do_refresh()">REFRESH</button>
                                 </span>
-
                             </p>
                         </div>
                     </div>
-                    <button class="btn btn-default" ng-click="isCollapsed1 = !isCollapsed1">{{i18n.t.USER_REGISTRATION_STATS}}</button>
-                    <hr>
-                    <div collapse="!isCollapsed1">
-                    <div class="pull-left">
-                        <h4>{{i18n.t.R_DAILY_CHART}}</h4> <hr/>
-                        <div ac-chart="r_daily_type" style="height:400px;width:500px;" ac-data="r_daily_data" ac-config="r_daily_config" id='r_daily' class='chart'></div>
-                    </div>
-                    <div class="pull-right">
-                        <h4>{{i18n.t.R_DISTR_CHART}}</h4> <hr/>
-                        <div ac-chart="r_distr_type"  style="height:400px;width:500px;" ac-data="r_distr_data" ac-config="r_distr_config" id='r_distribution' class='chart'></div>
-                    </div>
-
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 275px;">
+                                <div class="panel-heading">{{i18n.t.R_DISTR_CHART}}</div>
+                                <div class="panel-body">
+                                    <div ac-chart="r_distr_type"  style="height:200px;width:300px;" ac-data="r_distr_data" ac-config="r_distr_config" id='r_distribution' class='chart'></div>
+                                </div>
+                            </div>
                         </div>
-                </div>
 
-                <div>
-                    <button class="btn btn-default" ng-click="isCollapsed2 = !isCollapsed2">HAJDAR</button>
-                    <hr>
-                    <div collapse="!isCollapsed2">
-                    </div>
-                </div>
-
-                <div class="clearfix">
-                    <button class="btn btn-default" ng-click="isCollapsed3 = !isCollapsed3">{{i18n.t.ANSWER_STATS}}</button>
-                    <hr>
-                    <div collapse="!isCollapsed3">
-                    <div class="pull-left">
-                    <h4>{{i18n.t.ANSW_DAILY_CHART}}</h4> <hr/>
-                        <div ac-chart="answ_daily_type" style="height:400px;width:600px;" ac-data="answ_daily_data" ac-config="answ_daily_config" id='answ_daily' class='chart'></div>
-                    </div>
-                    <div class="pull-right">
-                        <h4>{{i18n.t.ANSW_DISTR_CHART}}</h4> <hr/>
-                        <div ac-chart="answ_distr_type"  style="height:400px;width:500px;" ac-data="answ_distr_data" ac-config="answ_distr_config" id='answ_distribution' class='chart'></div>
-                    </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 275px;">
+                                <div class="panel-heading">{{i18n.t.PRIVILEGES_DISTR_CHART}}</div>
+                                <div class="panel-body">
+                                    <div ac-chart="p_distr_type"  style="height:200px;width:300px;" ac-data="p_distr_data" ac-config="p_distr_config" id='p_distribution' class='chart'></div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 275px;">
+                                <div class="panel-heading">{{i18n.t.ANSW_DISTR_CHART}}</div>
+                                <div class="panel-body">
+                                    <div ac-chart="answ_distr_type"  style="height:200px;width:250px;" ac-data="answ_distr_data" ac-config="answ_distr_config" id='answ_distribution' class='chart'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 275px;">
+                                <div class="panel-heading">{{i18n.t.R_DAILY_CHART}}</div>
+                                <div class="panel-body">
+                                    <div ac-chart="r_daily_type" style="height:200px;width:400px;" ac-data="r_daily_data" ac-config="r_daily_config" id='r_daily' class='chart'></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 275px;">
+                                <div class="panel-heading">{{i18n.t.QUESTIONS_DAILY_CHART}}</div>
+                                <div class="panel-body">
+                                    <div ac-chart="q_daily_type" style="height:200px;width:400px;" ac-data="q_daily_data" ac-config="q_daily_config" id='q_daily' class='chart'></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 275px;">
+                                <div class="panel-heading">{{i18n.t.ANSW_DAILY_CHART}}</div>
+                                <div class="panel-body">
+                                    <div ac-chart="answ_daily_type" style="height:200px;width:400px;" ac-data="answ_daily_data" ac-config="answ_daily_config" id='answ_daily' class='chart'></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
         </tab>

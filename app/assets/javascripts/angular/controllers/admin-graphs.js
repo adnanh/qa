@@ -67,7 +67,7 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
 
         // answers daily graph
         $scope.answ_daily_type = 'line';
-        $scope.r_daily_data = {
+        $scope.answ_daily_data = {
             series: ['Answers'],
             data: [{x: 'Data', y: [5]}]
         };
@@ -86,7 +86,37 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
             series: ['Answers'],
             data: [{x: 'Data', y: [5]}]
         };
-        $scope.r_distr_config = {
+        $scope.answ_distr_config = {
+            tooltips: true,
+            labels : false,
+            legend: {
+                display: true,
+                position: 'right'
+            }
+        };
+
+        // questions daily graph
+        $scope.q_daily_type = 'line';
+        $scope.q_daily_data = {
+            series: ['Questions'],
+            data: [{x: 'Data', y: [5]}]
+        };
+        $scope.q_daily_config = {
+            tooltips: true,
+            labels : false,
+            legend : {
+                display: true,
+                position:'right'
+            }
+        };
+
+        // privilege distr graph
+        $scope.p_distr_type = 'pie';
+        $scope.p_distr_data = {
+            series: ['User Privilege Distribution'],
+            data: [{x: 'Data', y: [5]}]
+        };
+        $scope.p_distr_config = {
             tooltips: true,
             labels : false,
             legend: {
@@ -139,6 +169,22 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
                     {
                         x: i18n.t.UNANSWERED,
                         y: [response.unanswered]
+                    }
+                ]
+            }
+        };
+
+        $scope.response_distr_privileges_to_data = function (response){
+            return {
+                series: ['asd'],
+                data: [
+                    {
+                        x: i18n.t.NORMAL_USERS,
+                        y: [response.normal]
+                    },
+                    {
+                        x: i18n.t.ADMINISTRATORS,
+                        y: [response.administrators]
                     }
                 ]
             }
@@ -214,7 +260,7 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
                 .success(
                 function(data){
                     if (data.success){
-                        $scope.answ_distr_data =  $scope.response_distr_answers_to_data(data.response);;
+                        $scope.answ_distr_data =  $scope.response_distr_answers_to_data(data.response);
                     }
                     else {
                         console.log('kaboom because: '+data.reason);
@@ -230,10 +276,58 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
 
         $scope.refresh_answers_distribution_graph();
 
+
+        $scope.refresh_privilege_distribution_graph = function () {
+            GraphDataSrv.get_privilege_distribution()
+                .success(
+                function(data){
+                    if (data.success){
+                        $scope.p_distr_data =  $scope.response_distr_privileges_to_data(data.response);
+                    }
+                    else {
+                        console.log('kaboom because: '+data.reason);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    console.log('kaboomed with: '+status);
+                }
+            );
+        };
+
+        $scope.refresh_privilege_distribution_graph();
+
+        $scope.refresh_questions_daily_graph = function () {
+            GraphDataSrv.get_questions_per_day_since(JSON.stringify($scope.dt).substr(1,10))
+                .success(
+                function(data){
+                    if (data.success){
+                        if (data.response.length > 0)
+                            $scope.q_daily_data = $scope.response_to_graph_data(i18n.t.NUMBER_OF_QUESTIONS,data.response);
+                    }
+                    else {
+                        console.log('kaboom because: '+data.reason);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    console.log('kaboomed with: '+status);
+                }
+            );
+        };
+
+        $scope.refresh_questions_daily_graph();
+
+
         $scope.do_refresh = function() {
             $scope.refresh_registrations_daily_graph();
             $scope.refresh_registrations_distribution_graph();
             $scope.refresh_answers_daily_graph();
+            $scope.refresh_answers_distribution_graph();
+            $scope.refresh_privilege_distribution_graph();
+            $scope.refresh_questions_daily_graph();
         };
 
         $scope.open = function($event) {

@@ -43,5 +43,10 @@
     "ANSWER_STATS": "Statistika odgovora",
     "ANSW_DISTR_CHART": "Odnos odgovorenih/neodgovorenih pitanja",
     "ANSWERED": "Odgovoreni",
-    "UNANSWERED": "Neodgovoreni"
+    "UNANSWERED": "Neodgovoreni",
+    "NORMAL_USERS": "Obični korisnici",
+    "ADMINISTRATORS": "Administratori",
+    "PRIVILEGES_DISTR_CHART": "Raspodjela privilegija",
+    "QUESTIONS_DAILY_CHART": "Broj pitanja po danu",
+    "NUMBER_OF_QUESTIONS": "Broj pitanja"
 }

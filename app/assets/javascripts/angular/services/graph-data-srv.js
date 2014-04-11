@@ -45,7 +45,26 @@ services_module.factory('GraphDataSrv', [
                         'url': 'statistics/answers/distribution.json'
                     };
                     return $http(ajax_config);
-                }
+                },
+            get_privilege_distribution:
+                function(){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'statistics/privileges/distribution.json'
+                    };
+                    return $http(ajax_config);
+                },
+            get_questions_per_day_since:
+                function(start_date){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'statistics/questions/daily.json',
+                        params:{
+                            start_date: start_date
+                        }
+                    };
+                    return $http(ajax_config);
+                },
         }
     }
 ]);
