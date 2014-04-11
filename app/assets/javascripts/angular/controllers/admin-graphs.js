@@ -21,7 +21,7 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
 
         $scope.today = function() {
             var today = new Date();
-            $scope.dt = $scope.subtract_days(today,20);
+            $scope.dt = $scope.subtract_days(today,45);
         };
         $scope.today();
 
