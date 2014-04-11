@@ -19,16 +19,11 @@ ctrl_module.controller('AdminGraphsCtrl', ['$scope', 'i18n', 'GraphDataSrv',
             );
         };
 
-        $scope.isCollapsed1 = false;
-        $scope.isCollapsed2 = false;
-        $scope.isCollapsed3 = false;
-
         $scope.today = function() {
             var today = new Date();
-            $scope.dt = $scope.subtract_days(today,7);
+            $scope.dt = $scope.subtract_days(today,20);
         };
-        //$scope.today();
-        $scope.dt = new Date(2014, 3, 4);
+        $scope.today();
 
         $scope.week_ago = $scope.subtract_days(new Date(),7);
 
