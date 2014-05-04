@@ -1,1 +1,42 @@
-<p>THIS IS PARTIAL FOR ASKING QUESTIONS.</p>
+<div ng-controller="AskCtrl">
+    <fieldset>
+        <legend>Ask a question</legend>
+
+        <div id="alerts">
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+
+        <form name="question_submit_form" class="form-horizontal" role="form" ng-submit="post_question()">
+            <!-- question title -->
+            <div class="col-sm-11 form-group" ng-class="{ 'has-error' : title_invalid(question_submit_form) }">
+                <label for="question-title" class="col-sm-1 control-label">Title</label>
+                <div>
+                    <input ng-model="question.title" type="text" class="form-control" id="question-title" name="title" placeholder="Enter the title of your question" required autofocus ng-minlength="6" ng-maxlength="255">
+                </div>
+                <span class="help-block" ng-show="title_invalid(question_submit_form)">
+                    Question title must be at least 6 characters long (maximum of 255).
+                </span>
+            </div>
+
+            <!-- question content editor -->
+            <div class="col-sm-12 form-group" ng-class="{ 'has-error': content_invalid(question_submit_form) }">
+                <div text-angular="text-angular" name="content" ng-model="question.content"
+                     ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
+                     placeholder="Enter your question"></div>
+                <span class="help-block" ng-show="content_invalid(question_submit_form)">
+                    Question content must be at least 20 characters long (maximum of 10 000).
+                </span>
+                <pre>
+                    {{question.content}}
+                </pre>
+            </div>
+
+            <!-- question tags -->
+
+
+            <!-- question submit  -->
+
+
+        </form>
+    </fieldset>
+</div>

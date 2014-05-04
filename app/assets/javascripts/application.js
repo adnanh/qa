@@ -24,4 +24,6 @@
 //= require angular/lib/angular-bootstrap/ui-bootstrap-tpls-0.10.0.js
 //= require angular/lib/non-angular/d3.min.js
 //= require angular/lib/angular-charts/angular-charts.min.js
+//= require angular/lib/angular-text/textAngular.min.js
+//= require angular/lib/angular-text/textAngular-sanitize.min.js
 //= require_tree .

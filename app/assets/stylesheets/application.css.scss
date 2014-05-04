@@ -5,3 +5,10 @@
 
 // And finally bootswatch style itself
 @import "bootswatch";
+
+.ta-editor {
+  min-height: 300px;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}

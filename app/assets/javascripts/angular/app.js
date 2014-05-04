@@ -7,7 +7,8 @@ var qa_app = angular.module('qa', [
     'qa.directives',
     'qa.controllers',
     'ui.bootstrap',
-    'angularCharts'
+    'angularCharts',
+    'textAngular'
 ]);
 
 qa_app.config( ['$routeProvider',
