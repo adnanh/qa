@@ -8,7 +8,8 @@ var qa_app = angular.module('qa', [
     'qa.controllers',
     'ui.bootstrap',
     'angularCharts',
-    'textAngular'
+    'textAngular',
+    'ngTagsInput'
 ]);
 
 qa_app.config( ['$routeProvider',

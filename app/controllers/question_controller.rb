@@ -1,5 +1,7 @@
 class QuestionController < ApplicationController
   include QaHelper
+  require 'rubygems'
+  require 'sanitize'
 
   before_filter :require_logged_in, :except => [:get]
   before_filter :require_admin, :only => [:delete, :open_question, :close_question]
@@ -13,8 +15,11 @@ class QuestionController < ApplicationController
         question = Question.new
         question.author_id= current_user.id
         question.title= params[:title]
-        question.content= params[:content]
-        question.tags= params[:tags]
+
+        # safety is number one priority
+        question.content= Sanitize.clean(params[:content], :elements => %w(b i pre br code a img li ul ol p h1 h2))
+        question.tags= Sanitize.clean(params[:tags])
+
         question.open= true
         question.views= 0
 

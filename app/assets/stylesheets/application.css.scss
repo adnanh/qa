@@ -6,6 +6,9 @@
 // And finally bootswatch style itself
 @import "bootswatch";
 
+// import style for ng-tags-input directive
+@import "ng-tags-input";
+
 .ta-editor {
   min-height: 300px;
   overflow: auto;

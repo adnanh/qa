@@ -88,3 +88,6 @@ gem 'paperclip', '~> 3.1'
 
 # Read locale from http request
 gem 'http_accept_language'
+
+# HTML sanitization
+gem 'sanitize'

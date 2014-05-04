@@ -26,4 +26,5 @@
 //= require angular/lib/angular-charts/angular-charts.min.js
 //= require angular/lib/angular-text/textAngular.min.js
 //= require angular/lib/angular-text/textAngular-sanitize.min.js
+//= require angular/lib/angular-taginput/ng-tags-input.js
 //= require_tree .
