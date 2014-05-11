@@ -48,5 +48,8 @@
     "ADMINISTRATORS": "Administratori",
     "PRIVILEGES_DISTR_CHART": "Raspodjela privilegija",
     "QUESTIONS_DAILY_CHART": "Broj pitanja po danu",
-    "NUMBER_OF_QUESTIONS": "Broj pitanja"
+    "NUMBER_OF_QUESTIONS": "Broj pitanja",
+    "ASK_QUESTION": "Postavi pitanje",
+    "QUESTIONS": "Pitanja",
+    "QUESTION_SEARCH": "Ključne riječi"
 }

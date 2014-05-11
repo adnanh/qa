@@ -48,5 +48,8 @@
     "ADMINISTRATORS": "Administrators",
     "PRIVILEGES_DISTR_CHART": "Privilege distribution",
     "QUESTIONS_DAILY_CHART": "Questions per day",
-    "NUMBER_OF_QUESTIONS": "Number of questions"
+    "NUMBER_OF_QUESTIONS": "Number of questions",
+    "ASK_QUESTION": "Ask question",
+    "QUESTIONS": "Questions",
+    "QUESTION_SEARCH": "Keywords"
 }

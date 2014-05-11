@@ -10,6 +10,35 @@ ctrl_module.controller('AskCtrl', ['$scope', 'i18n', 'Question', 'AppAlert', 'Er
 
         $scope.question = {};
 
+       /* $scope.questions = [];
+        $scope.current_page = 1;
+        $scope.items_per_page = 10;
+        $scope.total_questions = 0;
+
+        $scope.get_page = function (page) {
+            QuestionSrv.get_questions(page)
+                .success(
+                function (data) {
+                    if (data.success) {
+                        $scope.total_questions = data.response.total_questions;
+                        $scope.questions = data.response.questions;
+                    } else {
+
+                    }
+                })
+                .error(
+                function (data, status) {
+                    console.log(status);
+                });
+
+        };
+
+        $scope.page_selected = function (page) {
+            $scope.get_page(page);
+        };
+
+        $scope.page_selected(1);*/
+
         $scope.title_invalid = function(ask_form) {
             return ask_form.title.$invalid && !ask_form.title.$pristine;
         };
@@ -45,5 +74,6 @@ ctrl_module.controller('AskCtrl', ['$scope', 'i18n', 'Question', 'AppAlert', 'Er
                     }
                 )
         }
+
     }
 ]);
