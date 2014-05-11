@@ -1,0 +1,31 @@
+{
+    "success": true,
+    "message": "Questions fetched successfully",
+    "response": {
+        "total_questions": <%= @total_such %>,
+        "questions": [
+         <% @questions.each_with_index do |question, ind| %>
+         {
+        "id": <%= question.id %>,
+        "author": {
+            "id": <%= question.author_id %>,
+            "username": "<%= question.author.username %>"
+        },
+        "created_at": "<%= question.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+        "title": "<%= question.title %>",
+        "content": <%= question.content.to_json.html_safe %>,
+        "tags": "<%= question.tags %>",
+        "open": <%= question.open %>,
+        <% if !question.open %>
+        "status_description": "<%= question.status_description %>",
+        <% end %>
+        "views": <%= question.views %>,
+         <% qvotes = question.votes %>
+        "upvotes": <%= qvotes.where(value: true).count %>,
+        "downvotes": <%= qvotes.where(value: false).count %>,
+        "edited_at": "<%= question.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>"
+        }
+        <% end %>
+        ]
+    }
+}

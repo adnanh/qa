@@ -198,7 +198,6 @@ class ComplexQueries < ActiveRecord::Base
   end
 
   def self.answered_vs_unanswered
-    sql =
     self.connection.execute('select
                                     (select count(*) from questions where id not in (select distinct question_id from answers)) as UnansweredQuestions,
                                     count(distinct(a.question_id)) as Answered

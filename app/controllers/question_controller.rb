@@ -239,4 +239,21 @@ class QuestionController < ApplicationController
       }
     end
   end
+
+  def get_all
+    respond_to do |format|
+      format.json{
+        page = extract_int params, :page
+          per_page = Rails.application.config.PAGE_SIZE
+          @questions = Question.all
+          @total_such = @questions.count
+          @questions = @questions.offset((page-1)*per_page).limit(per_page)
+          render :partial => 'question/questions', :layout => false
+      }
+        format.html {
+          render :status => :method_not_allowed, :nothing => true
+          return
+        }
+    end
+  end
 end

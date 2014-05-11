@@ -42,6 +42,7 @@ Qa::Application.routes.draw do
     delete 'questions/:question_id' => :delete
     post 'questions/:question_id/open' => :open_question
     post 'questions/:question_id/close' => :close_question
+    get 'questions' => :get_all
   end
 
   controller :answer do
@@ -82,6 +83,9 @@ Qa::Application.routes.draw do
     get 'statistics/questions/daily' => :questions_daily
   end
 
+  controller :search do
+    get 'search/questions' => :search_questions
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
