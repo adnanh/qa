@@ -50,6 +50,7 @@ Qa::Application.routes.draw do
     delete 'question/:question_id/answers/:answer_id' => :delete
     post 'question/:question_id/answers/:answer_id/pick' => :pick
     post 'question/:question_id/answers/:answer_id/unpick' => :unpick
+    get 'question/:question_id/answers' => :get_all
   end
 
   controller :admin do

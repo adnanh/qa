@@ -1,11 +1,8 @@
 @import "variables";
-
 // Then bootstrap itself
 @import "bootstrap";
-
 // And finally bootswatch style itself
 @import "bootswatch";
-
 // import style for ng-tags-input directive
 @import "ng-tags-input";
 
@@ -14,4 +11,94 @@
   overflow: auto;
   font-family: inherit;
   font-size: 100%;
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex: $values;
+  -webkit-flex: $values;
+  -ms-flex: $values;
+  flex: $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}
+
+@mixin simpleBorderAll(){
+  border-style: solid;
+  border-color: #bfbfbf;
+  border-width:1px;
+}
+
+@mixin simpleBorderTop(){
+  border-top-style: solid;
+  border-top-color: #bfbfbf;
+  border-top-width:1px;
+}
+
+.qa-display-item {
+  @include flexbox();
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.qa-display-item {
+  .qa-item-left-small {
+    @include flex(1 50px);
+    @include order(1);
+    @include simpleBorderTop();
+  }
+
+  .qa-item-left-big {
+    @include flex(14 0px);
+    @include order(1);
+
+  }
+
+  .qa-item-right-small {
+    @include flex(1 200px);
+    @include order(2);
+  }
+
+  .qa-item-right-big {
+    @include flex(14 0px);
+    @include order(2);
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 20px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+
+  background-color: #f5f5f5;
+}
+
+.post{
+  background-color: #fbfffd;
+  padding: 10px;
+  @include simpleBorderAll();
 }

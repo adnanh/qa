@@ -1,7 +1,7 @@
 class AnswerController < ApplicationController
   include QaHelper
 
-  before_filter :require_logged_in
+  before_filter :require_logged_in, :except => [:get_all]
   before_filter :require_admin, :only => [:delete]
 
   # creates new answer for question
@@ -191,6 +191,43 @@ class AnswerController < ApplicationController
 
           end
 
+        end
+      }
+      format.html {
+        render :status => :method_not_allowed, :nothing => true
+        return
+      }
+    end
+  end
+
+  # gets answers page-by-page
+  def get_all
+    respond_to do |format|
+      format.json {
+        page = extract_int params, :page
+        question_id = params[:question_id]
+        order_by = params[:order_by]
+        # if bad request
+        if page.nil? || question_id.nil? || order_by.nil?
+          render :json => reply(false, t(:missing_params))
+          # if values are present but invalid
+        elsif page < 0 || !order_by.in?(%w(newest-first oldest-first best-first))
+          render :json => reply(false, t(:bad_params))
+          # if everything is okay
+        else
+          per_page = Rails.application.config.PAGE_SIZE
+          @user = current_user
+          @answers = Answer.where(question_id: question_id)
+          @total_such = @answers.count
+          @answers = @answers.offset((page-1)*per_page).limit(per_page)
+          if order_by == 'newest-first'
+            @answers = @answers.order('created_at DESC')
+          elsif order_by == 'oldest-first'
+            @answers = @answers.order('created_at ASC')
+          else
+            @answers = @answers.sort_by { |answer| -(answer.votes.where(value: true).count-answer.votes.where(value: false).count)}
+          end
+          render :partial => 'answers', :layout => false
         end
       }
       format.html {

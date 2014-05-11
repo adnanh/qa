@@ -27,14 +27,12 @@ services_module.factory('Question', ['$http',
                     };
                     return $http(ajax_config);
                 },
-            ban:
-                function(user){
+
+            get:
+                function(question_id){
                     var ajax_config = {
                         'method': 'GET',
-                        'url': 'users/ban.json',
-                        params: {
-                            user_id: user.id
-                        }
+                        'url': 'questions/' + question_id+ '.json'
                     };
                     return $http(ajax_config);
                 }

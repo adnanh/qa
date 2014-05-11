@@ -41,7 +41,7 @@ class QuestionController < ApplicationController
     end
   end
 
-  #gets question by its ID with all answers
+  #gets question by its ID
   def get
     respond_to do |format|
       format.json {

@@ -22,6 +22,7 @@
 //= require angular/controllers/admin-graphs
 //= require angular/controllers/ask
 //= require angular/controllers/header
+//= require angular/controllers/question-page
 //= require angular/controllers/question-view
 //= require angular/controllers/answer
 //= require angular/controllers/answers-view

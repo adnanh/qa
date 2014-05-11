@@ -2,7 +2,7 @@
 <html xmlns:ng="http://angularjs.org" ng-app="qa">
 <head>
   <title>Got Question?</title>
-  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <%= csrf_meta_tags %>
@@ -10,7 +10,7 @@
 <body>
 <%= render :partial => 'header' %>
 
-<div class="container">
+<div id="wrap" class="container">
   <!-- this fucks up ng-view !!!! -->
   <% unless notice.nil? %>
       <div class="alert alert-info">
@@ -27,7 +27,16 @@
 
   <%= yield %>
 
-</div><!-- /.container -->
+</div>
+<!-- /.container -->
+
+<!-- footer area -->
+<footer>
+  <div class="container">
+    <p style="text-align: center;">NWT - Omega Team One &copy;2014</p>
+  </div>
+</footer>
+
 <script src='/js/angular/lib/angular-text/textAngular.min.js'></script>
 <script src='/js/angular/lib/angular-text/textAngular-sanitize.min.js'></script>
 </body>
