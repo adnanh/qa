@@ -19,6 +19,12 @@
 //= require angular-route
 //= require angular/controllers/master
 //= require angular/controllers/admin-panel
+//= require angular/controllers/admin-graphs
+//= require angular/controllers/ask
+//= require angular/controllers/header
+//= require angular/controllers/question-view
+//= require angular/controllers/answer
+//= require angular/controllers/answers-view
 //= require angular/directives/master
 //= require angular/services/master
 //= require angular/lib/angular-bootstrap/ui-bootstrap-tpls-0.10.0.js

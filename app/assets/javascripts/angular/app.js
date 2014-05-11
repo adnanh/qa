@@ -18,6 +18,7 @@ qa_app.config( ['$routeProvider',
             .when('/home', {templateUrl: 'partials/home.html'})
             .when('/ask', {templateUrl: 'partials/ask.html'})
             .when('/admin-panel', {templateUrl: 'partials/admin-panel.html'})
+            .when('/q/:question_id', {templateUrl: 'partials/question-view.html'})
             .when('/', {redirectTo: '/home'})
             .when('/edit/:user_id',{templateUrl: 'partials/edit.html'});
     }
