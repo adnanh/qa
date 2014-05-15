@@ -1,5 +1,5 @@
 module QaHelper
-
+ require 'sanitize'
   def is_admin_or_author?(user, item)
     if user.nil? || !user.instance_of?(User)
       return false
