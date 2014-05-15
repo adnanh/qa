@@ -7,7 +7,10 @@ ctrl_module.controller('AnswerCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'A
         // answer to be posted
         $scope.answer = {
             content: ""
-        }
+        };
+        $scope.poster = {
+            open: false
+        };
 
         $scope.user_logged_in = function(){
             if ($cookies.logged_in)
@@ -17,25 +20,25 @@ ctrl_module.controller('AnswerCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'A
         }
 
         // reload answers with current settings
-        $scope.do_reload = function(){
-
+        $scope.do_reload = function(answer_submit_form){
+            $scope.$root.$broadcast('do_reload_plz',{});
+            $scope.reset_form(answer_submit_form);
+            $scope.poster.open = false;
         };
 
-
-
-        $scope.submit = function() {
+        $scope.submit = function(answer_submit_form) {
             Answer.put($scope.question.id,$scope.answer.content)
                 .success(
                 function(data){
                     if (data.success){
                         AppAlert.add('success', 'Your answer has been successfully posted.');
-                        $scope.do_reload();
+                        $scope.do_reload(answer_submit_form);
                     }
                     else {
                         AppAlert.add('danger', data.reason);
                     }
                 }
-            )
+                )
                 .error(
                 function (data, status){
                     AppAlert.add("danger", ErrorProvider.get_message(status,'Posting answer to question "'+$scope.question.id+'"'));

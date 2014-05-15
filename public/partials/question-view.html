@@ -20,6 +20,10 @@
                 <div class="qa-item-left-small" style="padding: 10px;">
                     <b>{{question.upvotes-question.downvotes}}</b>
                     <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()" ng-click="do_edit()">Edit</button>
+                        <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete()">Delete</button>
+                    </div>
                 </div>
 
                 <!-- right part is the question content -->
@@ -78,13 +82,31 @@
                         <div class="qa-item-left-small" style="padding: 10px;">
                             <b>{{answer.upvotes-answer.downvotes}}</b>
                             <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
+
+                            <div class="btn-group-vertical">
+                                <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)" ng-click="do_edit(answer)">Edit</button>
+                                <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete(answer)">Delete</button>
+                            </div>
                         </div>
 
-                        <!-- right part is the answer content -->
+                        <!-- right part is the answer content  OR editor if in edit mode-->
                         <div class="qa-item-right-big">
-                            <div class="post" ng-bind-html="answer.content">
+                            <div class="post" ng-bind-html="answer.content" ng-hide="answer.edit_mode"></div>
 
-                            </div>
+                            <form name="answer_edit_form" class="form-horizontal" role="form" ng-submit="post_answer()" ng-show="answer.edit_mode">
+                                <!-- answer content editor -->
+                                <div class="col-sm-12 form-group">
+                                    <div text-angular="text-angular" name="{{'content'+$index}}" ng-model="answer.edited_content"
+                                         ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
+                                         placeholder="Editing answer"></div>
+                                </div>
+
+                                <!-- answer edit submit  -->
+                                <div class="col-sm-10 form-group">
+                                    <button type="submit" class="btn btn-default" ng-click="submit_edit(answer)">Submit edit</button>
+                                    <button class="btn btn-default" ng-click="cancel_edit(answer)">Cancel editing</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="pull-right">
@@ -127,14 +149,14 @@
                         <div text-angular="text-angular" name="content" ng-model="answer.content"
                              ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
                              placeholder="Enter your answer"></div>
-                    <span class="help-block" ng-show="content_invalid(question_submit_form)">
+                    <span class="help-block" ng-show="content_invalid(answer_submit_form)">
                         Answer content must be at least 20 characters long (maximum of 10 000).
                     </span>
                     </div>
 
                     <!-- answer submit  -->
                     <div class="col-sm-10 form-group">
-                        <button type="submit" class="btn btn-default" ng-click="submit(answer)"
+                        <button type="submit" class="btn btn-default" ng-click="submit(answer_submit_form)"
                                 ng-disabled="answer_submit_form.$invalid">Submit answer
                         </button>
                         <button class="btn btn-default" ng-click="reset_form(answer_submit_form)">Clear answer</button>
