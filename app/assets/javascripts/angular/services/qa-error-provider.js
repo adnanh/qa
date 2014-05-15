@@ -10,6 +10,10 @@ services_module.service('ErrorProvider', [
             {
                 CODE: 404,
                 MESSAGE: "Resource %s not found because it does not exist on the system."
+            },
+            {
+                CODE: 500,
+                MESSAGE: "Unexpected internal server error occurred."
             }
         ];
 
