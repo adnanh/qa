@@ -30,8 +30,8 @@
                 </div>
             </div>
             <div class="pull-right">
-                <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a> on
-                    {{question.created_at}}</b>
+                <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a> on {{question.created_at}}</b>
+                <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a> on {{question.edited_at}}</b>
             </div>
             <div class="clearfix">
                 <hr>
@@ -90,6 +90,7 @@
                     <div class="pull-right">
                         <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a> on
                             {{answer.created_at}}</b>
+                        <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a> on {{answer.edited_at}}</b>
                     </div>
                     <div class="clearfix">
                         <hr>
