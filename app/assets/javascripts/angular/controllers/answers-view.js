@@ -112,6 +112,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                 )
         };
 
+        // does delete
         $scope.do_delete = function(answer) {
             Answer.delete($scope.question.id, answer)
                 .success(
