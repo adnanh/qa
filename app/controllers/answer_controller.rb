@@ -11,7 +11,7 @@ class AnswerController < ApplicationController
         answer = Answer.new
         answer.author = current_user
         answer.question_id = extract_int params, :question_id
-        answer.content = params[:content]
+        answer.content = do_sanitize_qa_content params[:content]
         answer.accepted = false
 
         if !answer.valid?
@@ -57,7 +57,7 @@ class AnswerController < ApplicationController
             render :json => reply(false, t(:answer_edit_insufficient_privileges))
             # everything is okay?
           else
-            answer.content= concatenate_edit(answer.content, params[:content]) unless params[:content].nil?
+            answer.content= do_sanitize_qa_content(params[:content]) unless params[:content].nil?
             answer.editor_id= current_user.id
 
             if !answer.valid?

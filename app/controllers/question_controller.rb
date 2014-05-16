@@ -3,7 +3,7 @@ class QuestionController < ApplicationController
   require 'rubygems'
   require 'sanitize'
 
-  before_filter :require_logged_in, :except => [:get]
+  before_filter :require_logged_in, :except => [:get, :get_all]
   before_filter :require_admin, :only => [:delete, :open_question, :close_question]
 
   # request is filtered by require_logged_in
@@ -17,7 +17,7 @@ class QuestionController < ApplicationController
         question.title= params[:title]
 
         # safety is number one priority
-        question.content= Sanitize.clean(params[:content], :elements => %w(b i pre br code a img li ul ol p h1 h2))
+        question.content= do_sanitize_qa_content params[:content]
         question.tags= Sanitize.clean(params[:tags])
 
         question.open= true
@@ -101,8 +101,7 @@ class QuestionController < ApplicationController
           # everything is okay?
           else
             question.title= params[:title] unless params[:title].nil?
-            question.content= concatenate_edit(question.content, params[:content]) unless params[:content].nil?
-            question.tags= params[:tags] unless params[:tags].nil?
+            question.content= do_sanitize_qa_content(params[:content]) unless params[:content].nil?
 
             # if is admin, enable "open" change
             if is_admin? && !params[:open].nil? && !params[:description].nil?

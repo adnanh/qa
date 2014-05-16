@@ -1,27 +1,4 @@
 <div ng-controller="AskCtrl">
-    <tabset>
-        <tab heading ="{{i18n.t.QUESTIONS}}">
-            <form class="form-horizontal" name="search_form" role="form">
-                <br/>
-                <div class="form-group">
-                    <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>
-                    <div class="col-sm-6">
-                        <input placeholder="{{i18n.t.QUESTION_SEARCH}}" type="text" class="form-control" placeholder="C#" ng-model="search_by" name="search_by" id="search_by" autofocus>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-default" ng-click="page_selected(1)" >{{i18n.t.SEARCH}}</button>
-                    </div>
-                </div>
-            </form>
-                <div ng-repeat="question questions">
-                    {{question.title}}
-                </div>
-                <div class="text-center">
-                    <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
-                                boundary-links="true" on-select-page="page_selected(page)"> </pagination>
-                </div>
-        </tab>
-        <tab heading="{{i18n.t.ASK}}">
         <legend>Ask a question</legend>
 
         <form name="question_submit_form" class="form-horizontal" role="form" ng-submit="post_question()">
@@ -61,6 +38,4 @@
             </div>
 
         </form>
-     </tab>
-    </tabset>
 </div>

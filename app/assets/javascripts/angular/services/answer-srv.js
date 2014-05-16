@@ -27,14 +27,24 @@ services_module.factory('Answer', ['$http',
                     };
                     return $http(ajax_config);
                 },
-            get_questions:
-                function(page){
+            post:
+                function(question_id, answer){
                     var ajax_config = {
-                        'method': 'GET',
-                        'url': '/questions.json',
+                        'method': 'POST',
+                        'url': '/question/' + question_id + '/answers/'+answer.id+'.json',
                         params: {
-                            page: page
+                            question_id: question_id,
+                            answer_id: answer.id,
+                            content: answer.edited_content
                         }
+                    };
+                    return $http(ajax_config);
+                },
+            delete:
+                function(question_id, answer){
+                    var ajax_config = {
+                        'method': 'DELETE',
+                        'url': '/question/' + question_id + '/answers/'+answer.id+'.json'
                     };
                     return $http(ajax_config);
                 }

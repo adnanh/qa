@@ -24,7 +24,7 @@
         "upvotes": <%= qvotes.where(value: true).count %>,
         "downvotes": <%= qvotes.where(value: false).count %>,
         "edited_at": "<%= question.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>"
-        }
+         }<%= ',' if ind!=(@questions.length-1) %>
         <% end %>
         ]
     }
