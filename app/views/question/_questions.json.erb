@@ -20,6 +20,7 @@
         "status_description": "<%= question.status_description %>",
         <% end %>
         "views": <%= question.views %>,
+        "answers": <%= question.answers.length %>,
          <% qvotes = question.votes %>
         "upvotes": <%= qvotes.where(value: true).count %>,
         "downvotes": <%= qvotes.where(value: false).count %>,
