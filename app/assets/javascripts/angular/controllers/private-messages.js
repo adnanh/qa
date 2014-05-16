@@ -188,9 +188,11 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                 fetchInbox();
                 break;
             case "outbox":
+                fetchInbox();
                 fetchOutbox();
                 break;
             case "new":
+                fetchInbox();
                 resetNewMessage();
                 break;
             default:
