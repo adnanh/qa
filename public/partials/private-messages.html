@@ -1,0 +1,68 @@
+<div ng-controller="PrivateMessagesCtrl">
+
+    <ul class="nav nav-tabs">
+        <li ng-class="{active: displayMessageId.toLowerCase() == 'inbox'}"><a href="#/pm/inbox">Inbox <span class="badge" ng-show="inboxUnreadCount > 0">{{inboxUnreadCount}}</span></a></li>
+        <li ng-class="{active: displayMessageId.toLowerCase() == 'outbox'}"><a href="#/pm/outbox">Outbox</a></li>
+        <li ng-class="{active: displayMessageId.toLowerCase() == 'new'}"><a href="#/pm/new">New message</a></li>
+    </ul>
+
+    <br/>
+
+    <div>
+        <alert ng-repeat="alert in alerts" type="alert.type" close="alert.close()">{{ alert.msg }}</alert>
+    </div>
+
+    <accordion close-others="true" ng-show="displayMessageId.toLowerCase() == 'inbox'">
+        <div class="alert alert-info" ng-show="inbox.length == 0">You haven't received any messages yet.</div>
+
+        <accordion-group ng-repeat="message in inbox">
+            <accordion-heading>
+                <span ng-click="markAsRead(message)"><span class="label label-success" ng-show="message.status == 'unread'">{{message.sent_at | date:'MM/dd/yyyy @ h:mma'}}</span><span class="label label-default" ng-show="message.status != 'unread'">{{message.sent_at | date:'MM/dd/yyyy @ h:mma'}}</span> <span class="label label-primary">{{message.sender_username}}</span> {{message.title}}</span>
+            </accordion-heading>
+
+            <div class="well well-sm">
+                {{message.content}}
+            </div>
+
+            <div class="text-right">
+                <button ng-click="reply(message.sender_id, message.sender_username, message.title)" class="btn btn-default btn-xs">Reply</button>
+                <button ng-click="delete(message.id)" class="btn btn-danger btn-xs">Delete</button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+    <accordion close-others="true" ng-show="displayMessageId.toLowerCase() == 'outbox'">
+        <div class="alert alert-info" ng-show="outbox.length == 0">You haven't sent out any messages yet.</div>
+        <accordion-group ng-repeat="message in outbox">
+            <accordion-heading>
+                <span class="label label-default">{{message.sent_at | date:'MM/dd/yyyy @ h:mma'}}</span> <span class="label label-primary">{{message.receiver_username}}</span> {{message.title}}
+            </accordion-heading>
+
+            <div class="well well-sm">
+                {{message.content}}
+            </div>
+
+            <div class="text-right">
+                <button ng-click="delete(message.id)" class="btn btn-danger btn-xs">Delete</button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+    <div ng-show="displayMessageId.toLowerCase() == 'new'">
+        <div class="form-group">
+            <input type="text" ng-model="newMessage.recipient.nickname" placeholder="Type recipient's nickname" typeahead="nickname.nickname for nickname in suggestUsers($viewValue)" typeahead-on-select="onRecipientSelected($item, $model, $label)" class="form-control" ng-required="true">
+        </div>
+
+        <div class="form-group">
+            <input type="text" ng-model="newMessage.title" placeholder="Message title" class="form-control" ng-required="true">
+        </div>
+
+        <div class="form-group">
+            <textarea ng-model="newMessage.content" placeholder="Enter your message" class="form-control" rows="3" id="textArea"></textarea>
+        </div>
+
+        <div class="text-right">
+            <button ng-click="sendMessage()" class="btn btn-primary btn-default">Send</button>
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@ class PrivateMessageController < ApplicationController
   def inbox
     respond_to do |format|
       format.json {
-        messages = PrivateMessage.where(["receiver_id = ? AND receiver_status != 2", current_user.id])
+        messages = PrivateMessage.where(["receiver_id = ? AND receiver_status != 2", current_user.id]).order(created_at: :desc)
 
         formatted_messages = []
 
@@ -62,7 +62,7 @@ class PrivateMessageController < ApplicationController
   def outbox
     respond_to do |format|
       format.json {
-        messages = PrivateMessage.where(["sender_id = ? AND sender_status != 2", current_user.id])
+        messages = PrivateMessage.where(["sender_id = ? AND sender_status != 2", current_user.id]).order(created_at: :desc)
 
         formatted_messages = []
 
@@ -71,7 +71,7 @@ class PrivateMessageController < ApplicationController
           formatted_messages.push({ :id => message.id, :title => message.title, :content => message.content, :receiver_id => message.receiver_id, :receiver_username => receiver.username, :sent_at => message.created_at })
         end
 
-        render :json => reply(true, '', 'outbox', messages)
+        render :json => reply(true, '', 'outbox', formatted_messages)
       }
     end
   end
@@ -105,6 +105,27 @@ class PrivateMessageController < ApplicationController
         message = PrivateMessage.where(["receiver_id = ? AND receiver_status = 0", current_user.id])
         render :json => reply(true, '', 'count', message.size)
       }
+    end
+  end
+
+  def suggest_users
+    respond_to do |format|
+      format.json {
+        if (params[:filter_string])
+          matched_users = User.where('username LIKE :filter_string', {filter_string: "#{params[:filter_string]}%"})
+          users = []
+
+          matched_users.each do |user|
+            users.push({id: user.id, nickname: user.username})
+          end
+
+          render :json => reply(true, '', 'users', users)
+        else
+          render :json => reply(false, 'You must specify the filter string.', 'users', [])
+        end
+      }
+
+      format.html { render :nothing => true }
     end
   end
 end
