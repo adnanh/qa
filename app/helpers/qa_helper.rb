@@ -1,5 +1,5 @@
 module QaHelper
-
+ require 'sanitize'
   def is_admin_or_author?(user, item)
     if user.nil? || !user.instance_of?(User)
       return false
@@ -18,5 +18,9 @@ module QaHelper
 
   def concatenate_edit(original, append)
     return original + "\nEDIT:\n" + append
+  end
+
+  def do_sanitize_qa_content(content)
+    return Sanitize.clean(content, :elements => %w(b i pre br code a img li ul ol p h1 h2 blockquote))
   end
 end

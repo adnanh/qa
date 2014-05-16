@@ -1,12 +1,14 @@
 Qa::Application.routes.draw do
-  get "messages/inbox" => "private_message#inbox"
-  get "messages/outbox" => "private_message#outbox"
-  get "messages/unread" => "private_message#check"
-  post "messages" => "private_message#create"
-  get "messages/:message_id" => "private_message#get"
-  delete "messages/:message_id" => "private_message#delete"
 
-  get "private_message/check"
+  controller :private_message do
+    get "messages/inbox" => :inbox
+    get "messages/outbox" => :outbox
+    get "messages/unread" => :check
+    post "messages" => :create
+    get "messages/:message_id" => :get
+    delete "messages/:message_id" => :delete
+    post "users/suggest" => :suggest_users
+  end
 
   get "ajaxtest" => "application#ajax_test"
 

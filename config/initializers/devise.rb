@@ -238,6 +238,20 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
+  Warden::Manager.after_set_user do |user,auth,opts|
+    auth.cookies[:logged_in] = true
+    auth.cookies[:user_id] = user.id
+    auth.cookies[:username] = user.username
+    auth.cookies[:privilege_id] = user.user_privilege_id
+  end
+
+  Warden::Manager.before_logout do |user,auth,opts|
+    auth.cookies.delete :logged_in
+    auth.cookies.delete :username
+    auth.cookies.delete :privilege_id
+    auth.cookies.delete :user_id
+  end
+
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.
