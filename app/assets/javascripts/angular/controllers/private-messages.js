@@ -1,4 +1,4 @@
-// controller for asking questions
+ // controller for asking questions
 
 var ctrl_module = angular.module('qa.controllers');
 

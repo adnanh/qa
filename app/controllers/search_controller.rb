@@ -6,15 +6,15 @@ class SearchController < ApplicationController
       format.json{
         puts params
         page = extract_int params, :page
-        if (!params.has_key?(:search_condition))
-          render :json => reply(false, t(:missing_params))
-        else
-          subqueries = []
+        subqueries = []
+        if (params.has_key?(:search_condition))
           params[:search_condition].each do |element|
-            subqueries.append('tags LIKE %'+element+'%');
+            subqueries.append('tags LIKE %'+element+'% or');
           end
+          subqueries.append('title LIKE %'+:search_condition+'%');
           subqueries.join(' ');
-          query = 'select * from questions ' + subqueries
+        else
+          query = 'select * from questions  where' + subqueries
           results = self.connection.execute(query);
           per_page = Rails.application.config.PAGE_SIZE
           @questions = results
