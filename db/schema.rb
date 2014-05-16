@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140405091623) do
+ActiveRecord::Schema.define(version: 20140516020740) do
 
   create_table "answers", force: true do |t|
     t.integer  "author_id",                   null: false
     t.integer  "editor_id"
     t.integer  "question_id",                 null: false
     t.text     "content",                     null: false
-    t.boolean  "accepted",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "accepted",    default: false, null: false
   end
 
   add_index "answers", ["author_id"], name: "answers_author_id_fk", using: :btree
