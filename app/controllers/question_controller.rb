@@ -255,4 +255,9 @@ class QuestionController < ApplicationController
         }
     end
   end
+
+  def get_static
+    question_id = extract_int params, :question_id
+    redirect_to "http://qa.hajdarevic.net/#/q/#{question_id}"
+  end
 end

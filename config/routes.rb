@@ -45,6 +45,7 @@ Qa::Application.routes.draw do
     post 'questions/:question_id/open' => :open_question
     post 'questions/:question_id/close' => :close_question
     get 'questions' => :get_all
+    get 'static/q/:question_id' => :get_static
   end
 
   controller :answer do
