@@ -19,6 +19,8 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
                     function(data){
                         if (data.success){
                             $scope.question = data.question;
+                            // get tags from concatenated string..
+                            $scope.question.tags_list = $scope.question.tags.split(";");
                         }
                         else {
                             AppAlert.add("danger", data.message);

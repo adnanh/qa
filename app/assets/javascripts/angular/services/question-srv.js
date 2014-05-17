@@ -4,13 +4,14 @@ services_module.factory('Question', ['$http',
     function($http){
         return {
             // transform this: "tags":[{"text":"C"},{"text":"C#"}]
-            // into this: "tags": "C;C#;"
+            // into this: "tags": "C;C#"
             transform_tags:
                 function(tags) {
                     var newtags = "";
-                    for (var i=0;i<tags.length;i++){
+                    for (var i=0;i<tags.length-1;i++){
                         newtags+= tags[i].text+";";
                     }
+                    newtags+= tags[tags.length-1].text;
                     return newtags;
                 },
 
