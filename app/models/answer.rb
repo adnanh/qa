@@ -9,5 +9,5 @@ class Answer < ActiveRecord::Base
 
   validates :accepted, inclusion: [true, false]
 
-  validates_length_of :content, :maximum => 10000, :allow_blank => false
+  validates_length_of :content, :minimum=>10, :maximum => 10000, :allow_blank => false
 end

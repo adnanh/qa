@@ -109,7 +109,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                     function(data, status){
                         AppAlert.add("danger", ErrorProvider.get_message(status,'Editing answer "' + answer.id +'" for question "'+$scope.question.id+'"'));
                     }
-                )
+                );
         };
 
         $scope.do_delete = function(answer) {

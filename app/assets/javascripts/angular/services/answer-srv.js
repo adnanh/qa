@@ -8,7 +8,7 @@ services_module.factory('Answer', ['$http',
                     var ajax_config = {
                         'method': 'PUT',
                         'url': '/question/'+question_id+'/answers.json',
-                        params: {
+                        data: {
                             content: answer_content
                         }
                     };
@@ -32,7 +32,7 @@ services_module.factory('Answer', ['$http',
                     var ajax_config = {
                         'method': 'POST',
                         'url': '/question/' + question_id + '/answers/'+answer.id+'.json',
-                        params: {
+                        data: {
                             question_id: question_id,
                             answer_id: answer.id,
                             content: answer.edited_content

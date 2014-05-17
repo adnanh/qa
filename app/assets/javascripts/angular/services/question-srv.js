@@ -45,6 +45,24 @@ services_module.factory('Question', ['$http',
                         'url': 'questions/'+question.id+'.json'
                     };
                     return $http(ajax_config);
+                },
+
+            post:
+                function(question){
+                    if (!question.edited_title)
+                        question.edited_title = "";
+                    if (!question.edited_content)
+                        question.edited_content = "";
+
+                    var ajax_config = {
+                        'method': 'POST',
+                        'url': 'questions/'+question.id+'.json',
+                        'data': {
+                            'title': question.edited_title,
+                            'content': question.edited_content
+                        }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

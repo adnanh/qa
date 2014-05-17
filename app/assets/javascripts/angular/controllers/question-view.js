@@ -25,12 +25,36 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
             }
         };
 
-        $scope.closeAlert = function (alert) {
-            AppAlert.closeAlert(alert);
+        $scope.do_edit = function() {
+            $scope.question.edit_mode = !$scope.question.edit_mode;
         };
 
-        $scope.do_edit = function() {
-            alert("nope");
+        $scope.submit_edit = function() {
+            Question.post($scope.question)
+                .success(
+                    function(data){
+                        if (data.success){
+                            // just apply changes locally, no need for going to ws
+                            AppAlert.add("success",data.message);
+                            $scope.question.content = $scope.question.edited_content;
+                            $scope.question.title = $scope.question.edited_title;
+                        }
+                        else {
+                            AppAlert.add("danger", data.message);
+                        }
+                    }
+                )
+                .error(
+                    function(data, status){
+                        AppAlert.add("danger", ErrorProvider.get_message(status,'Editing question "' + $scope.question.id));
+                    }
+                );
+        };
+
+        $scope.cancel_edit = function() {
+            $scope.question.edit_mode = false;
+            $scope.question.edited_content = $scope.question.content;
+            $scope.question.edited_title = $scope.question.title;
         };
 
         $scope.do_delete = function() {

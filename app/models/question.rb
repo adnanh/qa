@@ -6,8 +6,8 @@ class Question < ActiveRecord::Base
 
   validates_presence_of :author, :title, :content, :tags, :views
 
-  validates_length_of :title, :maximum => 255, :allow_blank => false
-  validates_length_of :content, :maximum => 10000, :allow_blank => false
+  validates_length_of :title, :minimum=>4, :maximum => 255, :allow_blank => false
+  validates_length_of :content, :minimum => 10, :maximum => 10000, :allow_blank => false
   validates_length_of :status_description, :maximum => 1000
 
   validates :open, inclusion: [true, false]

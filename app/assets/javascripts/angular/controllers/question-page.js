@@ -24,6 +24,11 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
                             // get tags from concatenated string..
                             $scope.question.tags_list = $scope.question.tags.split(";");
                             $scope.question_set = true;
+
+                            // editing stuff
+                            $scope.question.edit_mode = false;
+                            $scope.question.edited_content = $scope.question.content;
+                            $scope.question.edited_title = $scope.question.title;
                         }
                         else {
                             AppAlert.add("danger", data.message);
