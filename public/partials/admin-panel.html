@@ -3,9 +3,6 @@
         <tab heading="{{i18n.t.USER_ADMINISTRATION}}">
             <div ng-controller="AdminCtrl">
                 <br/>
-                <div>
-                    <alert ng-repeat="alert in alerts" type="alert.type" close="alert.close()">{{ alert.msg }}</alert>
-                </div>
                 <form class="form-horizontal" name="search_form" role="form">
                     <div class="form-group">
                         <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>

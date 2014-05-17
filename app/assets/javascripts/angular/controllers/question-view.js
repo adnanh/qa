@@ -1,7 +1,7 @@
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', 'i18n', 'Question', 'AppAlert', 'ErrorProvider',
-    function ($scope, $cookies, i18n, Question, AppAlert, ErrorProvider) {
+ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', 'i18n', 'Question', 'AppAlert', 'ErrorProvider',
+    function ($scope, $cookies, $location, i18n, Question, AppAlert, ErrorProvider) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -34,7 +34,24 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', 'i18n', 'Quest
         };
 
         $scope.do_delete = function() {
-            alert("nope");
+            Question.delete($scope.question)
+                .success(
+                    function(data){
+                        if (data.success){
+                            // deletion was successful, redirect to home
+                            AppAlert.add("success", data.message);
+                            $location.path('home');
+                        }
+                        else {
+                            AppAlert.add("danger", data.message);
+                        }
+                    }
+                )
+                .error(
+                    function(data, status){
+                        AppAlert.add("danger", ErrorProvider.get_message(status,'Deleting question "'+$scope.question.id+'"'));
+                    }
+                );
         };
     }
 ]);

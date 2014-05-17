@@ -8,10 +8,6 @@
 
     <br/>
 
-    <div>
-        <alert ng-repeat="alert in alerts" type="alert.type" close="alert.close()">{{ alert.msg }}</alert>
-    </div>
-
     <accordion close-others="true" ng-show="displayMessageId.toLowerCase() == 'inbox'">
         <div class="alert alert-info" ng-show="inbox.length == 0">You haven't received any messages yet.</div>
 

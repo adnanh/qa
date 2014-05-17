@@ -1,171 +1,190 @@
 <div ng-controller="QuestionPageCtrl">
-    <div id="alerts">
-        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert(alert)">{{alert.msg}}</alert>
-    </div>
-
     <!-- area to display question WITH OPTIONS FOR:
         - admin to delete question or edit it
         - OP to edit it
         - registered users to up/down vote it or eliminate their vote, also report it to admins
         -->
-    <div ng-controller="QuestionViewCtrl" ng-show="question!=null">
-        <fieldset>
-            <!-- question title -->
-            <legend>
-                <b>{{question.title}}</b>
-            </legend>
-            <!-- question main-->
-            <div class="qa-display-item">
-                <!-- left sidebar with votecounts, options -->
-                <div class="qa-item-left-small" style="padding: 10px;">
-                    <b>{{question.upvotes-question.downvotes}}</b>
-                    <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
-                    <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()" ng-click="do_edit()">Edit</button>
-                        <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete()">Delete</button>
+    <div ng-show="question_set">
+        <div ng-controller="QuestionViewCtrl">
+            <fieldset>
+                <!-- question title -->
+                <legend>
+                    <b ng-bind-html="question.title"></b>
+                </legend>
+                <!-- question main-->
+                <div class="qa-display-item">
+                    <!-- left sidebar with votecounts, options -->
+                    <div class="qa-item-left-small" style="padding: 10px;">
+                        <b>{{question.upvotes-question.downvotes}}</b>
+                        <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
+
+                        <div class="btn-group-vertical">
+                            <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()"
+                                    ng-click="do_edit()">Edit
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
+                                    ng-click="do_delete()">Delete
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- right part is the question content -->
+                    <div class="qa-item-right-big">
+                        <div class="post" ng-bind-html="question.content"></div>
+                        <!-- below go them tags -->
+                        <div>
+                            <b>Tags:</b> <span class="bg-primary"
+                                               style="margin-left:5px; padding-left: 5px; padding-right: 5px;"
+                                               ng-repeat="tag in question.tags_list">{{tag}}</span>
+                        </div>
                     </div>
                 </div>
+                <div class="pull-right">
+                    <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a> on
+                        {{question.created_at}}</b>
+                    <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a>
+                        on {{question.edited_at}}</b>
+                </div>
+                <div class="clearfix">
+                    <hr>
+                </div>
+            </fieldset>
 
-                <!-- right part is the question content -->
-                <div class="qa-item-right-big">
-                    <div class="post" ng-bind-html="question.content"> </div>
-                    <!-- below go them tags -->
+        </div>
+
+        <!-- area to display paginated answers WITH OPTIONS FOR:
+               - admin to delete answer or edit it
+               - ANSWER OP to edit it
+               - registered users to up/down vote it or eliminate their vote, also report it to admins
+               - QUESTION OP to un/check it as accepted -->
+        <div ng-controller="AnswersViewCtrl">
+            <!-- area to display actual answers -->
+            <div ng-switch="answers.length > 0">
+                <!-- if there are answers to display -->
+                <div ng-switch-when="true">
+                    <!-- area to display sorting options -->
                     <div>
-                        <b>Tags:</b> <span class="bg-primary" style="margin-left:5px; padding-left: 5px; padding-right: 5px;" ng-repeat="tag in question.tags_list">{{tag}}</span>
+                        <div class="pull-left">
+                            <h4>{{total_answers}} answers</h4>
+                        </div>
+                        <div class="btn-group pull-right" dropdown is-open="dropdown.isopen">
+                            <button type="button" class="btn btn-primary dropdown-toggle">
+                                Ordering options <span class="caret"></span>
+                            </button>
+                            <!-- TODO -->
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="" ng-click="reorder('newest-first')">Newest answers first</a></li>
+                                <li><a href="" ng-click="reorder('oldest-first')">Oldest answers first</a></li>
+                                <li class="divider"></li>
+                                <li><a href="" ng-click="reorder('best-first')">Best answers first</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="pull-right">
-                <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a> on {{question.created_at}}</b>
-                <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a> on {{question.edited_at}}</b>
-            </div>
-            <div class="clearfix">
-                <hr>
-            </div>
-        </fieldset>
+                    <div class="clearfix"></div>
+                    <hr>
 
-    </div>
+                    <!-- iterate through the array and display all answers -->
+                    <div ng-repeat="answer in answers">
+                        <div class="qa-display-item">
+                            <!-- left sidebar with votecounts, options -->
+                            <div class="qa-item-left-small" style="padding: 10px;">
+                                <b>{{answer.upvotes-answer.downvotes}}</b>
+                                <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
 
-    <!-- area to display paginated answers WITH OPTIONS FOR:
-           - admin to delete answer or edit it
-           - ANSWER OP to edit it
-           - registered users to up/down vote it or eliminate their vote, also report it to admins
-           - QUESTION OP to un/check it as accepted -->
-    <div ng-controller="AnswersViewCtrl" ng-show="question!=null">
-        <!-- area to display actual answers -->
-        <div ng-switch="answers.length > 0">
-            <!-- if there are answers to display -->
-            <div ng-switch-when="true">
-                <!-- area to display sorting options -->
-                <div>
-                <div class="pull-left">
-                    <h4>{{total_answers}} answers</h4>
-                </div>
-                <div class="btn-group pull-right" dropdown is-open="dropdown.isopen">
-                    <button type="button" class="btn btn-primary dropdown-toggle" >
-                        Ordering options <span class="caret"></span>
-                    </button>
-                    <!-- TODO -->
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="" ng-click="reorder('newest-first')">Newest answers first</a></li>
-                        <li><a href="" ng-click="reorder('oldest-first')">Oldest answers first</a></li>
-                        <li class="divider"></li>
-                        <li><a href="" ng-click="reorder('best-first')">Best answers first</a></li>
-                    </ul>
-                </div>
-                </div>
-                <div class="clearfix"></div>
-                <hr>
+                                <div class="btn-group-vertical">
+                                    <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)"
+                                            ng-click="do_edit(answer)">Edit
+                                    </button>
+                                    <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
+                                            ng-click="do_delete(answer)">Delete
+                                    </button>
+                                </div>
+                            </div>
 
-                <!-- iterate through the array and display all answers -->
-                <div ng-repeat="answer in answers">
-                    <div class="qa-display-item">
-                        <!-- left sidebar with votecounts, options -->
-                        <div class="qa-item-left-small" style="padding: 10px;">
-                            <b>{{answer.upvotes-answer.downvotes}}</b>
-                            <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
+                            <!-- right part is the answer content  OR editor if in edit mode-->
+                            <div class="qa-item-right-big">
+                                <div class="post" ng-bind-html="answer.content" ng-hide="answer.edit_mode"></div>
 
-                            <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)" ng-click="do_edit(answer)">Edit</button>
-                                <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete(answer)">Delete</button>
+                                <form name="answer_edit_form" class="form-horizontal" role="form"
+                                      ng-submit="post_answer()" ng-show="answer.edit_mode">
+                                    <!-- answer content editor -->
+                                    <div class="col-sm-12 form-group">
+                                        <div text-angular="text-angular" name="{{'content'+$index}}"
+                                             ng-model="answer.edited_content"
+                                             ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
+                                             placeholder="Editing answer"></div>
+                                    </div>
+
+                                    <!-- answer edit submit  -->
+                                    <div class="col-sm-10 form-group">
+                                        <button type="submit" class="btn btn-default" ng-click="submit_edit(answer)">
+                                            Submit edit
+                                        </button>
+                                        <button class="btn btn-default" ng-click="cancel_edit(answer)">Cancel editing
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-                        <!-- right part is the answer content  OR editor if in edit mode-->
-                        <div class="qa-item-right-big">
-                            <div class="post" ng-bind-html="answer.content" ng-hide="answer.edit_mode"></div>
-
-                            <form name="answer_edit_form" class="form-horizontal" role="form" ng-submit="post_answer()" ng-show="answer.edit_mode">
-                                <!-- answer content editor -->
-                                <div class="col-sm-12 form-group">
-                                    <div text-angular="text-angular" name="{{'content'+$index}}" ng-model="answer.edited_content"
-                                         ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
-                                         placeholder="Editing answer"></div>
-                                </div>
-
-                                <!-- answer edit submit  -->
-                                <div class="col-sm-10 form-group">
-                                    <button type="submit" class="btn btn-default" ng-click="submit_edit(answer)">Submit edit</button>
-                                    <button class="btn btn-default" ng-click="cancel_edit(answer)">Cancel editing</button>
-                                </div>
-                            </form>
+                        <div class="pull-right">
+                            <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a> on
+                                {{answer.created_at}}</b>
+                            <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a>
+                                on {{answer.edited_at}}</b>
+                        </div>
+                        <div class="clearfix">
+                            <hr>
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a> on
-                            {{answer.created_at}}</b>
-                        <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a> on {{answer.edited_at}}</b>
-                    </div>
-                    <div class="clearfix">
-                        <hr>
+                    <!-- area to display paginator -->
+                    <div class="text-center">
+                        <pagination total-items="total_answers" page="current_page" items-per-page="items_per_page"
+                                    class="pagination pagination-sm"
+                                    boundary-links="true" on-select-page="page_selected(page)"></pagination>
                     </div>
                 </div>
-                <!-- area to display paginator -->
-                <div class="text-center">
-                    <pagination total-items="total_answers" page="current_page" items-per-page="items_per_page"
-                                class="pagination pagination-sm"
-                                boundary-links="true" on-select-page="page_selected(page)"></pagination>
+                <!-- if there are no answers to display -->
+                <div ng-switch-default>
+                    <b>This question is currently unanswered.</b>
                 </div>
             </div>
-            <!-- if there are no answers to display -->
-            <div ng-switch-default>
-                <b>This question is currently unanswered.</b>
-            </div>
+            <hr>
         </div>
-        <hr>
-    </div>
 
-    <!-- area to display answer-posting container for registered users only
-         consists of content only (no title, no tags) -->
-    <div ng-controller="AnswerCtrl" ng-show="question!=null && user_logged_in()">
-        <accordion>
-            <accordion-group is-open="poster.open">
-                <accordion-heading>
-                    You know the answer? Share it with us! :-) <i class="pull-right glyphicon"
-                                                                            ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
-                </accordion-heading>
+        <!-- area to display answer-posting container for registered users only
+             consists of content only (no title, no tags) -->
+        <div ng-controller="AnswerCtrl" ng-show="user_logged_in()">
+            <accordion>
+                <accordion-group is-open="poster.open">
+                    <accordion-heading>
+                        You know the answer? Share it with us! :-) <i class="pull-right glyphicon"
+                                                                      ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
+                    </accordion-heading>
 
-                <form name="answer_submit_form" class="form-horizontal" role="form" ng-submit="post_answer()">
-                    <!-- answer content editor -->
-                    <div class="col-sm-12 form-group" ng-class="{ 'has-error': content_invalid(answer_submit_form) }">
-                        <div text-angular="text-angular" name="content" ng-model="answer.content"
-                             ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
-                             placeholder="Enter your answer"></div>
+                    <form name="answer_submit_form" class="form-horizontal" role="form" ng-submit="post_answer()">
+                        <!-- answer content editor -->
+                        <div class="col-sm-12 form-group"
+                             ng-class="{ 'has-error': content_invalid(answer_submit_form) }">
+                            <div text-angular="text-angular" name="content" ng-model="answer.content"
+                                 ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
+                                 placeholder="Enter your answer"></div>
                     <span class="help-block" ng-show="content_invalid(answer_submit_form)">
                         Answer content must be at least 20 characters long (maximum of 10 000).
                     </span>
-                    </div>
+                        </div>
 
-                    <!-- answer submit  -->
-                    <div class="col-sm-10 form-group">
-                        <button type="submit" class="btn btn-default" ng-click="submit(answer_submit_form)"
-                                ng-disabled="answer_submit_form.$invalid">Submit answer
-                        </button>
-                        <button class="btn btn-default" ng-click="reset_form(answer_submit_form)">Clear answer</button>
-                    </div>
-                </form>
-            </accordion-group>
-        </accordion>
+                        <!-- answer submit  -->
+                        <div class="col-sm-10 form-group">
+                            <button type="submit" class="btn btn-default" ng-click="submit(answer_submit_form)"
+                                    ng-disabled="answer_submit_form.$invalid">Submit answer
+                            </button>
+                            <button class="btn btn-default" ng-click="reset_form(answer_submit_form)">Clear answer
+                            </button>
+                        </div>
+                    </form>
+                </accordion-group>
+            </accordion>
+        </div>
     </div>
 </div>
 

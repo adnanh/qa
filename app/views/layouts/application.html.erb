@@ -10,8 +10,7 @@
 <body>
 <%= render :partial => 'header' %>
 
-<div id="wrap" class="container">
-  <!-- this fucks up ng-view !!!! -->
+<div id="wrap" class="container" ng-controller="AppCtrl">
   <% unless notice.nil? %>
       <div class="alert alert-info">
         <%= notice %>
@@ -23,7 +22,10 @@
         <%= alert %>
       </div>
   <% end %>
-  <!-- this fucks up ng-view end -->
+
+  <div id="alerts">
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert(alert)">{{alert.msg}}</alert>
+  </div>
 
   <%= yield %>
 

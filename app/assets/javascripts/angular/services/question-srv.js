@@ -36,6 +36,15 @@ services_module.factory('Question', ['$http',
                         'url': 'questions/' + question_id+ '.json'
                     };
                     return $http(ajax_config);
+                },
+
+            delete:
+                function(question){
+                    var ajax_config = {
+                        'method': 'DELETE',
+                        'url': 'questions/'+question.id+'.json'
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

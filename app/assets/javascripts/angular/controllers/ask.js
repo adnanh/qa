@@ -23,10 +23,6 @@ ctrl_module.controller('AskCtrl', ['$scope', '$location', 'i18n', 'Question', 'A
             ask_form.title.$pristine = true;
         };
 
-        $scope.closeAlert = function (alert) {
-            AppAlert.closeAlert(alert);
-        };
-
         $scope.submit = function(){
             QuestionSrv.put($scope.question)
                 .success(
@@ -34,6 +30,7 @@ ctrl_module.controller('AskCtrl', ['$scope', '$location', 'i18n', 'Question', 'A
                         if (data.success){
                             // on success, redirect to posted question
                             var posted_question_id = data.question_id;
+                            AppAlert.add("success",data.message);
                             $location.path('q/'+posted_question_id);
                         }
                         else {

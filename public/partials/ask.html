@@ -2,10 +2,6 @@
         <legend>Ask a question</legend>
 
         <form name="question_submit_form" class="form-horizontal" role="form" ng-submit="post_question()">
-            <div id="alerts">
-                <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert(alert)">{{alert.msg}}</alert>
-            </div>
-
             <!-- question title -->
             <div class="col-sm-12 form-group" ng-class="{ 'has-error' : title_invalid(question_submit_form) }">
                 <div>

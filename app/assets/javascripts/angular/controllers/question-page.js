@@ -11,6 +11,8 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
         // get question_id from route params
         $scope.question.id = $routeParams.question_id;
 
+        $scope.question_set = false;
+
         // function used to get question with ID specified from the webapi.
         // to see the JSON object returned, see rails partial question/_question.json.erb
         var load_question = function(question_id){
@@ -21,26 +23,23 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
                             $scope.question = data.question;
                             // get tags from concatenated string..
                             $scope.question.tags_list = $scope.question.tags.split(";");
+                            $scope.question_set = true;
                         }
                         else {
                             AppAlert.add("danger", data.message);
+                            $scope.question_set = false;
                         }
                     }
                 )
                 .error(
                     function(data, status){
                         AppAlert.add("danger", ErrorProvider.get_message(status,'Retreiveing question "'+question_id+'"'));
+                        $scope.question_set = false;
                     }
                 );
         };
 
-        $scope.closeAlert = function (alert) {
-            AppAlert.closeAlert(alert);
-        };
-
-
         // init the question
         load_question($scope.question.id);
-
     }
 ]);
