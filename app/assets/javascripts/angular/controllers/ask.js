@@ -3,8 +3,8 @@
 var ctrl_module = angular.module('qa.controllers');
 
 
-ctrl_module.controller('AskCtrl', ['$scope', 'i18n', 'Question', 'AppAlert', 'ErrorProvider',
-    function ($scope, i18n, QuestionSrv, AppAlert, ErrorProvider) {
+ctrl_module.controller('AskCtrl', ['$scope', '$location', 'i18n', 'Question', 'AppAlert', 'ErrorProvider',
+    function ($scope, $location, i18n, QuestionSrv, AppAlert, ErrorProvider) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -32,7 +32,9 @@ ctrl_module.controller('AskCtrl', ['$scope', 'i18n', 'Question', 'AppAlert', 'Er
                 .success(
                     function(data){
                         if (data.success){
-                            AppAlert.add("success", data.message);
+                            // on success, redirect to posted question
+                            var posted_question_id = data.question_id;
+                            $location.path('q/'+posted_question_id);
                         }
                         else {
                             AppAlert.add("danger", data.message);
