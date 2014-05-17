@@ -16,15 +16,6 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
 
         };
 
-        $scope.fb_share = function(){
-            var fburl = 'http://qa.hajdarevic.net/static/q/'+$scope.question.id;
-            var sharerURL = "http://www.facebook.com/sharer/sharer.php?s=100&p[url]=" + encodeURI(fburl);
-            window.open(
-                sharerURL,
-                'facebook-share-dialog',
-                'width=626,height=436');
-        }
-
         $scope.can_attempt_delete = function() {
             if (!$cookies.logged_in || !$cookies.privilege_id)
                 return false;

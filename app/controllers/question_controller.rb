@@ -258,6 +258,22 @@ class QuestionController < ApplicationController
 
   def get_static
     question_id = extract_int params, :question_id
-    redirect_to "http://qa.hajdarevic.net/#/q/#{question_id}"
+
+    agent = request.user_agent
+    # if we got a visit from facebook
+    if agent == 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+      # find the question
+      @question = Question.where(id: question_id).first
+      @current_domain = request.host
+      if @question.nil?
+        not_found
+      else
+        render 'js_free/question_clean', :layout => false
+      end
+    else
+      redirect_to "http://qa.hajdarevic.net/#/q/#{question_id}"
+    end
+
+
   end
 end
