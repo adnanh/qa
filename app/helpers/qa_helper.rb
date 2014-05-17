@@ -21,6 +21,6 @@ module QaHelper
   end
 
   def do_sanitize_qa_content(content)
-    return Sanitize.clean(content, :elements => %w(b i pre br code a img li ul ol p h1 h2 blockquote))
+    return Sanitize.clean(content, :elements => %w(b i pre br code a img li ul ol p h1 h2 blockquote), :attributes => {'img' => ['src'], 'a' =>['href']})
   end
 end

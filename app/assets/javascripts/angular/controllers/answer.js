@@ -35,7 +35,7 @@ ctrl_module.controller('AnswerCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'A
                         $scope.do_reload(answer_submit_form);
                     }
                     else {
-                        AppAlert.add('danger', data.reason);
+                        AppAlert.add('danger', data.message);
                     }
                 }
                 )
