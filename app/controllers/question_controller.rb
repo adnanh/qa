@@ -3,7 +3,7 @@ class QuestionController < ApplicationController
   require 'rubygems'
   require 'sanitize'
 
-  before_filter :require_logged_in, :except => [:get, :get_all]
+  before_filter :require_logged_in, :except => [:get, :get_all, :get_static]
   before_filter :require_admin, :only => [:delete, :open_question, :close_question]
 
   # request is filtered by require_logged_in
