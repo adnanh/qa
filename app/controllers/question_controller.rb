@@ -260,7 +260,7 @@ class QuestionController < ApplicationController
     question_id = extract_int params, :question_id
 
     agent = request.user_agent
-    # if we got a visit from facebook
+    # if we got a visit from facebook scraper
     if agent == 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
       # find the question
       @question = Question.where(id: question_id).first
@@ -268,9 +268,11 @@ class QuestionController < ApplicationController
       if @question.nil?
         not_found
       else
+        # if all is good, display specialized page to the bot
         render 'js_free/question_clean', :layout => false
       end
     else
+      # else, it's a regular user so do the redirect to the single page app
       redirect_to "http://qa.hajdarevic.net/#/q/#{question_id}"
     end
 

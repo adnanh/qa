@@ -32,4 +32,5 @@
 //= require angular/lib/non-angular/d3.min.js
 //= require angular/lib/angular-charts/angular-charts.min.js
 //= require angular/lib/angular-taginput/ng-tags-input.js
+//= require angular/lib/angular-facebook/ngFacebook
 //= require_tree .

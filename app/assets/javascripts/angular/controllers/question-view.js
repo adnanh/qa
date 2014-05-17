@@ -1,7 +1,7 @@
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', 'i18n', 'Question', 'AppAlert', 'ErrorProvider',
-    function ($scope, $cookies, $location, i18n, Question, AppAlert, ErrorProvider) {
+ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', 'i18n', 'Question', 'AppAlert', 'ErrorProvider', '$facebook',
+    function ($scope, $cookies, $location, i18n, Question, AppAlert, ErrorProvider, $facebook) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -58,8 +58,12 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
         };
 
         $scope.get_full_url = function(){
-            return $location.absUrl();
-        }
+            return $location.absUrl().replace("#","static");
+        };
+
+        $scope.do_share = function(){
+            $facebook.ui({href: $scope.get_full_url(), method: 'share'});
+        };
 
         $scope.do_delete = function() {
             Question.delete($scope.question)
