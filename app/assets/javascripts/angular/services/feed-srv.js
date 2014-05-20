@@ -4,13 +4,13 @@ services_module.factory('Feed', ['$http',
     function($http){
         return {
             get_questions:
-                function(page){
+                function(page,search_by){
                     var ajax_config = {
                         'method': 'GET',
-                        'url': '/questions.json',
+                        'url': 'search/questions.json',
                         params: {
-                            page: page
-          //                 search_by: (search_by==null)?'':search_by
+                            page: page,
+                            search_by: (search_by==null)?'':search_by
                         }
                     };
                     return $http(ajax_config);

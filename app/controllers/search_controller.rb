@@ -9,24 +9,11 @@ class SearchController < ApplicationController
         if (!params.has_key?(:search_by))
           render :json => reply(false, t(:missing_params))
         else
-          subqueries = []
-        if(!params[:search_by] == "")
-          params[:search_by].each do |element|
-            subqueries.append('tags LIKE %'+element+'% or');
-          end
-          subqueries.append('title LIKE %'+params[:search_by]+'%');
-          subqueries.join(' ');
-        end
-          if(!subqueries.empty?)
-          query = 'select * from questions where' + subqueries
-          else
-            query = 'select * from questions'
-          end
-          results = SearchQueries.search_questions(query);
+          search_criteria = params[:search_by]
           per_page = Rails.application.config.PAGE_SIZE
-          @questions = results
+          @questions = Question.where("tags LIKE :search_criteria OR title LIKE :search_criteria",  {search_criteria: "%#{search_criteria}%"})
           @total_such = @questions.count
-    #      @questions = @questions.offset((page-1)*per_page).limit(per_page)
+          @questions = @questions.offset((page-1)*per_page).limit(per_page)
           render :partial => 'question/questions', :layout => false
         end
       }
@@ -37,11 +24,4 @@ class SearchController < ApplicationController
     end
   end
 
-end
-
-class SearchQueries < ActiveRecord::Base
-
-  def self.search_questions(query)
-    self.connection.execute(query);
-  end
 end
