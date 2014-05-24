@@ -12,14 +12,12 @@
 
 <div id="wrap" class="container" ng-controller="AppCtrl">
   <% unless notice.nil? %>
-      <div class="alert alert-info">
-        <%= notice %>
+      <div ng-init="inform_of('<%= notice %>')">
       </div>
   <% end %>
 
   <% unless alert.nil? %>
-      <div class="alert alert-danger">
-        <%= alert %>
+      <div ng-init="alert_of('<%= alert %>')">
       </div>
   <% end %>
 
