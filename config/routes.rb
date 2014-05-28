@@ -89,6 +89,11 @@ Qa::Application.routes.draw do
   controller :search do
     get 'search/questions' => :search_questions
   end
+
+  controller :vote do
+    get 'question/vote' => :vote_question
+    get 'answer/vote' => :vote_answer
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
