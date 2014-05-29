@@ -52,3 +52,5 @@ en:
   already_demoted: "User has already been demoted."
   user_demoted: "User demoted."
   bad_params: "Invalid value passed as argument."
+  "already_voted": "You have already voted"
+  "voted: "You have successfully voted"
