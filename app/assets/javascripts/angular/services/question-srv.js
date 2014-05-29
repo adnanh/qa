@@ -63,6 +63,18 @@ services_module.factory('Question', ['$http',
                         }
                     };
                     return $http(ajax_config);
+                },
+            vote:
+                function(item,val){
+                    var ajax_config = {
+                    'method': 'POST',
+                    'url': 'question/vote.json',
+                     params: {
+                            item_id: item.id,
+                            value: val
+                        }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

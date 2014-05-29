@@ -47,6 +47,18 @@ services_module.factory('Answer', ['$http',
                         'url': '/question/' + question_id + '/answers/'+answer.id+'.json'
                     };
                     return $http(ajax_config);
+                },
+            vote:
+                function(item,val){
+                    var ajax_config = {
+                        'method': 'POST',
+                        'url': 'answer/vote.json',
+                        params: {
+                            item_id: item.id,
+                            value: val
+                        }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

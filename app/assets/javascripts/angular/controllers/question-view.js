@@ -16,6 +16,11 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
 
         };
 
+        $scope.can_vote = function()
+        {
+            return $cookies.logged_in
+        }
+
         $scope.can_attempt_delete = function() {
             if (!$cookies.logged_in || !$cookies.privilege_id)
                 return false;
@@ -84,6 +89,50 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                         AppAlert.add("danger", ErrorProvider.get_message(status,'Deleting question "'+$scope.question.id+'"'));
                     }
                 );
+        };
+
+        $scope.up_vote = function(){
+          Question.vote($scope.question,true)
+              .success(
+              function(data){
+                  if (data.success){
+                      // deletion was successful, redirect to home
+                      AppAlert.add("success", data.message);
+                     // $location.path('home');
+                      $scope.question.upvotes++;
+                  }
+                  else {
+                      AppAlert.add("danger", data.message);
+                  }
+              }
+          )
+              .error(
+              function(data, status){
+                  AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+$scope.question.id+'"'));
+              }
+          );
+        };
+
+        $scope.down_vote = function(){
+            Question.vote($scope.question,false)
+                .success(
+                function(data){
+                    if (data.success){
+                        // deletion was successful, redirect to home
+                        AppAlert.add("success", data.message);
+                        //$location.path('home');
+                        $scope.question.downvotes++;
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+$scope.question.id+'"'));
+                }
+            );
         };
     }
 ]);

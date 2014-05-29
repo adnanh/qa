@@ -47,6 +47,11 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
 
         };
 
+        $scope.can_vote = function()
+        {
+            return $cookies.logged_in
+        }
+
         $scope.page_selected = function (page) {
             $scope.get_page(page, $scope.question.id, $scope.order_by);
         };
@@ -139,6 +144,50 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                     $scope.reorder('newest-first');
                }
         );
+
+        $scope.up_vote = function(answer){
+            Answer.vote(answer,true)
+                .success(
+                function(data){
+                    if (data.success){
+                        // deletion was successful, redirect to home
+                        AppAlert.add("success", data.message);
+                        answer.upvotes++;
+                        //$location.path('home');
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+answer.id+'"'));
+                }
+            );
+        };
+
+        $scope.down_vote = function(answer){
+            Answer.vote(answer,false)
+                .success(
+                function(data){
+                    if (data.success){
+                        // deletion was successful, redirect to home
+                        AppAlert.add("success", data.message);
+                        //$location.path('home');
+                        answer.downvotes++;
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+answer.id+'"'));
+                }
+            );
+        };
 
     }
 ]);

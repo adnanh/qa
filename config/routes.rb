@@ -91,8 +91,8 @@ Qa::Application.routes.draw do
   end
 
   controller :vote do
-    get 'question/vote' => :vote_question
-    get 'answer/vote' => :vote_answer
+    post 'question/vote' => :vote_question
+    post 'answer/vote' => :vote_answer
   end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

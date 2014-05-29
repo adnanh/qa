@@ -21,7 +21,8 @@
             <div class="qa-item-left-small" style="padding: 10px;">
                 <b>{{question.upvotes-question.downvotes}}</b>
                 <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
-
+                <button type="button" class="btn btn-success btn-xs" ng-click="up_vote()" ng-show="can_vote()">+</button>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="down_vote()" ng-show="can_vote()">-</button>
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()"
                             ng-click="do_edit()">Edit
@@ -130,7 +131,8 @@
                     <div class="qa-item-left-small" style="padding: 10px;">
                         <b>{{answer.upvotes-answer.downvotes}}</b>
                         <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
-
+                        <button type="button" class="btn btn-success btn-xs" ng-show="can_vote()" ng-click="up_vote(answer)">+</button>
+                        <button type="button" class="btn btn-danger btn-xs" ng-show="can_vote()" ng-click="down_vote(answer)">-</button>
                         <div class="btn-group-vertical">
                             <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)"
                                     ng-click="do_edit(answer)">Edit
