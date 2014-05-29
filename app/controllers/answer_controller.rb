@@ -142,7 +142,10 @@ class AnswerController < ApplicationController
             # accept it
             answer.accepted = true unless answer.accepted?
 
+            answer.author.karma = answer.author.karma + Rails.application.config.KARMA_ACCEPTED_ANSWER_POINTS unless answer.accepted?
+
             if answer.save
+              answer.author.save
               render :json => reply(true, t(:answer_pick_success))
             else
               render :json => reply(false, t(:answer_pick_failure))
@@ -183,7 +186,10 @@ class AnswerController < ApplicationController
             # de-accept it :D
             answer.accepted = false unless !answer.accepted?
 
+            answer.author.karma = answer.author.karma + Rails.application.config.KARMA_UNACCEPTED_ANSWER_POINTS unless !answer.accepted?
+
             if answer.save
+              answer.author.save
               render :json => reply(true, t(:answer_unpick_success))
             else
               render :json => reply(false, t(:answer_unpick_failure))

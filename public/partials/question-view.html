@@ -81,9 +81,9 @@
             </div>
         </div>
         <div class="pull-right">
-            <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a> on
+            <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a><img src="{{question.author.karma_image}}" ng-if="question.author.karma_image !== null" /> on
                 {{question.created_at}}</b>
-            <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a>
+            <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a><img src="{{question.editor.karma_image}}" ng-if="question.editor.karma_image !== null" />
                 on {{question.edited_at}}</b>
         </div>
         <div class="clearfix">
@@ -169,9 +169,9 @@
                     </div>
                 </div>
                 <div class="pull-right">
-                    <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a> on
+                    <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a><img src="{{answer.author.karma_image}}" ng-if="answer.author.karma_image !== null" /> on
                         {{answer.created_at}}</b>
-                    <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a>
+                    <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a><img src="{{answer.editor.karma_image}}" ng-if="answer.editor.karma_image !== null" />
                         on {{answer.edited_at}}</b>
                 </div>
                 <div class="clearfix">

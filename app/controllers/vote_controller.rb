@@ -24,7 +24,11 @@ class VoteController < ApplicationController
         vote_temp.user_id = current_user.id
 
         if(vote_temp.valid?)
-          vote_temp.save()
+          vote_temp.save
+
+          item_to_upvote.author.karma = item_to_upvote.author.karma + (vote_temp.value ? Rails.application.config.KARMA_UPVOTE_POINTS : Rails.application.config.KARMA_DOWNVOTE_POINTS)
+          item_to_upvote.author.save
+
           render :json => reply(true, t(:voted))
         end
       else
@@ -63,7 +67,10 @@ class VoteController < ApplicationController
         vote_temp.user_id = current_user.id
 
         if(vote_temp.valid?)
-          vote_temp.save()
+          vote_temp.save
+
+          item_to_upvote.author.karma = item_to_upvote.author.karma + (vote_temp.value ? Rails.application.config.KARMA_UPVOTE_POINTS : Rails.application.config.KARMA_DOWNVOTE_POINTS)
+          item_to_upvote.author.save
           render :json => reply(true, t(:voted))
         end
       else

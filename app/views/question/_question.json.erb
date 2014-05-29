@@ -5,7 +5,8 @@
         "id": <%= @question.id %>,
         "author": {
             "id": <%= @question.author_id %>,
-            "username": "<%= @question.author.username %>"
+            "username": "<%= @question.author.username %>",
+            "karma": <%= @question.author.karma %>
         },
         "created_at": "<%= @question.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
         "title": "<%= @question.title %>",
@@ -28,7 +29,8 @@
         <% if !@question.editor_id.nil? %>,
         "editor": {
             "id": <%= @question.editor_id %>,
-            "username": "<%= @question.editor.username %>"
+            "username": "<%= @question.editor.username %>",
+            "karma": <%= @question.editor.karma %>
         },
         "edited_at": "<%= @question.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>"
         <% end %>

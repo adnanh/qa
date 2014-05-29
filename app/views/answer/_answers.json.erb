@@ -8,7 +8,8 @@
             "id": <%= answer.id %>,
             "author": {
                 "id": <%= answer.author_id %>,
-                "username": "<%= answer.author.username %>"
+                "username": "<%= answer.author.username %>",
+                "karma": <%= answer.author.karma %>
             },
             "created_at": "<%= answer.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
             "upvotes": <%= answer.votes.where(value: true).count %>,
@@ -24,7 +25,8 @@
             <% if !answer.editor_id.nil? %>
             "editor": {
                 "id": <%= answer.editor_id %>,
-                "username": "<%= answer.editor.username %>"
+                "username": "<%= answer.editor.username %>",
+                "karma": <%= answer.editor.karma %>
             },
             "edited_at": "<%= answer.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
             <% end %>

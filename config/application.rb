@@ -25,5 +25,11 @@ module Qa
     config.USER_PRIV = 1
     config.ADMIN_PRIV = 2
     config.PAGE_SIZE = 10
+
+    #karma
+    config.KARMA_ACCEPTED_ANSWER_POINTS = 15
+    config.KARMA_UNACCEPTED_ANSWER_POINTS = -15
+    config.KARMA_UPVOTE_POINTS = 2
+    config.KARMA_DOWNVOTE_POINTS = -2
   end
 end
