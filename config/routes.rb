@@ -88,6 +88,7 @@ Qa::Application.routes.draw do
 
   controller :search do
     get 'search/questions' => :search_questions
+    get 'search/questions/similar/:question_id' => :search_similar_questions
   end
 
   controller :vote do

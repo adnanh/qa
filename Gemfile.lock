@@ -66,6 +66,11 @@ GEM
     dotenv (0.10.0)
     dotenv-rails (0.10.0)
       dotenv (= 0.10.0)
+    dusen (0.4.10)
+      activerecord
+      edge_rider (>= 0.2.5)
+    edge_rider (0.2.5)
+      activerecord
     erubis (2.7.0)
     execjs (2.0.2)
     foreigner (1.6.1)
@@ -92,6 +97,8 @@ GEM
     multi_json (1.9.0)
     mysql2 (0.3.11)
     mysql2 (0.3.11-x86-mingw32)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     nokogiri (1.6.1-x86-mingw32)
       mini_portile (~> 0.5.0)
     nori (2.3.0)
@@ -170,6 +177,7 @@ DEPENDENCIES
   bootstrap-sass
   devise
   dotenv-rails
+  dusen
   foreigner
   http_accept_language
   immigrant

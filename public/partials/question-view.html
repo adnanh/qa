@@ -5,6 +5,9 @@
     - registered users to up/down vote it or eliminate their vote, also report it to admins
     -->
 <div ng-show="question_set">
+<!-- left side with main question, answers etc. at 80% width-->
+<div class="pull-left" style="width: 85%;">
+
 <div ng-controller="QuestionViewCtrl">
     <fieldset>
         <!-- question title -->
@@ -12,18 +15,24 @@
             <b ng-bind-html="question.title"></b>
         </legend>
         <!-- question social -->
-        <div>
+        <div style="padding: 5px;">
             <button class="btn btn-info btn-sm" ng-click="do_share()">Share on facebook</button>
         </div>
+
         <!-- question main-->
         <div class="qa-display-item">
             <!-- left sidebar with votecounts, options -->
             <div class="qa-item-left-small" style="padding: 10px;">
                 <b>{{question.upvotes-question.downvotes}}</b>
                 <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
-                <button type="button" class="btn btn-success btn-xs" ng-click="up_vote()" ng-show="can_vote()">+</button>
-                <button type="button" class="btn btn-danger btn-xs" ng-click="down_vote()" ng-show="can_vote()">-</button>
+
                 <div class="btn-group-vertical">
+                    <div class="btn-group-horizontal">
+                        <button type="button" class="btn btn-success btn-xs" ng-click="up_vote()" ng-show="can_vote()">+
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="down_vote()" ng-show="can_vote()">-
+                        </button>
+                    </div>
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()"
                             ng-click="do_edit()">Edit
                     </button>
@@ -81,9 +90,13 @@
             </div>
         </div>
         <div class="pull-right">
-            <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a><img src="{{question.author.karma_image}}" alt="Karma points: {{question.author.karma}}" title="Karma points: {{question.author.karma}}" ng-if="question.author.karma_image !== null" /> on
+            <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a><img
+                    src="{{question.author.karma_image}}" alt="Karma points: {{question.author.karma}}"
+                    title="Karma points: {{question.author.karma}}" ng-if="question.author.karma_image !== null"/> on
                 {{question.created_at}}</b>
-            <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a><img src="{{question.editor.karma_image}}" alt="Karma points: {{question.editor.karma}}" title="Karma points: {{question.editor.karma}}" ng-if="question.editor.karma_image !== null" />
+            <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a><img
+                    src="{{question.editor.karma_image}}" alt="Karma points: {{question.editor.karma}}"
+                    title="Karma points: {{question.editor.karma}}" ng-if="question.editor.karma_image !== null"/>
                 on {{question.edited_at}}</b>
         </div>
         <div class="clearfix">
@@ -131,9 +144,16 @@
                     <div class="qa-item-left-small" style="padding: 10px;">
                         <b>{{answer.upvotes-answer.downvotes}}</b>
                         <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
-                        <button type="button" class="btn btn-success btn-xs" ng-show="can_vote()" ng-click="up_vote(answer)">+</button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-show="can_vote()" ng-click="down_vote(answer)">-</button>
+
                         <div class="btn-group-vertical">
+                            <div class="btn-group-horizontal">
+                                <button type="button" class="btn btn-success btn-xs" ng-show="can_vote()"
+                                        ng-click="up_vote(answer)">+
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-show="can_vote()"
+                                        ng-click="down_vote(answer)">-
+                                </button>
+                            </div>
                             <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)"
                                     ng-click="do_edit(answer)">Edit
                             </button>
@@ -169,9 +189,14 @@
                     </div>
                 </div>
                 <div class="pull-right">
-                    <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a><img src="{{answer.author.karma_image}}" alt="Karma points: {{answer.author.karma}}" title="Karma points: {{answer.author.karma}}" ng-if="answer.author.karma_image !== null" /> on
+                    <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a><img
+                            src="{{answer.author.karma_image}}" alt="Karma points: {{answer.author.karma}}"
+                            title="Karma points: {{answer.author.karma}}" ng-if="answer.author.karma_image !== null"/>
+                        on
                         {{answer.created_at}}</b>
-                    <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a><img src="{{answer.editor.karma_image}}" alt="Karma points: {{answer.editor.karma}}" title="Karma points: {{answer.editor.karma}}" ng-if="answer.editor.karma_image !== null" />
+                    <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a><img
+                            src="{{answer.editor.karma_image}}" alt="Karma points: {{answer.editor.karma}}"
+                            title="Karma points: {{answer.editor.karma}}" ng-if="answer.editor.karma_image !== null"/>
                         on {{answer.edited_at}}</b>
                 </div>
                 <div class="clearfix">
@@ -226,6 +251,16 @@
             </form>
         </accordion-group>
     </accordion>
+</div>
+</div>
+<div class="pull-right" style="width: 10%;">
+    <h7>Similar questions: </h7>
+    <ul ng-show="similar_questions.length > 0">
+        <li ng-repeat="question in similar_questions">
+            <a href="#/q/{{question.id}}">{{question.title}}</a>
+        </li>
+    </ul>
+    <b ng-show="!similar_questions || similar_questions.length == 0">There are no similar questions.</b>
 </div>
 </div>
 </div>

@@ -13,6 +13,9 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
 
         $scope.question_set = false;
 
+        // questions similar to the current one
+        $scope.similar_questions = [];
+
         // function used to get question with ID specified from the webapi.
         // to see the JSON object returned, see rails partial question/_question.json.erb
         var load_question = function(question_id){
@@ -133,5 +136,26 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
 
         // init the question
         load_question($scope.question.id);
+
+        var load_similar_questions = function(question_id){
+            Question.get_similar_to(question_id)
+                .success(
+                    function (data){
+                        if (data.success){
+                            $scope.similar_questions = data.response.questions;
+                        }
+                        else {
+                            AppAlert.add('danger',data.message);
+                        }
+                    }
+                )
+                .error(
+                    function (data, status){
+                        AppAlert.add("danger", ErrorProvider.get_message(status,'Retreiveing questions similar to current question.'));
+                    }
+                );
+        };
+
+        load_similar_questions($scope.question.id);
     }
 ]);
