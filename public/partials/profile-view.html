@@ -1,0 +1,59 @@
+<!-- profile-view partial -->
+<div ng-controller="ProfileViewCtrl">
+    <!-- show only if user exists and all is good-->
+    <div ng-show="user_set">
+        <!-- avatar -->
+        <div id="profileViewAvatar" class="pull-left" style="margin-right:30px;">
+            <img src="{{user.avatar}}" class="imageBox"/>
+            <!-- @hajdar here goes option for sending pm -->
+        </div>
+        <!-- remainder -->
+        <div id="profileViewInformation" class="pull-left">
+            <!-- account information -->
+            <div id="profileViewAccountInformation">
+                Username: <b>{{user.username}}</b>  <hr/>
+                Registered on: {{user.registered}}<br/>
+                Last active on: {{user.last_activity}}<br/>
+                <span ng-show="user.banned">User is banned.<br/></span>
+                <span ng-show="user.privilege_id == 1">User is admin.<br/></span>
+                Total karma: {{user.karma}} <span ng-hide="user.karma_image==null">(<img src="{{user.karma_image}}" alt="Karma points: {{user.karma}}"
+                                                  title="Karma points: {{user.karma}}" ng-if="user.karma_image !== null"/>)</span>
+            </div>
+
+            <!-- recent questions -->
+            <div id="profileViewRecentQs" style="margin-top: 20px;">
+                <span>Most recent questions by {{user.username}}:</span> <hr/>
+                <div ng-show="user.questions.length > 0">
+                    <ul>
+                        <li ng-repeat="question in user.questions">
+                            <span>
+                                <a href="#/q/{{question.id}}">{{question.title}}</a> on {{question.asked_at}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-hide="user.questions.length > 0 ">
+                    <span>{{user.username}} hasn't asked anything yet :-( </span>
+                </div>
+
+            </div>
+            <!-- recent answers -->
+            <div id="profileviewRecentAs">
+                <span>Most recent answers by {{user.username}}: </span> <hr/>
+                <div ng-show="user.answers.length > 0">
+                    <ul>
+                        <li ng-repeat="answer in user.answers">
+                            <span>
+                                <a href="#/q/{{answer.question_id}}">{{answer.question_title}}</a> on {{answer.answered_at}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-hide="user.answers.length >0 ">
+                    <span>{{user.username}} hasn't answered to anything yet. Shame on him! :-( </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

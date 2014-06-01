@@ -35,6 +35,92 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                         for (var i=0; i<$scope.answers.length; i++){
                             $scope.answers[i].edit_mode = false;
                             $scope.answers[i].edited_content = $scope.answers[i].content;
+
+                            // karma stuff
+                            karma_image = null;
+
+                            if (data.answers[i].author.karma >= 2000)
+                            {
+                                karma_image = '/assets/blue_gold_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 1500)
+                            {
+                                karma_image = '/assets/green_gold_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 1000)
+                            {
+                                karma_image = '/assets/red_gold_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 750)
+                            {
+                                karma_image = '/assets/blue_silver_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 400)
+                            {
+                                karma_image = '/assets/green_silver_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 250)
+                            {
+                                karma_image = '/assets/red_silver_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 150)
+                            {
+                                karma_image = '/assets/blue_bronze_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 100)
+                            {
+                                karma_image = '/assets/green_bronze_medal_small.png';
+                            }
+                            else if (data.answers[i].author.karma >= 50)
+                            {
+                                karma_image = '/assets/red_bronze_medal_small.png';
+                            }
+
+                            $scope.answers[i].author.karma_image = karma_image;
+
+                            if (data.answers[i].editor !== undefined)
+                            {
+                                editor_karma_image = null;
+
+                                if (data.answers[i].editor.karma >= 2000)
+                                {
+                                    editor_karma_image = '/assets/blue_gold_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 1500)
+                                {
+                                    editor_karma_image = '/assets/green_gold_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 1000)
+                                {
+                                    editor_karma_image = '/assets/red_gold_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 750)
+                                {
+                                    editor_karma_image = '/assets/blue_silver_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 400)
+                                {
+                                    editor_karma_image = '/assets/green_silver_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 250)
+                                {
+                                    editor_karma_image = '/assets/red_silver_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 150)
+                                {
+                                    editor_karma_image = '/assets/blue_bronze_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 100)
+                                {
+                                    editor_karma_image = '/assets/green_bronze_medal_small.png';
+                                }
+                                else if (data.answers[i].editor.karma >= 50)
+                                {
+                                    editor_karma_image = '/assets/red_bronze_medal_small.png';
+                                }
+
+                                $scope.answers[i].editor.karma_image = editor_karma_image;
+                            }
                         }
                     } else {
                         AppAlert.add("danger", data.message);

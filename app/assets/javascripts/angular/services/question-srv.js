@@ -75,6 +75,14 @@ services_module.factory('Question', ['$http',
                         }
                     };
                     return $http(ajax_config);
+                },
+            get_similar_to:
+                function(question_id){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'search/questions/similar/'+question_id+'.json'
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

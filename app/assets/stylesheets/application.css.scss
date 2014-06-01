@@ -102,3 +102,9 @@ footer {
   padding: 10px;
   @include simpleBorderAll();
 }
+
+.imageBox {
+  background-color:#f1f1f1;
+  padding:1px;
+  border:1px solid #000000;
+}

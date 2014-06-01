@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   belongs_to :user_privilege
   has_many :votes
-  has_many :questions
-  has_many :answers
+  has_many :questions, :foreign_key => 'author_id'
+  has_many :answers, :foreign_key => 'author_id'
   has_many :sent_private_messages, :foreign_key => 'sender_id', :class_name => 'PrivateMessage'
   has_many :received_private_messages, :foreign_key => 'receiver_id', :class_name => 'PrivateMessage'
 

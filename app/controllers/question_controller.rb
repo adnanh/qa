@@ -66,6 +66,12 @@ class QuestionController < ApplicationController
 
             @answers = @question.answers
 
+            # before rendering question, update its view count
+            @question.views= @question.views+1
+
+            # try to update views count but dont do any defensive measures b/c we dont care..
+            @question.save
+
             # custom render
             render :partial => 'question', :layout => false
           end

@@ -12,4 +12,15 @@ class Question < ActiveRecord::Base
 
   validates :open, inclusion: [true, false]
   validates :views, :numericality => { :greater_than_or_equal_to => 0 }
+
+  # teaching Question how to handle text search
+  search_syntax do
+
+    search_by :text do |scope, phrases|
+      columns = [:title, :tags, :content]
+      scope.where_like(columns => phrases)
+
+    end
+
+  end
 end

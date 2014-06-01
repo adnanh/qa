@@ -68,6 +68,10 @@ Qa::Application.routes.draw do
     get 'users' => :get_users
   end
 
+  controller :user do
+    get 'user/public/profile' => :profile
+  end
+
   controller :log do
     get 'logs' => :get_logs
   end
@@ -88,6 +92,7 @@ Qa::Application.routes.draw do
 
   controller :search do
     get 'search/questions' => :search_questions
+    get 'search/questions/similar/:question_id' => :search_similar_questions
   end
 
   controller :vote do

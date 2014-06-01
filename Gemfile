@@ -91,3 +91,6 @@ gem 'http_accept_language'
 
 # HTML sanitization
 gem 'sanitize'
+
+# fulltext search
+gem 'dusen'
