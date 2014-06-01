@@ -17,7 +17,7 @@ class Question < ActiveRecord::Base
   search_syntax do
 
     search_by :text do |scope, phrases|
-      columns = [:title, :tags]
+      columns = [:title, :tags, :content]
       scope.where_like(columns => phrases)
 
     end
