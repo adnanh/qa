@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   has_attached_file :image, :styles => {
       :thumb => "100x100#",
       :small  => "32x32",
-      :medium => "200x200" }
+      :medium => "200x200" },
+      :default_url => '/images/missing_:style.png'
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
 
   before_create :set_default_privileges

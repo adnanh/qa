@@ -17,15 +17,13 @@
                 <th>Title</th>
                 <th>Views</th>
                 <th>Answer number</th>
-                <th>Options</th>
             </tr>
             <tr ng-repeat="question in questions">
-                <td>{{question.title}}</td>
+                <td>
+                    <a href="#/q/{{question.id}}">{{question.title}}</a>
+                </td>
                 <td>{{question.views}}</td>
                 <td>{{question.answers}}</td>
-                <td>
-                    <a href="#/q/{{question.id}}">View</a>
-                </td>
             </tr>
         </table>
     </div>

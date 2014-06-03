@@ -52,5 +52,5 @@ bs:
   already_demoted: "Korisnik ionako nije admin."
   user_demoted: "Korisnik više nije administrator."
   bad_params: "Vrijednost koja nije validna je proslijeđena kao argument."
-  "already_voted": "Već ste glasali."
-  "voted: "Uspješno ste glasali."
+  already_voted: "Već ste glasali."
+  voted: "Uspješno ste glasali."
