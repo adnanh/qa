@@ -55,7 +55,8 @@ services_module.factory('Answer', ['$http',
                         'url': 'answer/vote.json',
                         params: {
                             item_id: item.id,
-                            value: val
+                            value: val,
+                            user_created:item.author.id
                         }
                     };
                     return $http(ajax_config);

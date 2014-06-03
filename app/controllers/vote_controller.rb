@@ -5,10 +5,11 @@ class VoteController < ApplicationController
     respond_to do |format|
       format.json {
         puts params
-    if (!params.has_key?(:item_id))
+        usr_created = extract_int params, :user_created
+    if (!params.has_key?(:item_id)) || usr_created.nil?
       # if not, we alert the user
       render :json => reply(false, t(:missing_params))
-    elsif (!(params[:item_id].is_integer?))
+    elsif (!(params[:item_id].is_integer?)) || current_user.id === usr_created
       # if parameter exists and is of incorrect datatype
       render :json => reply(false, t(:bad_params))
     else
@@ -48,10 +49,12 @@ class VoteController < ApplicationController
     respond_to do |format|
       format.json {
         puts params
-    if (!params.has_key?(:item_id))
+        cur_user = current_user.id
+        usr_created = extract_int params, :user_created
+    if (!params.has_key?(:item_id)) || usr_created.nil?
       # if not, we alert the user
       render :json => reply(false, t(:missing_params))
-    elsif (!(params[:item_id].is_integer?))
+      elsif (!(params[:item_id].is_integer?)) || cur_user === usr_created
       # if parameter exists and is of incorrect datatype
       render :json => reply(false, t(:bad_params))
     else
