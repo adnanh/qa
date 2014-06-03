@@ -2,15 +2,27 @@ class SearchController < ApplicationController
   def search_questions
     respond_to do |format|
       format.json{
+        puts params
         page = extract_int params, :page
-        if (!params.has_key?(:search_by))
+        order_by = params[:order_by]
+        if (!params.has_key?(:search_by)) || order_by.nil?
           render :json => reply(false, t(:missing_params))
+        elsif page < 0 || !order_by.in?(%w(newest-first oldest-first best-first answer-count))
+          render :json => reply(false, t(:bad_params))
+          # if everything is okay
         else
           search_criteria = params[:search_by]
           per_page = Rails.application.config.PAGE_SIZE
           @questions = Question.where("tags LIKE :search_criteria OR title LIKE :search_criteria",  {search_criteria: "%#{search_criteria}%"})
           @total_such = @questions.count
           @questions = @questions.offset((page-1)*per_page).limit(per_page)
+          if order_by == 'newest-first'
+            @questions = @questions.order('created_at DESC')
+          elsif order_by == 'oldest-first'
+            @questions = @questions.order('created_at ASC')
+          else
+            @questions = @questions.sort_by { |question| -(question.votes.where(value: true).count-question.votes.where(value: false).count)}
+          end
           render :partial => 'question/questions', :layout => false
         end
       }

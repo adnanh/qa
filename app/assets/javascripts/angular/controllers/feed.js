@@ -9,8 +9,10 @@ ctrl_module.controller('FeedCtrl', ['$scope', 'i18n', 'Feed', 'AppAlert', 'Error
          $scope.items_per_page = 10;
          $scope.total_questions = 0;
 
-         $scope.get_page = function (page,search_by) {
-         FeedSrv.get_questions(page,search_by)
+        $scope.order_by = 'newest-first';
+
+         $scope.get_page = function (page,search_by,order_by) {
+         FeedSrv.get_questions(page,search_by,order_by)
          .success(
          function (data) {
          if (data.success) {
@@ -28,9 +30,27 @@ ctrl_module.controller('FeedCtrl', ['$scope', 'i18n', 'Feed', 'AppAlert', 'Error
          };
 
          $scope.page_selected = function (page) {
-         $scope.get_page(page,$scope.search_by);
+         $scope.get_page(page,$scope.search_by,$scope.order_by);
          };
 
          $scope.page_selected(1);
+
+
+
+        $scope.reorder = function (new_order) {
+            $scope.order_by = new_order;
+            $scope.page_selected(1);
+        };
+
+        $scope.dropdown = {
+            isopen: false
+        };
+
+        // handle them events from submit, prolly should use a service but who cares..
+        $scope.$root.$on('do_reload_plz',
+            function(event, args){
+                $scope.reorder('newest-first');
+            }
+        );
     }
 ]);

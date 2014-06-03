@@ -11,6 +11,18 @@
             </div>
         </div>
     </form>
+    <div class="btn-group pull-right" dropdown is-open="dropdown.isopen">
+        <button type="button" class="btn btn-primary dropdown-toggle">
+            Ordering options <span class="caret"></span>
+        </button>
+        <!-- TODO -->
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="" ng-click="reorder('newest-first')">Newest questions first</a></li>
+            <li><a href="" ng-click="reorder('oldest-first')">Oldest questions first</a></li>
+            <li class="divider"></li>
+            <li><a href="" ng-click="reorder('best-first')">Best questions first</a></li>
+        </ul>
+    </div>
     <div>
         <table class="table table-bordered table-hover">
             <tr>
