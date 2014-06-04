@@ -55,8 +55,14 @@ gem 'mysql2', '0.3.11'
 # Use MySQL database as session store
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
+# Sprockets
+gem 'sprockets', '2.11.0'
+
+# Sass
+gem 'sass', '3.2.0'
+
 # Use SASS
-gem 'sass-rails'
+gem 'sass-rails', '4.0.2'
 
 # Use Bootstrap 3
 gem 'bootstrap-sass'
