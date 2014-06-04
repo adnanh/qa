@@ -19,6 +19,10 @@ ctrl_module.controller('AnswerCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'A
                 return false;
         }
 
+        $scope.canAnswer = function(){
+            return $scope.user_logged_in() && $scope.question.open
+        };
+
         // reload answers with current settings
         $scope.do_reload = function(answer_submit_form){
             $scope.$root.$broadcast('do_reload_plz',{});

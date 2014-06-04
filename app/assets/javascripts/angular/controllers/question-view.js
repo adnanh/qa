@@ -11,7 +11,7 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
             else {
                 var is_author = $scope.question.author.id == $cookies.user_id;
                 var is_admin = $cookies.privilege_id == 2; // USER 1 ADMIN 2
-                return is_author || is_admin;
+                return (is_author || is_admin) && $scope.question.open;
             }
 
         };
