@@ -58,6 +58,17 @@ services_module.factory('PrivateMessages', ['$http',
                         }
                     };
                     return $http(ajax_config);
+                },
+            getUserById:
+                function(id){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'user/public/profile.json',
+                        params: {
+                            user_id: id
+                        }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

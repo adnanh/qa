@@ -56,13 +56,13 @@ gem 'mysql2', '0.3.11'
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 # Sprockets
-gem 'sprockets', '2.11.0'
+gem 'sprockets', '2.10.1'
 
 # Sass
-gem 'sass', '3.2.0'
+gem 'sass', '3.3.0'
 
 # Use SASS
-gem 'sass-rails', '4.0.2'
+gem 'sass-rails', '4.0.1'
 
 # Use Bootstrap 3
 gem 'bootstrap-sass'

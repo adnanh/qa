@@ -22,6 +22,7 @@ qa_app.config( ['$routeProvider', '$facebookProvider',
             .when('/q/:question_id', {templateUrl: 'partials/question-view.html'})
             .when('/profile/:user_id', {templateUrl: 'partials/profile-view.html'})
             .when('/edit/:user_id',{templateUrl: 'partials/edit.html'})
+            .when('/pm/:message_id/:recipient_id', {templateUrl: 'partials/private-messages.html'})
             .when('/pm/:message_id', {templateUrl: 'partials/private-messages.html'})
             .when('/', {redirectTo: '/home'})
             .when('/pm', {redirectTo: '/pm/inbox'});

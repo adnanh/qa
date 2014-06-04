@@ -13,6 +13,7 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
         };
 
         $scope.displayMessageId = $routeParams.message_id;
+        $scope.newMessageRecipientId = $routeParams.recipient_id;
 
         $scope.markAsRead = function(message)
         {
@@ -194,6 +195,18 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
             case "new":
                 fetchInbox();
                 resetNewMessage();
+
+                if ($scope.newMessageRecipientId !== undefined)
+                {
+                    PrivateMessagesSrv.getUserById($scope.newMessageRecipientId).success(function(data) {
+                        $scope.newMessage.recipient.id = $scope.newMessageRecipientId;
+                        $scope.newMessage.recipient.nickname = data.username;
+                        $scope.newMessage.recipient.selectedNickname = data.username;
+
+                        console.log(data);
+                    });
+                    $scope.newMessage.title = '';
+                }
                 break;
             default:
                 $location.path('/pm/inbox');
