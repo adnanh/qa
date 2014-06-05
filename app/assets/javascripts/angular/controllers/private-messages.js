@@ -8,6 +8,8 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
+        $scope.isLoading = false;
+
         $scope.closeAlert = function (alert) {
             AppAlert.closeAlert(alert);
         };
@@ -67,6 +69,8 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
         }
 
         function fetchInbox() {
+            $scope.isLoading = true;
+
             PrivateMessagesSrv.inbox()
                 .success(
                 function(data){
@@ -78,11 +82,15 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                     else {
                         AppAlert.add("danger", data.message);
                     }
+
+                    $scope.isLoading = false;
                 }
             );
         }
 
         function fetchOutbox() {
+            $scope.isLoading = true;
+
             PrivateMessagesSrv.outbox()
                 .success(
                 function(data){
@@ -92,6 +100,8 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                     else {
                         AppAlert.add("danger", data.message);
                     }
+
+                    $scope.isLoading = false;
                 }
             );
         }
@@ -198,14 +208,25 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
 
                 if ($scope.newMessageRecipientId !== undefined)
                 {
-                    PrivateMessagesSrv.getUserById($scope.newMessageRecipientId).success(function(data) {
-                        $scope.newMessage.recipient.id = $scope.newMessageRecipientId;
-                        $scope.newMessage.recipient.nickname = data.username;
-                        $scope.newMessage.recipient.selectedNickname = data.username;
+                    $scope.isLoading = true;
 
-                        console.log(data);
+                    PrivateMessagesSrv.getUserById($scope.newMessageRecipientId).success(function(data) {
+                        $scope.newMessage.title = '';
+
+                        if (data.success)
+                        {
+                            $scope.newMessage.recipient.id = $scope.newMessageRecipientId;
+                            $scope.newMessage.recipient.nickname = data.response.user.username;
+                            $scope.newMessage.recipient.selectedNickname = data.response.user.username;
+                        }
+                        else
+                        {
+                            AppAlert.add("danger", data.message);
+                        }
+
+                        $scope.isLoading = false;
                     });
-                    $scope.newMessage.title = '';
+
                 }
                 break;
             default:

@@ -8,6 +8,8 @@
 
     <br/>
 
+    <div class="text-center" ng-show="isLoading"> <br/> <img src="/assets/loader.gif"/> </div>
+    <div ng-show="!isLoading">
     <accordion close-others="true" ng-show="displayMessageId.toLowerCase() == 'inbox'">
         <div class="alert alert-info" ng-show="inbox.length == 0">You haven't received any messages yet.</div>
 
@@ -60,5 +62,7 @@
         <div class="text-right">
             <button ng-click="sendMessage()" class="btn btn-primary btn-default">Send</button>
         </div>
+    </div>
+
     </div>
 </div>
