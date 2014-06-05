@@ -1,7 +1,7 @@
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Question', 'AppAlert', 'ErrorProvider', 'Kudo',
-    function ($scope, i18n, $routeParams, Question, AppAlert, ErrorProvider, Kudo) {
+ctrl_module.controller('QuestionPageCtrl', ['$scope','$cookies', 'i18n', '$routeParams', 'Question', 'AppAlert', 'ErrorProvider', 'Kudo',
+    function ($scope,$cookies, i18n, $routeParams, Question, AppAlert, ErrorProvider, Kudo) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -15,6 +15,24 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
 
         // questions similar to the current one
         $scope.similar_questions = [];
+
+        $scope.question_closed = false;
+
+       $scope.isOpen = function(){
+         return $scope.question.open
+       };
+
+       $scope.canClose = function(){
+         return $scope.question.open && $cookies.privilege_id == 2
+       };
+
+        $scope.canOpen = function(){
+          return !$scope.question.open && $cookies.privilege_id == 2
+        };
+
+        $scope.isAdmin = function(){
+            return $cookies.privilege_id == 2; // USER 1 ADMIN 2
+        };
 
         // function used to get question with ID specified from the webapi.
         // to see the JSON object returned, see rails partial question/_question.json.erb
@@ -56,6 +74,48 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope', 'i18n', '$routeParams', 'Q
                         $scope.question_set = false;
                     }
                 );
+        };
+
+        $scope.close_question = function() {
+            Question.close($scope.question)
+                .success(
+                function(data){
+                    if (data.success){
+                        // just apply changes locally, no need for going to ws
+                        AppAlert.add("success",data.message);
+                        $scope.question.open = false;
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Close question "' + $scope.question.id));
+                }
+            );
+        };
+
+        $scope.open_question = function() {
+            Question.open($scope.question)
+                .success(
+                function(data){
+                    if (data.success){
+                        // just apply changes locally, no need for going to ws
+                        AppAlert.add("success",data.message);
+                        $scope.question.open = true;
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Close question "' + $scope.question.id));
+                }
+            );
         };
 
         // init the question

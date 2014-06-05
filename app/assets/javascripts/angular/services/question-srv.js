@@ -84,6 +84,25 @@ services_module.factory('Question', ['$http',
                         'url': 'search/questions/similar/'+question_id+'.json'
                     };
                     return $http(ajax_config);
+                },
+            close:
+                function(question){
+                    var ajax_config = {
+                        'method': 'POST',
+                        'url': 'questions/'+question.id+'/close.json',
+                        params:{
+                            explanation: question.status_description
+                        }
+                    };
+                    return $http(ajax_config);
+                },
+            open:
+                function(question){
+                    var ajax_config = {
+                        'method': 'POST',
+                        'url': 'questions/'+question.id+'/open.json'
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

@@ -14,6 +14,11 @@
         <legend>
             <b ng-bind-html="question.title"></b>
         </legend>
+        <div ng-show="!question.open">
+            <b>Question closed</b><br>
+            <i>Reason: {{question.status_description}}</i>
+            <hr>
+        </div>
         <!-- question social -->
         <div style="padding: 5px;">
             <button class="btn btn-info btn-sm" ng-click="do_share()">Share on facebook</button>
@@ -220,7 +225,7 @@
 
 <!-- area to display answer-posting container for registered users only
      consists of content only (no title, no tags) -->
-<div ng-controller="AnswerCtrl" ng-show="user_logged_in()">
+<div ng-controller="AnswerCtrl" ng-show="canAnswer()">
     <accordion>
         <accordion-group is-open="poster.open">
             <accordion-heading>
@@ -252,7 +257,38 @@
         </accordion-group>
     </accordion>
 </div>
+<div ng-show="isAdmin()" >
+    <hr>
+    <accordion>
+        <accordion-group >
+            <accordion-heading>
+                Question administration <i class="pull-right glyphicon"
+                                           ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
+            </accordion-heading>
+            <form name="question_close_form" class="form-horizontal" role="form" ng-show="canClose()">
+                <div class="col-sm-12 form-group">
+                    <input name="close_reason"
+                           ng-model="question.status_description"
+                           placeholder="Reason form closing" type="text" required autofocus ng-minlength="4" ng-maxlength="255">
+                </div>
+
+                <div class="col-sm-10 form-group">
+                    <button type="submit" class="btn btn-default pull-right" ng-click="close_question()">
+                        Close question
+                    </button>
+                </div>
+            </form>
+            <div ng-show="canOpen()">
+                Closure reason: {{question.status_description}}
+                <button type="submit" class="btn btn-default pull-right" ng-click="open_question()">
+                    Open question
+                </button>
+            </div>
+        </accordion-group>
+    </accordion>
 </div>
+</div>
+
 <div class="pull-right" style="width: 10%;">
     <h7>Similar questions: </h7>
     <ul ng-show="similar_questions.length > 0">
