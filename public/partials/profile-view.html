@@ -24,7 +24,7 @@
 
             <!-- recent questions -->
             <div id="profileViewRecentQs" style="margin-top: 20px;">
-                <span>Most recent questions by {{user.username}}:</span> <hr/>
+                <span style="font-weight: bold;">Most recent questions by {{user.username}}:</span> <hr/>
                 <div ng-show="user.questions.length > 0">
                     <ul>
                         <li ng-repeat="question in user.questions">
@@ -39,9 +39,10 @@
                 </div>
 
             </div>
+            <br/>
             <!-- recent answers -->
             <div id="profileviewRecentAs">
-                <span>Most recent answers by {{user.username}}: </span> <hr/>
+                <span style="font-weight: bold;">Most recent answers by {{user.username}}: </span> <hr/>
                 <div ng-show="user.answers.length > 0">
                     <ul>
                         <li ng-repeat="answer in user.answers">

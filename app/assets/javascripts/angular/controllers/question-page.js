@@ -10,6 +10,8 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope','$cookies', 'i18n', '$route
 
         // get question_id from route params
         $scope.question.id = $routeParams.question_id;
+        // get answer_id from rout params, if any
+        $scope.highlight_answer_id = $routeParams.answer_id;
 
         $scope.question_set = false;
 

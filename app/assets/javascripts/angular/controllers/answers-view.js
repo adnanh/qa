@@ -1,7 +1,7 @@
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'AppAlert', 'ErrorProvider',
-    function ($scope, $cookies, i18n, Answer, AppAlert, ErrorProvider) {
+ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'AppAlert', 'ErrorProvider', 'Kudo', '$location',
+    function ($scope, $cookies, i18n, Answer, AppAlert, ErrorProvider, Kudo, $location) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -37,88 +37,12 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                             $scope.answers[i].edited_content = $scope.answers[i].content;
 
                             // karma stuff
-                            karma_image = null;
-
-                            if (data.answers[i].author.karma >= 2000)
-                            {
-                                karma_image = '/assets/blue_gold_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 1500)
-                            {
-                                karma_image = '/assets/green_gold_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 1000)
-                            {
-                                karma_image = '/assets/red_gold_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 750)
-                            {
-                                karma_image = '/assets/blue_silver_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 400)
-                            {
-                                karma_image = '/assets/green_silver_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 250)
-                            {
-                                karma_image = '/assets/red_silver_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 150)
-                            {
-                                karma_image = '/assets/blue_bronze_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 100)
-                            {
-                                karma_image = '/assets/green_bronze_medal_small.png';
-                            }
-                            else if (data.answers[i].author.karma >= 50)
-                            {
-                                karma_image = '/assets/red_bronze_medal_small.png';
-                            }
-
+                            var karma_image = Kudo.get_karma_image(data.answers[i].author);
                             $scope.answers[i].author.karma_image = karma_image;
 
                             if (data.answers[i].editor !== undefined)
                             {
-                                editor_karma_image = null;
-
-                                if (data.answers[i].editor.karma >= 2000)
-                                {
-                                    editor_karma_image = '/assets/blue_gold_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 1500)
-                                {
-                                    editor_karma_image = '/assets/green_gold_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 1000)
-                                {
-                                    editor_karma_image = '/assets/red_gold_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 750)
-                                {
-                                    editor_karma_image = '/assets/blue_silver_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 400)
-                                {
-                                    editor_karma_image = '/assets/green_silver_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 250)
-                                {
-                                    editor_karma_image = '/assets/red_silver_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 150)
-                                {
-                                    editor_karma_image = '/assets/blue_bronze_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 100)
-                                {
-                                    editor_karma_image = '/assets/green_bronze_medal_small.png';
-                                }
-                                else if (data.answers[i].editor.karma >= 50)
-                                {
-                                    editor_karma_image = '/assets/red_bronze_medal_small.png';
-                                }
-
+                                editor_karma_image = Kudo.get_karma_image(data.answers[i].editor);
                                 $scope.answers[i].editor.karma_image = editor_karma_image;
                             }
                         }
@@ -273,6 +197,10 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                     AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+answer.id+'"'));
                 }
             );
+        };
+
+        $scope.to_permalink = function (answer_id){
+            $location.path('q/'+$scope.question.id+"/a/"+answer_id);
         };
 
     }

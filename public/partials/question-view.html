@@ -170,7 +170,13 @@
 
                     <!-- right part is the answer content  OR editor if in edit mode-->
                     <div class="qa-item-right-big">
-                        <div class="post" ng-bind-html="answer.content" ng-hide="answer.edit_mode"></div>
+                        <div ng-switch="answer.id==highlight_answer_id">
+                            <div ng-switch-when="true">
+                                <!-- a bit hackish but who cares :-) -->
+                                <div my-position></div>
+                            </div>
+                        </div>
+                        <div ng-class="{higlighted_answer: answer.id==highlight_answer_id}" class="post" ng-bind-html="answer.content" ng-hide="answer.edit_mode"></div>
 
                         <form name="answer_edit_form" class="form-horizontal" role="form"
                               ng-show="answer.edit_mode">
@@ -203,6 +209,7 @@
                             src="{{answer.editor.karma_image}}" alt="Karma points: {{answer.editor.karma}}"
                             title="Karma points: {{answer.editor.karma}}" ng-if="answer.editor.karma_image !== null"/>
                         on {{answer.edited_at}}</b>
+                    <span>&nbsp;&nbsp;<a href="" ng-click="to_permalink(answer.id)">permalink</a></span>
                 </div>
                 <div class="clearfix">
                     <hr>
