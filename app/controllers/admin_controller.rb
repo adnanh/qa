@@ -293,28 +293,22 @@ class AdminController < ApplicationController
   def report
     respond_to do |format|
       format.json {
-        reported_item_type = params[:item_type].downcase
-        reported_item_id = extract_int params, :item_id
+        reported_answer_id = extract_int params, :answer_id
+        reported_question_id = extract_int params, :question_id
 
         # if bad request
-        if reported_item_type.nil? || reported_item_id.nil?
+        if (reported_answer_id.nil? && reported_question_id.nil?) || reported_question_id.nil?
           render :json => reply(false, t(:missing_params))
           return
           # if values are present but invalid
-        elsif reported_item_id < 0
+        elsif (!reported_answer_id.nil? && reported_answer_id < 0) || reported_question_id < 0
           render :json => reply(false, t(:bad_params))
           return
         else
-          if reported_item_type == "question"
-            item = Question.where(id: reported_item_id).first
-          elsif reported_item_type == "answer"
-            item = Answer.where(id: reported_item_id).first
-          else
-            render :json => reply(false, t(:bad_params))
-            return
-          end
+          q = Question.where(id: reported_question_id).first
+          a = Answer.where(id: reported_answer_id).first
 
-          if item.nil?
+          if q.nil? || (a.nil? && !reported_answer_id.nil?)
             render :json => reply(false, t(:bad_params))
             return
           end
@@ -324,7 +318,7 @@ class AdminController < ApplicationController
           administrators = User.where(user_privilege_id: 2)
 
           administrators.each do |administrator|
-            message = PrivateMessage.new(:title => "Suspicious content, please take a look", :content => "http://ask.etf.ba/#/"+ (reported_item_type == "question" ? "q" : "a") + "/" + reported_item_id.to_s, :sender_id => current_user.id, :receiver_id => administrator.id, :sender_status => 2, :receiver_status => 0)
+            message = PrivateMessage.new(:title => "Suspicious content, please take a look", :content => "http://ask.etf.ba/#/q/" + q.id.to_s + (a.nil? ? "" : "/a/" + a.id.to_s), :sender_id => current_user.id, :receiver_id => administrator.id, :sender_status => 2, :receiver_status => 0)
             message.save
           end
 

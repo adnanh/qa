@@ -203,8 +203,8 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             $location.path('q/'+$scope.question.id+"/a/"+answer_id);
         };
 
-        $scope.report = function(answer_id) {
-            Answer.report(answer_id)
+        $scope.report = function(question_id, answer_id) {
+            Answer.report(question_id, answer_id)
                 .success(
                 function(data) {
                     if (data.success) {

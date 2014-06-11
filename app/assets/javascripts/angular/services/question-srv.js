@@ -110,8 +110,7 @@ services_module.factory('Question', ['$http',
                         'method': 'GET',
                         'url': 'report.json',
                         params: {
-                            item_id: item_id,
-                            item_type: 'question'
+                            question_id: item_id
                         }
                     };
                     return $http(ajax_config);

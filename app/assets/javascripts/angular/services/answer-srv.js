@@ -62,13 +62,13 @@ services_module.factory('Answer', ['$http',
                     return $http(ajax_config);
                 },
             report:
-                function(item_id){
+                function(question_id, item_id){
                     var ajax_config = {
                         'method': 'GET',
                         'url': 'report.json',
                         params: {
-                            item_id: item_id,
-                            item_type: 'answer'
+                            question_id: question_id,
+                            answer_id: item_id
                         }
                     };
                     return $http(ajax_config);
