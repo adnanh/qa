@@ -42,7 +42,7 @@ ctrl_module.controller('AnswerCtrl', ['$scope', '$cookies', 'i18n', 'Answer', 'A
                         AppAlert.add('danger', data.message);
                     }
                 }
-                )
+            )
                 .error(
                 function (data, status){
                     AppAlert.add("danger", ErrorProvider.get_message(status,'Posting answer to question "'+$scope.question.id+'"'));

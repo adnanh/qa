@@ -134,5 +134,20 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                 }
             );
         };
+
+        $scope.report = function(question_id) {
+            Question.report(question_id)
+                .success(
+                function(data) {
+                    if (data.success) {
+                        AppAlert.add('success', 'Question has been successfully reported.');
+                    }
+                    else
+                    {
+                        AppAlert.add('danger', data.message);
+                    }
+                }
+            );
+        };
     }
 ]);

@@ -54,3 +54,4 @@ en:
   bad_params: "Invalid value passed as argument."
   already_voted: "You have already voted"
   voted: "You have successfully voted"
+  reported_to_admins: "You have successfully reported this post to administrator."

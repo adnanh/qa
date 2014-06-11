@@ -103,6 +103,18 @@ services_module.factory('Question', ['$http',
                         'url': 'questions/'+question.id+'/open.json'
                     };
                     return $http(ajax_config);
+                },
+            report:
+                function(item_id){
+                    var ajax_config = {
+                        'method': 'GET',
+                        'url': 'report.json',
+                        params: {
+                            item_id: item_id,
+                            item_type: 'question'
+                        }
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

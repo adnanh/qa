@@ -54,3 +54,4 @@ bs:
   bad_params: "Vrijednost koja nije validna je proslijeđena kao argument."
   already_voted: "Već ste glasali."
   voted: "Uspješno ste glasali."
+  reported_to_admins: "Uspješno ste obavijestili administratora o ovom postu."

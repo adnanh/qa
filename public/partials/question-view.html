@@ -38,9 +38,15 @@
                         <button type="button" class="btn btn-danger btn-xs" ng-click="down_vote()" ng-show="can_vote()">-
                         </button>
                     </div>
+
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()"
                             ng-click="do_edit()">Edit
                     </button>
+
+                    <button type="button" class="btn btn-info btn-xs"
+                            ng-click="report(question.id)">Report
+                    </button>
+
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
                             ng-click="do_delete()">Delete
                     </button>
@@ -162,6 +168,11 @@
                             <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)"
                                     ng-click="do_edit(answer)">Edit
                             </button>
+
+                            <button type="button" class="btn btn-info btn-xs"
+                                    ng-click="report(answer.id)">Report
+                            </button>
+
                             <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
                                     ng-click="do_delete(answer)">Delete
                             </button>

@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_admin, :except => [:report]
+  before_filter :require_logged_in, :only => [:report]
 
   def ban
     respond_to do |format|
@@ -89,16 +90,16 @@ class AdminController < ApplicationController
   def profile
     respond_to do |format|
       if params[:user_id]
-          @target_user = User.where(id: params[:user_id]).first
-          if @target_user.nil?
-            format.json {
-              render :json => reply(false, t(:missing_params))
-            }
-          else
-            format.json {
-              render :json => reply(true, '', 'user', @target_user)
-            }
-          end
+        @target_user = User.where(id: params[:user_id]).first
+        if @target_user.nil?
+          format.json {
+            render :json => reply(false, t(:missing_params))
+          }
+        else
+          format.json {
+            render :json => reply(true, '', 'user', @target_user)
+          }
+        end
       else
         format.json {
           render :json => reply(true, '', 'user', current_user)
@@ -280,6 +281,54 @@ class AdminController < ApplicationController
           @total_such = @users.count
           @users = @users.offset((page-1)*per_page).limit(per_page)
           render :partial => 'user/users', :layout => false
+        end
+      }
+      format.html {
+        render :status => :method_not_allowed, :nothing => true
+        return
+      }
+    end
+  end
+
+  def report
+    respond_to do |format|
+      format.json {
+        reported_item_type = params[:item_type].downcase
+        reported_item_id = extract_int params, :item_id
+
+        # if bad request
+        if reported_item_type.nil? || reported_item_id.nil?
+          render :json => reply(false, t(:missing_params))
+          return
+          # if values are present but invalid
+        elsif reported_item_id < 0
+          render :json => reply(false, t(:bad_params))
+          return
+        else
+          if reported_item_type == "question"
+            item = Question.where(id: reported_item_id).first
+          elsif reported_item_type == "answer"
+            item = Answer.where(id: reported_item_id).first
+          else
+            render :json => reply(false, t(:bad_params))
+            return
+          end
+
+          if item.nil?
+            render :json => reply(false, t(:bad_params))
+            return
+          end
+
+          # if everything is okay
+
+          administrators = User.where(user_privilege_id: 2)
+
+          administrators.each do |administrator|
+            message = PrivateMessage.new(:title => "Suspicious content, please take a look", :content => "http://ask.etf.ba/#/"+ (reported_item_type == "question" ? "q" : "a") + "/" + reported_item_id.to_s, :sender_id => current_user.id, :receiver_id => administrator.id, :sender_status => 2, :receiver_status => 0)
+            message.save
+          end
+
+          render :json => reply(true, t(:reported_to_admins))
         end
       }
       format.html {

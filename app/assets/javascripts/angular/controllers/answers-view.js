@@ -203,5 +203,20 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             $location.path('q/'+$scope.question.id+"/a/"+answer_id);
         };
 
+        $scope.report = function(answer_id) {
+            Answer.report(answer_id)
+                .success(
+                function(data) {
+                    if (data.success) {
+                        AppAlert.add('success', 'Answer has been successfully reported.');
+                    }
+                    else
+                    {
+                        AppAlert.add('danger', data.message);
+                    }
+                }
+            );
+        };
+
     }
 ]);
