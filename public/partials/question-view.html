@@ -50,7 +50,7 @@
             <!-- right part is the question content -->
             <div class="qa-item-right-big">
                 <!-- display question content if not in edit mode -->
-                <div class="post" ng-bind-html="question.content" ng-hide="question.edit_mode"></div>
+                <div class="post" mathjax-bind="question.content" ng-hide="question.edit_mode"></div>
 
                 <!-- display question editing form if in edit mode -->
                 <div class="clearfix" ng-show="question.edit_mode">
@@ -176,7 +176,7 @@
                                 <div my-position></div>
                             </div>
                         </div>
-                        <div ng-class="{higlighted_answer: answer.id==highlight_answer_id}" class="post" ng-bind-html="answer.content" ng-hide="answer.edit_mode"></div>
+                        <div ng-class="{higlighted_answer: answer.id==highlight_answer_id}" class="post" mathjax-bind="answer.content" ng-hide="answer.edit_mode"></div>
 
                         <form name="answer_edit_form" class="form-horizontal" role="form"
                               ng-show="answer.edit_mode">
