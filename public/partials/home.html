@@ -23,7 +23,7 @@
             <li><a href="" ng-click="reorder('best-first')">Best questions first</a></li>
         </ul>
     </div>
-    <div>
+ <!--   <div>
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Title</th>
@@ -38,6 +38,37 @@
                 <td>{{question.answers}}</td>
             </tr>
         </table>
+    </div>-->
+    <div id="feed-list">
+        <h1>See them Questions</h1>
+        <hr>
+        <div class="feed-item" ng-repeat="question in questions">
+            <div>
+                <div class="feed-votes">
+                    <div class="feed-mini-count">
+                        <span>{{question.upvotes - question.downvotes}}</span>
+                    </div>
+                    <div>votes</div>
+                </div>
+                <div class="feed-votes">
+                    <div class="feed-mini-count">
+                        <span>{{question.views}}</span>
+                    </div>
+                    <div>views</div>
+                </div>
+                <div class="feed-answers">
+                    <div class="feed-mini-count">
+                        <span>{{question.answers}}</span>
+                    </div>
+                    <div>answers</div>
+                </div>
+            </div>
+            <div class="feed-item-summary">
+                <h3><a href="#/q/{{question.id}}">{{question.title}}</a></h3>
+                <b ng-repeat="tag in question.tags.split(';')">{{tag}} &nbsp</b>
+            </div>
+            <div class="feed-author">{{question.created_at}} by {{question.author.username}}</div>
+        </div>
     </div>
     <div class="text-center">
         <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
