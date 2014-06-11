@@ -112,3 +112,67 @@ footer {
 .higlighted_answer{
   background-color: #feffcb;
 }
+
+.feed-item{
+  border-bottom: 1px solid #eaeaea;
+  overflow: hidden;
+  padding: 11px 0;
+  width: 85%;
+  float: left;
+}
+
+.feed-inner{
+  border-bottom: 1px solid #d2d2d2;
+  padding: 7px 0;
+  position: relative;
+}
+
+#feed-list {
+  overflow: auto;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.feed-votes{
+  background: transparent;
+  float: left;
+  margin: 0 3px 0 0;
+  padding: 5px;
+  width: 38px;
+  height: 38px;
+  text-align: center;
+}
+.feed-answers{
+  background: transparent;
+  float: left;
+  margin: 0 3px 0 0;
+  padding: 5px;
+  width: 48px;
+  height: 38px;
+  text-align: center;
+}
+
+.feed-mini-count{
+  height: 25px;
+  font-size: 160%;
+  font-weight: normal;
+}
+
+.feed-item-summary{
+  float: left;
+  padding-left: 25px;
+}
+
+.feed-tag{
+ border-color: #a51300;
+  border: 1px;
+}
+
+.feed-author{
+  width: auto;
+  line-height: inherit;
+  padding-top: 4px;
+  white-space: nowrap;
+  color: #999;
+  float: right;
+}
