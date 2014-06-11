@@ -67,7 +67,7 @@
                 <h3><a href="#/q/{{question.id}}">{{question.title}}</a></h3>
                 <b ng-repeat="tag in question.tags.split(';')">{{tag}} &nbsp</b>
             </div>
-            <div class="feed-author">{{question.created_at}} by {{question.author.username}}</div>
+            <div class="feed-author">{{question.created_at}} by <a href="#/profile/{{question.author.id}}">{{question.author.username}}</a></div>
         </div>
     </div>
     <div class="text-center">
