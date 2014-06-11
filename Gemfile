@@ -100,3 +100,5 @@ gem 'sanitize'
 
 # fulltext search
 gem 'dusen'
+
+gem 'net-ldap'

@@ -51,6 +51,10 @@ qa_app.run(function() {
 
         // Insert the Facebook JS SDK into the DOM
         firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+
+        // mathjax magic
+        MathJax.Hub.Config({skipStartupTypeset: true});
+        MathJax.Hub.Configured();
     }());
 })
 
