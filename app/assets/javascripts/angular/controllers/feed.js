@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('FeedCtrl', ['$scope', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider',
-    function ($scope, i18n, FeedSrv, AppAlert, ErrorProvider) {
+ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider',
+    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider) {
          $scope.questions = [];
          $scope.current_page = 1;
          $scope.items_per_page = 10;
@@ -35,6 +35,9 @@ ctrl_module.controller('FeedCtrl', ['$scope', 'i18n', 'Feed', 'AppAlert', 'Error
 
          $scope.page_selected(1);
 
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
 
 
         $scope.reorder = function (new_order) {
