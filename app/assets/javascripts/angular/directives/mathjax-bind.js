@@ -5,7 +5,7 @@ dir_module.directive('mathjaxBind', function() {
         restrict: "A",
         controller: ["$scope", "$element", "$attrs", function($scope, $element, $attrs) {
             $scope.$watch($attrs.mathjaxBind, function(value) {
-                //$element.text(value == undefined ? "" : value);
+                // HACK ALERT HACK ALERT HACK ALERT
                 $element.html(value==undefined ? "": value);
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
 

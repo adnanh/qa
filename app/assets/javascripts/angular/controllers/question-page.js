@@ -44,6 +44,7 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope','$cookies', 'i18n', '$route
                     function(data){
                         if (data.success){
                             $scope.question = data.question;
+
                             // get tags from concatenated string..
                             $scope.question.tags_list = $scope.question.tags.split(";");
                             $scope.question_set = true;
