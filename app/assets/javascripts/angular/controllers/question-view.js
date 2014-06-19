@@ -63,7 +63,9 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
         };
 
         $scope.get_full_url = function(){
-            return $location.absUrl().replace("#","static");
+            var path = 'http://'+window.location.host+'/static/q/'+$scope.question.id;
+            return path;
+            //return $location.absUrl().replace("#","static").replace(/(\/q\/)/,"");
         };
 
         $scope.do_share = function(){
