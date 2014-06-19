@@ -29,7 +29,7 @@
                     <ul>
                         <li ng-repeat="question in user.questions">
                             <span>
-                                <a href="#/q/{{question.id}}">{{question.title}}</a> on {{question.asked_at}}
+                                <a href="#/q/{{question.id}}" ng-bind-html="question.title"></a> on {{question.asked_at}}
                             </span>
                         </li>
                     </ul>
@@ -47,7 +47,7 @@
                     <ul>
                         <li ng-repeat="answer in user.answers">
                             <span>
-                                <a href="#/q/{{answer.question_id}}">{{answer.question_title}}</a> on {{answer.answered_at}}
+                                <a href="#/q/{{answer.question_id}}" ng-bind-html="answer.question_title"></a> on {{answer.answered_at}}
                             </span>
                         </li>
                     </ul>
