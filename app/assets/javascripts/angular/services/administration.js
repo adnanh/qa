@@ -76,18 +76,29 @@ services_module.factory('Administration', [
 ]);
 
 services_module.factory('AppAlert', [
-    '$rootScope', function($rootScope) {
+    '$rootScope', '$timeout', function($rootScope,$timeout) {
         var alertService;
+        var temporal_destructor_timeout = 5000;  // in milliseconds
         $rootScope.alerts = [];
         return alertService = {
             add: function(type, msg) {
-                return $rootScope.alerts.push({
+                // construct alert object
+                var alert = {
                     type: type,
                     msg: msg,
                     close: function() {
                         return alertService.closeAlert(this);
                     }
-                });
+                };
+                // attach temporal destructor
+                $timeout(
+                    function(){
+                        alertService.closeAlert(alert);
+                    },
+                    temporal_destructor_timeout
+                );
+                // return constructed alert
+                return $rootScope.alerts.push(alert);
             },
             closeAlert: function(alert) {
                 return this.closeAlertIdx($rootScope.alerts.indexOf(alert));
