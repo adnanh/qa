@@ -161,6 +161,13 @@ footer {
 .feed-item-summary{
   float: left;
   padding-left: 25px;
+  overflow: hidden;
+  white-space: nowrap; /* Don't forget this one */
+  text-overflow: ellipsis;
+  width: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  max-width:600px;
 }
 
 .feed-tag{
