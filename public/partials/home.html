@@ -43,6 +43,7 @@
         <h1>See them Questions</h1>
         <hr>
         <div class="feed-item" ng-repeat="question in questions">
+            <div>
                 <div class="feed-votes">
                     <div class="feed-mini-count">
                         <span>{{question.upvotes - question.downvotes}}</span>
@@ -61,8 +62,9 @@
                     </div>
                     <div>answers</div>
                 </div>
+            </div>
             <div class="feed-item-summary">
-                <div><h3><a href="#/q/{{question.id}}" ng-bind-html="question.title"></a></h3></div>
+                <h3><a href="#/q/{{question.id}}">{{question.title}}</a></h3>
                 <b ng-repeat="tag in question.tags.split(';')">{{tag}} &nbsp</b>
             </div>
             <div class="feed-author">{{question.created_at}} by <a href="#/profile/{{question.author.id}}">{{question.author.username}}</a></div>

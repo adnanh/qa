@@ -12,7 +12,7 @@
     <fieldset>
         <!-- question title -->
         <legend>
-            <b ng-bind-html="question.title"></b>
+            <b>{{question.title}}</b>
         </legend>
         <div ng-show="!question.open">
             <b>Question closed</b><br>
@@ -310,8 +310,8 @@
 <div class="pull-right" style="width: 10%;">
     <h7>Similar questions: </h7>
     <ul ng-show="similar_questions.length > 0">
-        <li ng-repeat="question in similar_questions">
-            <a href="#/q/{{question.id}}">{{question.title}}</a>
+        <li ng-repeat="similar_question in similar_questions">
+            <a href="#/q/{{similar_question.id}}">{{similar_question.title}}</a>
         </li>
     </ul>
     <b ng-show="!similar_questions || similar_questions.length == 0">There are no similar questions.</b>
