@@ -28,6 +28,9 @@ ctrl_module.controller('QuestionPageCtrl', ['$scope','$cookies', 'i18n', '$route
          return $scope.question.open && $cookies.privilege_id == 2
        };
 
+        $scope.isAuthor = function(){
+            return $scope.question.open && $cookies.user_id == $scope.question.author.id;
+        }
         $scope.canOpen = function(){
           return !$scope.question.open && $cookies.privilege_id == 2
         };

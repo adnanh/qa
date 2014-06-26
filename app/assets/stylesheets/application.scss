@@ -157,7 +157,12 @@ footer {
   font-size: 160%;
   font-weight: normal;
 }
-
+.upper-line{
+  border-top-style: solid;
+  border-top-color: #bfbfbf;
+  border-top-width: 1px;
+  text-align: center;
+}
 .feed-item-summary{
   float: left;
   padding-left: 25px;
@@ -167,7 +172,7 @@ footer {
   width: auto;
   -moz-appearance: auto;
   appearance: auto;
-  max-width:600px;
+  max-width:auto;
 }
 
 .feed-tag{

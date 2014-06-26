@@ -25,6 +25,15 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             $scope.page_selected(1);
         };
 
+        $scope.canPick = function (answer){
+            return $scope.isAuthor() && answer.accepted == 0;
+        };
+
+
+        $scope.canUnpick = function (answer){
+            return $scope.isAuthor() && answer.accepted == 1;
+        };
+
         $scope.get_page = function (page, question_id, order_by) {
             Answer.get_all(question_id, page, order_by)
                 .success(
@@ -146,7 +155,10 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                 )
         };
 
-
+        $scope.isAccepted = function(answer)
+        {
+            return answer.accepted==1;
+        }
 
         // handle them events from submit, prolly should use a service but who cares..
         $scope.$root.$on('do_reload_plz',
@@ -203,6 +215,45 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             $location.path('q/'+$scope.question.id+"/a/"+answer_id);
         };
 
+        $scope.pick = function(answer){
+            Answer.pick($scope.question.id,answer.id)
+                .success(
+                function(data){
+                    if (data.success){
+                        AppAlert.add("success", data.message);
+                        answer.accepted = 1;
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+            .error(
+                    function(data, status){
+                        AppAlert.add("danger", ErrorProvider.get_message(status,'Pick unsuccesful "'+answer.id+'"'));
+                    }
+            );
+        };
+
+        $scope.unpick = function(answer){
+            Answer.unpick($scope.question.id,answer.id)
+                .success(
+                function(data){
+                    if (data.success){
+                        AppAlert.add("success", data.message);
+                        answer.accepted = 0;
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Unpick unsuccesful "'+answer.id+'"'));
+                }
+            );
+        };
         $scope.report = function(question_id, answer_id) {
             Answer.report(question_id, answer_id)
                 .success(

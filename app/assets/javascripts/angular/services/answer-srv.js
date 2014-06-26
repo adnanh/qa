@@ -72,6 +72,22 @@ services_module.factory('Answer', ['$http',
                         }
                     };
                     return $http(ajax_config);
+                },
+            pick:
+                function(question_id, answer_id){
+                    var ajax_config = {
+                        'method': 'POST',
+                        'url': 'question/' + question_id + '/answers/' + answer_id + '/pick.json'
+                    };
+                    return $http(ajax_config);
+                },
+            unpick:
+                function(question_id, answer_id){
+                    var ajax_config = {
+                        'method': 'POST',
+                        'url': 'question/' + question_id + '/answers/' + answer_id + '/unpick.json'
+                    };
+                    return $http(ajax_config);
                 }
         }
     }

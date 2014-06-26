@@ -50,6 +50,7 @@
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
                             ng-click="do_delete()">Delete
                     </button>
+
                 </div>
             </div>
 
@@ -176,15 +177,25 @@
                             <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
                                     ng-click="do_delete(answer)">Delete
                             </button>
+
+                            <button  type="button" class="btn btn-success btn-xs" ng-show="canPick(answer)" ng-click="pick(answer)">
+                                Pick</button>
+
+
+                            <button  type="button" class="btn btn-danger btn-xs" ng-show="canUnpick(answer)" ng-click="unpick(answer)">
+                                Unpick</button>
                         </div>
                     </div>
 
                     <!-- right part is the answer content  OR editor if in edit mode-->
                     <div class="qa-item-right-big">
+                        <div class="upper-line" ng-show="isAccepted(answer)"><span style="color:blue">Answer marked as correct</span></div>
                         <div ng-switch="answer.id==highlight_answer_id">
                             <div ng-switch-when="true">
                                 <!-- a bit hackish but who cares :-) -->
+
                                 <div my-position></div>
+
                             </div>
                         </div>
                         <div ng-class="{higlighted_answer: answer.id==highlight_answer_id}" class="post" mathjax-bind="answer.content" ng-hide="answer.edit_mode"></div>
