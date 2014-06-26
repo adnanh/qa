@@ -14,7 +14,7 @@
 
         },
         "created_at": "<%= question.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
-        "title": "<%= question.title %>",
+        "title": <%= question.title.to_json.html_safe %>,
         "content": <%= question.content.to_json.html_safe %>,
         "tags": "<%= question.tags %>",
         "open": <%= question.open %>,
