@@ -213,6 +213,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
 
         $scope.to_permalink = function (answer_id){
             $location.path('q/'+$scope.question.id+"/a/"+answer_id);
+            return false;
         };
 
         $scope.pick = function(answer){

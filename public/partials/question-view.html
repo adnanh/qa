@@ -231,7 +231,7 @@
                             src="{{answer.editor.karma_image}}" alt="Karma points: {{answer.editor.karma}}"
                             title="Karma points: {{answer.editor.karma}}" ng-if="answer.editor.karma_image !== null"/>
                         on {{answer.edited_at}}</b>
-                    <span>&nbsp;&nbsp;<a href="" ng-click="to_permalink(answer.id)">permalink</a></span>
+                    <span>&nbsp;&nbsp;<a href="#/q/{{question.id}}/a/{{answer.id}}" ng-click="to_permalink(answer.id); return false;">permalink</a></span>
                 </div>
                 <div class="clearfix">
                     <hr>
