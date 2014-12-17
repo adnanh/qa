@@ -1,57 +1,57 @@
 <div ng-controller="AdminPageCtrl">
-            <div ng-controller="AdminCtrl">
-                <br/>
-                <form class="form-horizontal" name="search_form" role="form">
-                    <div class="form-group">
-                        <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>
-                        <div class="col-sm-6">
-                            <input placeholder="{{i18n.t.USER_SEARCH}}" type="text" class="form-control" placeholder="example@example.com" ng-model="search_by" name="search_by" id="search_by" autofocus>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-default" ng-click="page_selected(1)" >{{i18n.t.SEARCH}}</button>
-                        </div>
-                    </div>
-                </form>
+    <div ng-controller="AdminCtrl">
+        <br/>
+        <form class="form-horizontal" name="search_form" role="form">
+            <div class="form-group">
+                <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>
+                <div class="col-sm-6">
+                    <input placeholder="{{i18n.t.USER_SEARCH}}" type="text" class="form-control" placeholder="example@example.com" ng-model="search_by" name="search_by" id="search_by" autofocus>
+                </div>
                 <div>
-                    <accordion close-others="true">
-                        <accordion-group ng-repeat="user in users">
-                            <accordion-heading>
-                                {{user.username}}
-                            </accordion-heading>
-                            <table class="table table-bordered table-hover">
-                                <tr>
-                                    <th>{{i18n.t.USER_ID}}</th>
-                                    <th>{{i18n.t.AVATAR}}</th>
-                                    <th>{{i18n.t.USERNAME}}</th>
-                                    <th>{{i18n.t.EMAIL}}</th>
-                                    <th>{{i18n.t.PRIVILEGES}}</th>
-                                    <th>{{i18n.t.BANNED}}</th>
-                                    <th>{{i18n.t.REGISTERED}}</th>
-                                    <th>{{i18n.t.OPTIONS}}</th>
-                                </tr>
-                                <tr>
-                                    <td class="col-sm-1">{{user.id}}</td>
-                                    <td>{{user.image.url}}</td>
-                                    <td>{{user.username}}</td>
-                                    <td>{{user.email}}</td>
-                                    <td>{{user.privilege}}</td>
-                                    <td class="col-sm-1">{{user.banned}}</td>
-                                    <td>{{user.registered}}</td>
-                                    <td>
-                                        <button ng-show="user.banned" ng-click="unban(user)" class="btn btn-success btn-xs">{{i18n.t.UNBAN}}</button>
-                                        <button ng-show="!user.banned" ng-click="ban(user)" class="btn btn-danger btn-xs">{{i18n.t.BAN}}</button>
-                                        <button class="btn btn-default btn-xs" ng-hide="true" ng-click="go('/edit/'+user.id+'/')">{{i18n.t.EDIT_PROFILE}}</button>
-                                        <button ng-show="user.privilege_id==1" ng-click="promote(user)" class="btn btn-success btn-xs">{{i18n.t.PROMOTE}}</button>
-                                        <button ng-show="user.privilege_id==2" ng-click="demote(user)" class="btn btn-danger btn-xs">{{i18n.t.DEMOTE}}</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </accordion-group>
-                    </accordion>
-                    <div class="text-center">
-                        <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
-                                    boundary-links="true" on-select-page="page_selected(page)"> </pagination>
-                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="page_selected(1)" >{{i18n.t.SEARCH}}</button>
                 </div>
             </div>
+        </form>
+        <div>
+            <accordion close-others="true">
+                <accordion-group ng-repeat="user in users">
+                    <accordion-heading>
+                        {{user.username}}
+                    </accordion-heading>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>{{i18n.t.USER_ID}}</th>
+                            <th>{{i18n.t.AVATAR}}</th>
+                            <th>{{i18n.t.USERNAME}}</th>
+                            <th>{{i18n.t.EMAIL}}</th>
+                            <th>{{i18n.t.PRIVILEGES}}</th>
+                            <th>{{i18n.t.BANNED}}</th>
+                            <th>{{i18n.t.REGISTERED}}</th>
+                            <th>{{i18n.t.OPTIONS}}</th>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-1">{{user.id}}</td>
+                            <td>{{user.image.url}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.privilege}}</td>
+                            <td class="col-sm-1">{{user.banned}}</td>
+                            <td>{{user.registered}}</td>
+                            <td>
+                                <button ng-show="user.banned" ng-click="unban(user)" class="btn btn-success btn-xs">{{i18n.t.UNBAN}}</button>
+                                <button ng-show="!user.banned" ng-click="ban(user)" class="btn btn-danger btn-xs">{{i18n.t.BAN}}</button>
+                                <button class="btn btn-default btn-xs" ng-hide="true" ng-click="go('/edit/'+user.id+'/')">{{i18n.t.EDIT_PROFILE}}</button>
+                                <button ng-show="user.privilege_id==1" ng-click="promote(user)" class="btn btn-success btn-xs">{{i18n.t.PROMOTE}}</button>
+                                <button ng-show="user.privilege_id==2" ng-click="demote(user)" class="btn btn-danger btn-xs">{{i18n.t.DEMOTE}}</button>
+                            </td>
+                        </tr>
+                    </table>
+                </accordion-group>
+            </accordion>
+            <div class="text-center">
+                <pagination total-items="total_users" page="current_page" items-per-page="items_per_page" class="pagination pagination-sm"
+                            boundary-links="true" on-select-page="page_selected(page)"> </pagination>
+            </div>
+        </div>
+    </div>
 </div>
