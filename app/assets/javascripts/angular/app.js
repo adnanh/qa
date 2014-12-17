@@ -20,14 +20,14 @@ qa_app.config( ['$routeProvider', '$facebookProvider',
             .when('/home', {templateUrl: 'partials/home.html'})
             .when('/profile/:user_id', {templateUrl: 'partials/profile-view.html'})
             .when('/edit/:user_id',{templateUrl: 'partials/edit.html'})
-            .when('/', {redirectTo: '/home'});
-            /*.when('/ask', {templateUrl: 'partials/ask.html'})
+            .when('/ask', {templateUrl: 'partials/ask.html'})
             .when('/admin-panel', {templateUrl: 'partials/admin-panel.html'})
             .when('/q/:question_id', {templateUrl: 'partials/question-view.html'})
             .when('/q/:question_id/a/:answer_id',{templateUrl: 'partials/question-view.html'})
             .when('/pm/:message_id/:recipient_id', {templateUrl: 'partials/private-messages.html'})
             .when('/pm/:message_id', {templateUrl: 'partials/private-messages.html'})
-            .when('/pm', {redirectTo: '/pm/inbox'});*/
+            .when('/pm', {redirectTo: '/pm/inbox'})
+            .when('/', {redirectTo: '/home'});
 
         $facebookProvider.setAppId('705202082852225');
     }

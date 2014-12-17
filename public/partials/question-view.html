@@ -32,6 +32,7 @@
                 <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
 
                 <div class="btn-group-vertical">
+                    <!--
                     <div class="btn-group-horizontal">
                         <button type="button" class="btn btn-success btn-xs" ng-click="up_vote()" ng-show="can_vote()">+
                         </button>
@@ -46,7 +47,7 @@
                     <button type="button" class="btn btn-info btn-xs"
                             ng-click="report(question.id)">Report
                     </button>
-
+                    -->
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
                             ng-click="do_delete()">Delete
                     </button>
@@ -158,6 +159,7 @@
                         <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
 
                         <div class="btn-group-vertical">
+                            <!--
                             <div class="btn-group-horizontal">
                                 <button type="button" class="btn btn-success btn-xs" ng-show="can_vote()"
                                         ng-click="up_vote(answer)">+
@@ -166,6 +168,7 @@
                                         ng-click="down_vote(answer)">-
                                 </button>
                             </div>
+
                             <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)"
                                     ng-click="do_edit(answer)">Edit
                             </button>
@@ -184,6 +187,7 @@
 
                             <button  type="button" class="btn btn-danger btn-xs" ng-show="canUnpick(answer)" ng-click="unpick(answer)">
                                 Unpick</button>
+                                 -->
                         </div>
                     </div>
 
@@ -261,9 +265,9 @@
                 You know the answer? Share it with us! :-) <i class="pull-right glyphicon"
                                                               ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
             </accordion-heading>
-
+            <!-- placeholder
             <form name="answer_submit_form" class="form-horizontal" role="form" ng-submit="post_answer()">
-                <!-- answer content editor -->
+
                 <div class="col-sm-12 form-group"
                      ng-class="{ 'has-error': content_invalid(answer_submit_form) }">
                     <div text-angular="text-angular" name="content" ng-model="answer.content"
@@ -274,7 +278,7 @@
                     </span>
                 </div>
 
-                <!-- answer submit  -->
+
                 <div class="col-sm-10 form-group">
                     <button type="submit" class="btn btn-default" ng-click="submit(answer_submit_form)"
                             ng-disabled="answer_submit_form.$invalid">Submit answer
@@ -283,6 +287,7 @@
                     </button>
                 </div>
             </form>
+            -->
         </accordion-group>
     </accordion>
 </div>
