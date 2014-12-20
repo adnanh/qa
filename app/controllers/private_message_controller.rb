@@ -1,10 +1,11 @@
 class PrivateMessageController < ApplicationController
+  QaHelper
   before_filter :require_logged_in, :except => []
 
   def create
     respond_to do |format|
       format.json {
-        message = PrivateMessage.new(:title => params[:title], :content => params[:content], :sender_id => current_user.id, :receiver_id => params[:receiver_id], :sender_status => 1, :receiver_status => 0)
+        message = PrivateMessage.new(:title => params[:title], :content => do_sanitize_qa_content(params[:content]), :sender_id => current_user.id, :receiver_id => params[:receiver_id], :sender_status => 1, :receiver_status => 0)
 
         if message.valid? && (message.receiver_id != current_user.id)
           message.save
