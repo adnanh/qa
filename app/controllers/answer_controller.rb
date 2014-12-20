@@ -20,6 +20,9 @@ class AnswerController < ApplicationController
           if answer.question.blank?
             render :json => reply(false, t(:answer_creation_invalid_question))
           elsif answer.save
+            # on answer successfully posted, notify op
+            notify_op_on_new_answer(answer)
+
             render :json => reply(true, t(:answer_creation_successful), 'answer_id', answer.id)
           else
             render :json => reply(false, t(:answer_creation_failed))
