@@ -42,7 +42,7 @@ module QaHelper
         if !messaged_users.include? user_who_follows.id
           message = PrivateMessage.new(
               :title => 'New question with tag(s) you are following has been posted.',
-              :content => "Link to question: http://#{request.host_with_port}/#/q/#{question.id.to_s}",
+              :content => "Link to question: <a href=\"http://#{request.host_with_port}/#/q/#{question.id.to_s}\">Link</a>",
               :sender_id => question.author.id,
               :receiver_id => user_who_follows.id,
               :sender_status => 2,
@@ -64,7 +64,7 @@ module QaHelper
 
     message = PrivateMessage.new(
         :title => 'New answer to your question has been posted.',
-        :content => "Link to answer: http://#{request.host_with_port}/#/q/#{answer.question.id.to_s}/a/#{answer.id.to_s}",
+        :content => "Link to answer: <a href=\"http://#{request.host_with_port}/#/q/#{answer.question.id.to_s}/a/#{answer.id.to_s}\">Link</a>",
         :sender_id => answer.author.id,
         :receiver_id => answer.question.author.id,
         :sender_status => 2,
