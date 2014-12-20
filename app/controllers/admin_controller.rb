@@ -318,7 +318,13 @@ class AdminController < ApplicationController
           administrators = User.where(user_privilege_id: 2)
 
           administrators.each do |administrator|
-            message = PrivateMessage.new(:title => "Suspicious content, please take a look", :content => "http://ask.etf.ba/#/q/" + q.id.to_s + (a.nil? ? "" : "/a/" + a.id.to_s), :sender_id => current_user.id, :receiver_id => administrator.id, :sender_status => 2, :receiver_status => 0)
+            message = PrivateMessage.new(
+                :title => "Suspicious content, please take a look",
+                :content => '<a href="'+"http://#{request.host_with_port}/#/q/" + q.id.to_s + (a.nil? ? '' : '/a/' + a.id.to_s)+'">Link</a>',
+                :sender_id => current_user.id,
+                :receiver_id => administrator.id,
+                :sender_status => 2,
+                :receiver_status => 0)
             message.save
           end
 
