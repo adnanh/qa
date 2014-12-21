@@ -10,8 +10,8 @@
         "author": {
             "id": <%= question.author_id %>,
             "username": "<%= question.author.username %>",
-            "karma": <%= question.author.karma %>
-
+            "karma": <%= question.author.karma %>,
+            "avatar": "<%= question.author.image.url(:thumb) %>"
         },
         "created_at": "<%= question.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
         "title": <%= question.title.to_json.html_safe %>,

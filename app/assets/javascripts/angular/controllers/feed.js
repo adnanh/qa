@@ -9,7 +9,7 @@ ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAl
          $scope.items_per_page = 10;
          $scope.total_questions = 0;
 
-        $scope.order_by = 'newest-first';
+        $scope.order_by = 'best-first';
 
          $scope.get_page = function (page,search_by,order_by) {
          FeedSrv.get_questions(page,search_by,order_by)

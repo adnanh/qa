@@ -66,10 +66,15 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
 
         };
 
-        $scope.can_vote = function()
+        $scope.can_vote = function(answer)
         {
-            return $cookies.logged_in
-        }
+            return $cookies.logged_in && answer.author.id != $cookies.user_id;
+        };
+
+        $scope.can_attempt_report = function(answer)
+        {
+            return $cookies.logged_in && answer.author.id != $cookies.user_id;
+        };
 
         $scope.page_selected = function (page) {
             $scope.get_page(page, $scope.question.id, $scope.order_by);
@@ -82,7 +87,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             if (!$cookies.logged_in || !$cookies.user_id || !$cookies.privilege_id || !$scope.question.author)
                 return false;
             else {
-                var is_author = $scope.question.author.id == $cookies.user_id;
+                var is_author = answer.author.id == $cookies.user_id;
                 var is_admin = $cookies.privilege_id == 2; // USER 1 ADMIN 2
                 return (is_author || is_admin) && $scope.question.open ;
             }
