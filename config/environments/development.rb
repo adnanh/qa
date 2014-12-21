@@ -37,4 +37,6 @@ Qa::Application.configure do
       password:             ENV['MAIL_PASSWORD'],
       authentication:       'plain',
       enable_starttls_auto: true  }
+
+  config.time_zone = 'Sarajevo'
 end
