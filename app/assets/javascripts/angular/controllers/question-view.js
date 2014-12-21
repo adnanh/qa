@@ -119,7 +119,12 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                       // deletion was successful, redirect to home
                       AppAlert.add("success", data.message);
                      // $location.path('home');
-                      $scope.question.upvotes++;
+                      if (data.new)
+                        $scope.question.upvotes++;
+                      else {
+                        $scope.question.upvotes++;
+                        $scope.question.downvotes--;
+                      }
                   }
                   else {
                       AppAlert.add("danger", data.message);
@@ -141,7 +146,12 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                         // deletion was successful, redirect to home
                         AppAlert.add("success", data.message);
                         //$location.path('home');
-                        $scope.question.downvotes++;
+                        if (data.new)
+                            $scope.question.downvotes++;
+                        else {
+                            $scope.question.upvotes--;
+                            $scope.question.downvotes++;
+                        }
                     }
                     else {
                         AppAlert.add("danger", data.message);

@@ -179,7 +179,13 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                     if (data.success){
                         // deletion was successful, redirect to home
                         AppAlert.add("success", data.message);
-                        answer.upvotes++;
+                        if (data.new)
+                            answer.upvotes++;
+                        else {
+                            answer.downvotes--;
+                            answer.upvotes++;
+                        }
+
                         //$location.path('home');
                     }
                     else {
@@ -202,7 +208,12 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                         // deletion was successful, redirect to home
                         AppAlert.add("success", data.message);
                         //$location.path('home');
-                        answer.downvotes++;
+                        if (data.new)
+                            answer.downvotes++;
+                        else {
+                            answer.downvotes++;
+                            answer.upvotes--;
+                        }
                     }
                     else {
                         AppAlert.add("danger", data.message);

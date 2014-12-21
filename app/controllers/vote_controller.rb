@@ -30,7 +30,7 @@ class VoteController < ApplicationController
           item_to_upvote.author.karma = item_to_upvote.author.karma + (vote_temp.value ? Rails.application.config.KARMA_UPVOTE_POINTS : Rails.application.config.KARMA_DOWNVOTE_POINTS)
           item_to_upvote.author.save
 
-          render :json => reply(true, t(:voted))
+          render :json => reply(true, t(:voted), 'new', true)
         end
       else
         if newValue == item_votes.value.to_s
@@ -44,7 +44,7 @@ class VoteController < ApplicationController
           item_votes.save
           item_to_upvote.author.karma = item_to_upvote.author.karma + (item_votes.value ? Rails.application.config.KARMA_UPVOTE_POINTS : Rails.application.config.KARMA_DOWNVOTE_POINTS)
           item_to_upvote.author.save
-          render :json => reply(true, 'Successfully changed your vote.')
+          render :json => reply(true, 'Successfully changed your vote.', 'new', false)
         end
       end
 
@@ -86,7 +86,7 @@ class VoteController < ApplicationController
 
           item_to_upvote.author.karma = item_to_upvote.author.karma + (vote_temp.value ? Rails.application.config.KARMA_UPVOTE_POINTS : Rails.application.config.KARMA_DOWNVOTE_POINTS)
           item_to_upvote.author.save
-          render :json => reply(true, t(:voted))
+          render :json => reply(true, t(:voted), 'new', true)
         end
       else
         if newValue == item_votes.value.to_s
@@ -100,7 +100,7 @@ class VoteController < ApplicationController
           item_votes.save
           item_to_upvote.author.karma = item_to_upvote.author.karma + (item_votes.value ? Rails.application.config.KARMA_UPVOTE_POINTS : Rails.application.config.KARMA_DOWNVOTE_POINTS)
           item_to_upvote.author.save
-          render :json => reply(true, 'Successfully changed your vote.')
+          render :json => reply(true, 'Successfully changed your vote.', 'new', false)
         end
       end
 
