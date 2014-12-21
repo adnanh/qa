@@ -3,6 +3,15 @@ var services_module = angular.module('qa.services');
 services_module.factory('PrivateMessages', ['$http',
     function($http){
         return {
+            countUnreadMessages: function(){
+                var ajax_config = {
+                    method: 'GET',
+                    url: '/messages/unread.json'
+                };
+
+                return $http(ajax_config);
+            },
+
             inbox: function() {
                 var ajax_config = {
                     'method': 'GET',
