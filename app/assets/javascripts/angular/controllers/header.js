@@ -11,7 +11,7 @@ ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$tim
             i18n.load_locale(new_loc);
         };
 
-        $scope.refreshSpeedMillis = 15000; // poll every 15 seconds
+        $scope.refreshSpeedMillis = 60000; // poll every 60 seconds
         $scope.inboxUnreadCount = 0;
 
         (function refreshInboxUnreadCountPeriodically() {

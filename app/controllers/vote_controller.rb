@@ -33,8 +33,8 @@ class VoteController < ApplicationController
           render :json => reply(true, t(:voted))
         end
       else
-        if newValue == item_votes.value
-          if newValue == true
+        if newValue == item_votes.value.to_s
+          if item_votes.value == true
             render :json => reply(false, 'You have already upvoted this question.')
           else
             render :json => reply(false, 'You have already downvoted this question.')
@@ -89,8 +89,8 @@ class VoteController < ApplicationController
           render :json => reply(true, t(:voted))
         end
       else
-        if newValue == item_votes.value
-          if newValue == true
+        if newValue == item_votes.value.to_s
+          if item_votes.value == true
             render :json => reply(false, 'You have already upvoted this answer.')
           else
             render :json => reply(false, 'You have already downvoted this answer.')
