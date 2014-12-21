@@ -24,9 +24,9 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-1 btn-group-vertical">
-                            <a href="#" class="btn btn-link btn-xs"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                            <a href="#" class="btn btn-link btn-xs" ng-click="up_vote(question)" ng-class="{disabled: !can_vote(question)}"><i class="glyphicon glyphicon-chevron-up"></i></a>
                             <a href="#" class="btn btn-link btn-xs disabled"><span style="font-size: 16px; color: #3E3F3A;">{{question.upvotes - question.downvotes}}</span></a>
-                            <a href="#" class="btn btn-link btn-xs"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                            <a href="#" class="btn btn-link btn-xs" ng-click="down_vote(question)" ng-class="{disabled: !can_vote(question)}"><i class="glyphicon glyphicon-chevron-down"></i></a>
                         </div>
 
                         <div class="col-md-8">

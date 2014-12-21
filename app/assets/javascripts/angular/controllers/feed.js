@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider',
-    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider) {
+ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider', 'Question', '$cookies',
+    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider, Question, $cookies) {
          $scope.questions = [];
          $scope.current_page = 1;
          $scope.items_per_page = 10;
@@ -55,5 +55,67 @@ ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAl
                 $scope.reorder('newest-first');
             }
         );
+
+        $scope.can_vote = function(question)
+        {
+            var is_author = false;
+            if (question.author !== undefined)
+            {
+                is_author = question.author.id == $cookies.user_id;
+            }
+            return $cookies.logged_in && !is_author;
+        }
+
+        $scope.up_vote = function(question) {
+            Question.vote(question,true)
+                .success(
+                function(data){
+                    if (data.success){
+                        AppAlert.add("success", data.message);
+                        if (data.new)
+                            question.upvotes++;
+                        else {
+                            question.upvotes++;
+                            question.downvotes--;
+                        }
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+question.id+'"'));
+                }
+            );
+        };
+
+        $scope.down_vote = function(question) {
+            Question.vote(question,false)
+                .success(
+                function(data){
+                    if (data.success){
+                        // deletion was successful, redirect to home
+                        AppAlert.add("success", data.message);
+                        //$location.path('home');
+                        if (data.new)
+                            question.downvotes++;
+                        else {
+                            question.upvotes--;
+                            question.downvotes++;
+                        }
+                    }
+                    else {
+                        AppAlert.add("danger", data.message);
+                    }
+                }
+            )
+                .error(
+                function(data, status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Vote unsuccesful "'+question.id+'"'));
+                }
+            );
+        };
     }
 ]);
