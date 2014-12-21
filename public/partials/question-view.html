@@ -133,6 +133,13 @@
 
             <!-- iterate through the array and display all answers -->
             <div ng-repeat="answer in answers">
+                <div ng-switch="answer.id==highlight_answer_id">
+                    <div ng-switch-when="true">
+                        <!-- a bit hackish but who cares :-) -->
+                        <div my-position></div>
+                    </div>
+                </div>
+
                 <div class="panel" ng-class="{'panel-success': isAccepted(answer), 'panel-default': !isAccepted(answer)}">
                     <div class="panel-heading" ng-show="isAccepted(answer)">
                         <i class="glyphicon glyphicon-ok"></i> This answer has been marked as correct by the question author.
