@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$timeout',
-    function ($scope, i18n, PrivateMessages, $timeout) {
+ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$timeout', '$location', '$rootScope',
+    function ($scope, i18n, PrivateMessages, $timeout, $location, $rootScope) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -29,5 +29,16 @@ ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$tim
                     }
                 );
         })();
+
+        $scope.do_search = function(){
+            $location.path('/home');
+            $rootScope.$emit('doSearch', $scope.search_term);
+        };
+
+        $scope.clear_search = function(){
+            $location.path('/home');
+            $scope.search_term = "";
+            $rootScope.$emit('doSearch', $scope.search_term);
+        };
     }
 ]);

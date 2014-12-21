@@ -2,35 +2,40 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider', 'Question', '$cookies',
-    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider, Question, $cookies) {
+ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider', 'Question', '$cookies', '$rootScope',
+    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider, Question, $cookies, $rootScope) {
          $scope.questions = [];
          $scope.current_page = 1;
          $scope.items_per_page = 10;
          $scope.total_questions = 0;
 
-        $scope.order_by = 'best-first';
+         $scope.order_by = 'best-first';
+
+        $rootScope.$on('doSearch', function(event, term){
+            $scope.search_by = term;
+            $scope.page_selected(1);
+        });
 
          $scope.get_page = function (page,search_by,order_by) {
-         FeedSrv.get_questions(page,search_by,order_by)
-         .success(
-         function (data) {
-         if (data.success) {
-         $scope.total_questions = data.response.total_questions;
-         $scope.questions = data.response.questions;
-         } else {
+             FeedSrv.get_questions(page,search_by,order_by)
+                 .success(
+                     function (data) {
+                         if (data.success) {
+                         $scope.total_questions = data.response.total_questions;
+                         $scope.questions = data.response.questions;
+                         } else {
 
-         }
-         })
-         .error(
-         function (data, status) {
-         console.log(status);
-         });
+                     }
+                 })
+                 .error(
+                     function (data, status) {
+                     console.log(status);
+                 });
 
          };
 
          $scope.page_selected = function (page) {
-         $scope.get_page(page,$scope.search_by,$scope.order_by);
+            $scope.get_page(page,$scope.search_by,$scope.order_by);
          };
 
          $scope.page_selected(1);
