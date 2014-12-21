@@ -12,7 +12,7 @@
                 "karma": <%= answer.author.karma %>,
                 "avatar": "<%= answer.author.image.url(:thumb) %>"
             },
-            "created_at": "<%= answer.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+            "created_at": "<%= answer.created_at.to_formatted_s(:momentjs_format) %>",
             "upvotes": <%= answer.votes.where(value: true).count %>,
             "downvotes": <%= answer.votes.where(value: false).count %>,
             "accepted": <%= answer.accepted %>,
@@ -30,7 +30,7 @@
                 "karma": <%= answer.editor.karma %>,
                 "avatar": "<%= answer.editor.image.url(:thumb) %>"
             },
-            "edited_at": "<%= answer.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+            "edited_at": "<%= answer.updated_at.to_formatted_s(:momentjs_format) %>",
             <% end %>
             "content": <%= answer.content.to_json.html_safe %>
         } <%= ',' if ind!=(@answers.length-1) %>
