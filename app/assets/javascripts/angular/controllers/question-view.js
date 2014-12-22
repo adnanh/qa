@@ -179,5 +179,10 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                 }
             );
         };
+
+        $scope.to_permalink_q = function(question_id){
+            $location.path('q/'+$scope.question.id);
+            return false;
+        };
     }
 ]);

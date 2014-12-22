@@ -11,6 +11,7 @@
 <div ng-controller="QuestionViewCtrl">
     <div class="panel panel-default">
         <div class="panel-heading" style="text-transform: none;">
+            <div my-position></div>
             <div class="row">
                 <div class="col-md-1 btn-group-vertical">
                     <a href="" class="btn btn-link btn-xs" ng-click="up_vote()" ng-class="{disabled: !can_vote()}"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -93,6 +94,7 @@
                         <a href="" class="btn btn-primary btn-xs" ng-show="can_attempt_edit()" ng-click="do_edit()"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
                         <a href="" class="btn btn-danger btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete()"><i class="glyphicon glyphicon-trash"></i> Delete</a>
                         <a href="" class="btn btn-warning btn-xs" ng-show="can_attempt_report()" ng-click="report(question.id)"><i class="glyphicon glyphicon-warning-sign"></i> Report</a>
+                        <a href="#/q/{{question.id}}" class="btn btn-default btn-xs" ng-click="to_permalink_q(question.id);"><i class="glyphicon glyphicon-link"></i> Permalink</a>
                     </div>
                 </div>
             </div>

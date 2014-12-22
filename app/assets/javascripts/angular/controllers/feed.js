@@ -12,7 +12,6 @@ ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAl
          $scope.order_by = 'best-first';
 
        var unregisterEventOnDestroyFun = $rootScope.$on('doSearch', function(event, term){
-            console.log('do search event logged',term);
             $scope.search_by = term;
             $scope.page_selected(1);
         });
