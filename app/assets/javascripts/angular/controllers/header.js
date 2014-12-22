@@ -40,5 +40,9 @@ ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$tim
             $scope.search_term = "";
             $rootScope.$emit('doSearch', $scope.search_term);
         };
+
+        $scope.can_search = function() {
+            return $location.path().length!==0;
+        };
     }
 ]);
