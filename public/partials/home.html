@@ -23,10 +23,18 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-1 btn-group-vertical">
+                        <div class="col-md-1 btn-group-vertical" style="padding-right:5px;width:45px;">
                             <a href="#" class="btn btn-link btn-xs" ng-click="up_vote(question)" ng-class="{disabled: !can_vote(question)}"><i class="glyphicon glyphicon-chevron-up"></i></a>
                             <a href="#" class="btn btn-link btn-xs disabled"><span style="font-size: 16px; color: #3E3F3A;">{{question.upvotes - question.downvotes}}</span></a>
                             <a href="#" class="btn btn-link btn-xs" ng-click="down_vote(question)" ng-class="{disabled: !can_vote(question)}"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                        </div>
+
+                        <div class="col-sm-1 btn-group-vertical" style="padding-left: 5px;padding-right: 0px;width:80px;padding-top: 6px;">
+                            <span style="font-size: 10px;" align="center">Answers: {{question.answers}}</span>
+                            <span style="font-size: 10px;" align="center">
+                                Answered: <i ng-show="question.answered" align="center"class="glyphicon glyphicon-ok"></i>
+                                    <i ng-hide="question.answered" align="center" class="glyphicon glyphicon-remove"></i>
+                            </span>
                         </div>
 
                         <div class="col-md-8">
@@ -36,7 +44,7 @@
                             </span>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <table style="width: 100%; margin-top: 10px;">
                                 <tr>
                                     <td style="width: 60px;">

@@ -28,7 +28,8 @@
                                 <img src="{{question.author.avatar}}" width="48" height="48" style="border-radius: 24px;"/>
                             </td>
                             <td>
-                                <a href="#/profile/{{question.author.id}}" style="font-size: 16px; font-weight: bold;">{{question.author.username}}</a>
+                                <a href="#/profile/{{question.author.id}}" style="font-size: 16px; font-weight: bold;">{{question.author.username}} <span ng-hide="question.author.karma_image==null">(<img src="{{question.author.karma_image}}" alt="Karma points: {{question.author.karma}}"
+                                                                                                                                                                                                 title="Karma points: {{question.author.karma}}" ng-if="question.author.karma_image !== null"/>)</span></a>
                                 <br/>
                                 <span class="text-muted"><i class="glyphicon glyphicon-time"></i> {{question.created_at | moment: 'fromNow'}}</span>
                             </td>
@@ -183,7 +184,8 @@
                                             <img src="{{answer.author.avatar}}" width="48" height="48" style="border-radius: 24px;"/>
                                         </td>
                                         <td>
-                                            <a href="#/profile/{{answer.author.id}}" style="font-size: 16px; font-weight: bold;">{{answer.author.username}}</a>
+                                            <a href="#/profile/{{answer.author.id}}" style="font-size: 16px; font-weight: bold;">{{answer.author.username}} <span ng-hide="answer.author.karma_image==null">(<img src="{{answer.author.karma_image}}" alt="Karma points: {{answer.author.karma}}"
+                                                                                                                                                                                                         title="Karma points: {{answer.author.karma}}" ng-if="answer.author.karma_image !== null"/>)</span></a>
                                             <br/>
                                             <span class="text-muted"><i class="glyphicon glyphicon-time"></i> {{answer.created_at | moment: 'fromNow'}}</span>
                                         </td>

@@ -15,7 +15,6 @@
         },
         "created_at": "<%= question.created_at.to_formatted_s(:momentjs_format) %>",
         "title": <%= question.title.to_json.html_safe %>,
-        "content": <%= question.content.to_json.html_safe %>,
         "tags": "<%= question.tags %>",
         "open": <%= question.open %>,
         <% if !question.open %>
@@ -23,6 +22,7 @@
         <% end %>
         "views": <%= question.views %>,
         "answers": <%= question.answers.length %>,
+        "answered": <%= Answer.exists?(:question_id => question.id, :accepted => true)%>,
          <% qvotes = question.votes %>
         "upvotes": <%= qvotes.where(value: true).count %>,
         "downvotes": <%= qvotes.where(value: false).count %>,
