@@ -3,8 +3,10 @@ angular.module('qa.directives').directive('activeTab', ['$location', function ($
         link: function postLink(scope, element, attrs) {
             scope.$on("$routeChangeSuccess", function (event, current, previous) {
                 var pathLevel = attrs.activeTab || 1,
-                    pathToCheck = $location.path().split('/')[pathLevel],
+                    pathToCheck = $location.path().split('/')[pathLevel-1],
                     tabLink = attrs.href.split('/')[pathLevel];
+
+                console.log(pathToCheck, tabLink);
                 if (pathToCheck === tabLink) {
                     element.parent('li').addClass("active");
                 }
