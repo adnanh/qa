@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider', 'Question', '$cookies', '$rootScope',
-    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider, Question, $cookies, $rootScope) {
+ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAlert', 'ErrorProvider', 'Question', '$cookies', '$rootScope', 'Syncer',
+    function ($scope,$location, i18n, FeedSrv, AppAlert, ErrorProvider, Question, $cookies, $rootScope, Syncer) {
          $scope.questions = [];
          $scope.current_page = 1;
          $scope.items_per_page = 10;
@@ -11,9 +11,14 @@ ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAl
 
          $scope.order_by = 'best-first';
 
-        $rootScope.$on('doSearch', function(event, term){
+       var unregisterEventOnDestroyFun = $rootScope.$on('doSearch', function(event, term){
+            console.log('do search event logged',term);
             $scope.search_by = term;
             $scope.page_selected(1);
+        });
+
+        $scope.$on('$destroy', function() {
+            unregisterEventOnDestroyFun();
         });
 
          $scope.get_page = function (page,search_by,order_by) {
@@ -38,7 +43,12 @@ ctrl_module.controller('FeedCtrl', ['$scope','$location', 'i18n', 'Feed', 'AppAl
             $scope.get_page(page,$scope.search_by,$scope.order_by);
          };
 
-         $scope.page_selected(1);
+        if (Syncer.get_search_term() !== null){
+            $scope.get_page(1,Syncer.get_search_term(),$scope.order_by);
+        } else {
+            $scope.page_selected(1);
+        }
+
 
         $scope.go = function ( path ) {
             $location.path( path );
