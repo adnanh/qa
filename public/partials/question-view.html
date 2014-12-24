@@ -32,7 +32,7 @@
                 <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
 
                 <div class="btn-group-vertical">
-                    <!--
+
                     <div class="btn-group-horizontal">
                         <button type="button" class="btn btn-success btn-xs" ng-click="up_vote()" ng-show="can_vote()">+
                         </button>
@@ -44,14 +44,13 @@
                             ng-click="do_edit()">Edit
                     </button>
 
-                    <button type="button" class="btn btn-info btn-xs"
+                    <button type="button" class="btn btn-info btn-xs" ng-show="can_vote()"
                             ng-click="report(question.id)">Report
                     </button>
 
                     <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
                             ng-click="do_delete()">Delete
                     </button>
-                    -->
 
                 </div>
             </div>
@@ -160,7 +159,6 @@
                         <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
 
                         <div class="btn-group-vertical">
-                            <!--
                             <div class="btn-group-horizontal">
                                 <button type="button" class="btn btn-success btn-xs" ng-show="can_vote()"
                                         ng-click="up_vote(answer)">+
@@ -174,7 +172,7 @@
                                     ng-click="do_edit(answer)">Edit
                             </button>
 
-                            <button type="button" class="btn btn-info btn-xs"
+                            <button type="button" class="btn btn-info btn-xs" ng-show="can_vote()"
                                     ng-click="report(question.id, answer.id)">Report
                             </button>
 
@@ -188,7 +186,6 @@
 
                             <button  type="button" class="btn btn-danger btn-xs" ng-show="canUnpick(answer)" ng-click="unpick(answer)">
                                 Unpick</button>
-                                 -->
                         </div>
                     </div>
 
@@ -266,7 +263,6 @@
                 You know the answer? Share it with us! :-) <i class="pull-right glyphicon"
                                                               ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
             </accordion-heading>
-            <!-- placeholder
             <form name="answer_submit_form" class="form-horizontal" role="form" ng-submit="post_answer()">
 
                 <div class="col-sm-12 form-group"
@@ -288,7 +284,6 @@
                     </button>
                 </div>
             </form>
-            -->
         </accordion-group>
     </accordion>
 </div>
