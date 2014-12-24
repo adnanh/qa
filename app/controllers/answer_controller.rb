@@ -139,7 +139,7 @@ class AnswerController < ApplicationController
           if answer.nil?
             render :json => reply(false, t(:no_such_answer))
           # record exists
-          elsif !is_admin_or_author?(current_user,answer)
+          elsif !is_admin_or_author?(current_user,answer.question)
             render :json => reply(false, t(:answer_pick_insufficient_privileges))
           else
             # accept it
@@ -183,7 +183,7 @@ class AnswerController < ApplicationController
           if answer.nil?
             render :json => reply(false, t(:no_such_answer))
             # record exists
-          elsif !is_admin_or_author?(current_user,answer)
+          elsif !is_admin_or_author?(current_user,answer.question)
             render :json => reply(false, t(:answer_unpick_insufficient_privileges))
           else
             # de-accept it :D
