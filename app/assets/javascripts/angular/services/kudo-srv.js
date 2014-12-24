@@ -38,7 +38,7 @@ services_module.factory('Kudo', [
                     {
                         karma_image = '/assets/green_bronze_medal_small.png';
                     }
-                    else if (user.karma >= 50)
+                    else if (user.karma > 0)
                     {
                         karma_image = '/assets/red_bronze_medal_small.png';
                     }
