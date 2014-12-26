@@ -6,7 +6,6 @@ angular.module('qa.directives').directive('activeTab', ['$location', function ($
                     pathToCheck = $location.path().split('/')[pathLevel-1],
                     tabLink = attrs.href.split('/')[pathLevel];
 
-                console.log(pathToCheck, tabLink);
                 if (pathToCheck === tabLink) {
                     element.parent('li').addClass("active");
                 }
