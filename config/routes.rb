@@ -10,7 +10,8 @@ Qa::Application.routes.draw do
     post "users/suggest" => :suggest_users
   end
 
-  get "ajaxtest" => "application#ajax_test"
+  # remove bullshit ajax test
+  #get "ajaxtest" => "application#ajax_test"
 
   devise_for :users, :controllers => { registrations: "registrations" }
 
@@ -24,17 +25,17 @@ Qa::Application.routes.draw do
   get 'admin' => 'application#admin_test'
   get 'loggedin' => 'application#logged_in_test'
 
+  # remove bullshit
+  #wash_out :soap
 
-  wash_out :soap
+  #put "rest/privilege" => 'rest#c_priv'
+  #get "rest/privilege" => 'rest#r_priv'
+  #get "rest/privilege/:id" => 'rest#r_priv'
 
-  put "rest/privilege" => 'rest#c_priv'
-  get "rest/privilege" => 'rest#r_priv'
-  get "rest/privilege/:id" => 'rest#r_priv'
-
-  post 'rest/privileges/:privilege_id' => 'rest#u_priv'
-  delete 'rest/privileges/:privilege_id' => 'rest#d_priv'
-  get "rest/c_log"
-  get "rest/r_log"
+  #post 'rest/privileges/:privilege_id' => 'rest#u_priv'
+  #delete 'rest/privileges/:privilege_id' => 'rest#d_priv'
+  #get "rest/c_log"
+  #get "rest/r_log"
 
 
   controller :question do
