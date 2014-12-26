@@ -234,7 +234,17 @@ class AnswerController < ApplicationController
           elsif order_by == 'oldest-first'
             @answers = @answers.order('created_at ASC')
           else
+            # sort all by votecounts
             @answers = @answers.sort_by { |answer| -(answer.votes.where(value: true).count-answer.votes.where(value: false).count)}
+            # extract accepted answers to seperate list
+            accepted_answers = @answers.select{
+              |answer|
+              answer.accepted
+            }
+            # append them in reverse order to maintain votecounts
+            accepted_answers.reverse_each do |accepted_answer|
+              @answers.unshift(accepted_answer)
+            end
           end
           render :partial => 'answers', :layout => false
         end
