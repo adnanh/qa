@@ -27,7 +27,8 @@ class PrivateMessageController < ApplicationController
         else
           if message.sender_id == current_user.id
             message.sender_status = 2
-          elsif message.receiver_id == current_user.id
+          end
+          if message.receiver_id == current_user.id
             message.receiver_status = 2
           end
 
