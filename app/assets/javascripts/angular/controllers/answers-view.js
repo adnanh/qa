@@ -18,7 +18,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             isopen: false
         };
         // allowed values: newest-first, oldest-first, best-first
-        $scope.order_by = 'newest-first';
+        $scope.order_by = 'best-first';
 
         $scope.reorder = function (new_order) {
             $scope.order_by = new_order;
