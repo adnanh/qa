@@ -128,6 +128,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                             // just apply changes locally, no need for going to ws
                             AppAlert.add("success",data.message);
                             answer.content = answer.edited_content;
+                            $scope.cancel_edit(answer);
                         }
                         else {
                             AppAlert.add("danger", data.message);
