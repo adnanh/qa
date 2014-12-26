@@ -228,7 +228,7 @@ class AnswerController < ApplicationController
           @user = current_user
           @answers = Answer.where(question_id: question_id)
           @total_such = @answers.count
-          @answers = @answers.offset((page-1)*per_page).limit(per_page)
+          #@answers = @answers.offset((page-1)*per_page).limit(per_page)
           if order_by == 'newest-first'
             @answers = @answers.order('created_at DESC')
           elsif order_by == 'oldest-first'
@@ -237,15 +237,13 @@ class AnswerController < ApplicationController
             # sort all by votecounts
             @answers = @answers.sort_by { |answer| -(answer.votes.where(value: true).count-answer.votes.where(value: false).count)}
             # extract accepted answers to seperate list
-            accepted_answers = @answers.select{
-              |answer|
-              answer.accepted
-            }
-            # append them in reverse order to maintain votecounts
+            accepted_answers, @answers = @answers.partition {|answer| answer.accepted }
+            # append them in reverse order to maintain votecount ordering
             accepted_answers.reverse_each do |accepted_answer|
               @answers.unshift(accepted_answer)
             end
           end
+          @answers = @answers[(page-1)*per_page,per_page]
           render :partial => 'answers', :layout => false
         end
       }
