@@ -1,6 +1,6 @@
 <div ng-controller="AdminPageCtrl">
+
     <div ng-controller="AdminCtrl">
-        <br/>
         <form class="form-horizontal" name="search_form" role="form">
             <div class="form-group">
                 <label for="search_by" class="col-sm-1 control-label">{{i18n.t.MATCH}}:</label>
@@ -21,7 +21,7 @@
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>{{i18n.t.USER_ID}}</th>
-                            <th>{{i18n.t.AVATAR}}</th>
+                            <th>Profile page</th>
                             <th>{{i18n.t.USERNAME}}</th>
                             <th>{{i18n.t.EMAIL}}</th>
                             <th>{{i18n.t.PRIVILEGES}}</th>
@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <td class="col-sm-1">{{user.id}}</td>
-                            <td>{{user.image.url}}</td>
+                            <td><a ng-href="#/profile/{{user.id}}">Profile</a></td>
                             <td>{{user.username}}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.privilege}}</td>
@@ -54,4 +54,5 @@
             </div>
         </div>
     </div>
+
 </div>

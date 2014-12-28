@@ -18,7 +18,12 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
 
         $scope.can_vote = function()
         {
-            return $cookies.logged_in
+            var is_author = false;
+            if ($scope.question.author !== undefined)
+            {
+                is_author = $scope.question.author.id == $cookies.user_id;
+            }
+            return $cookies.logged_in && !is_author;
         }
 
         $scope.can_attempt_delete = function() {
@@ -27,6 +32,19 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
             else {
                 var is_admin = $cookies.privilege_id == 2;
                 return is_admin;
+            }
+        };
+
+        $scope.can_attempt_report = function() {
+            if (!$cookies.logged_in || !$cookies.privilege_id)
+                return false;
+            else {
+                var is_author = false;
+                if ($scope.question.author !== undefined)
+                {
+                    is_author = $scope.question.author.id == $cookies.user_id;
+                }
+                return !is_author;
             }
         };
 
@@ -101,7 +119,12 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                       // deletion was successful, redirect to home
                       AppAlert.add("success", data.message);
                      // $location.path('home');
-                      $scope.question.upvotes++;
+                      if (data.new)
+                        $scope.question.upvotes++;
+                      else {
+                        $scope.question.upvotes++;
+                        $scope.question.downvotes--;
+                      }
                   }
                   else {
                       AppAlert.add("danger", data.message);
@@ -123,7 +146,12 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                         // deletion was successful, redirect to home
                         AppAlert.add("success", data.message);
                         //$location.path('home');
-                        $scope.question.downvotes++;
+                        if (data.new)
+                            $scope.question.downvotes++;
+                        else {
+                            $scope.question.upvotes--;
+                            $scope.question.downvotes++;
+                        }
                     }
                     else {
                         AppAlert.add("danger", data.message);
@@ -150,6 +178,11 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                     }
                 }
             );
+        };
+
+        $scope.to_permalink_q = function(question_id){
+            $location.path('q/'+$scope.question.id);
+            return false;
         };
     }
 ]);

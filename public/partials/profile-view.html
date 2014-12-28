@@ -4,10 +4,19 @@
     <div ng-show="user_set">
         <!-- avatar -->
         <div id="profileViewAvatar" class="pull-left" style="margin-right:30px;">
-            <img src="{{user.avatar}}" class="imageBox"/>
-            <!-- @hajdar here goes option for sending pm -->
-            <br/><br/>
-            <a href="#/pm/new/{{user.id}}" class="btn btn-primary btn-xs">Send Private Message</a>
+            <table>
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="{{user.avatar}}" class="imageBox"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <br/>
+                        <a href="#/pm/new/{{user.id}}" class="btn btn-default btn-xs">Send Private Message</a>
+                    </td>
+                </tr>
+            </table>
         </div>
         <!-- remainder -->
         <div id="profileViewInformation" class="pull-left">

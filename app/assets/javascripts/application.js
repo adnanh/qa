@@ -27,6 +27,7 @@
 //= require angular/controllers/answer
 //= require angular/controllers/answers-view
 //= require angular/directives/master
+//= require angular/directives/active-tab
 //= require angular/services/master
 //= require angular/lib/angular-bootstrap/ui-bootstrap-tpls-0.10.0.js
 //= require angular/lib/non-angular/d3.min.js

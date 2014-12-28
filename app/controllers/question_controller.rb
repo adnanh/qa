@@ -28,6 +28,9 @@ class QuestionController < ApplicationController
         else
 
           if question.save
+            # on question successfully created notify followers foreach tag
+            notify_followers_on_new_question(question)
+
             render :json => reply(true, t(:question_creation_successful),'question_id', question.id)
           else
             render :json => reply(false, t(:question_creation_failed))

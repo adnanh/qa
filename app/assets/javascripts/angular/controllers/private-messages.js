@@ -36,8 +36,9 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
         {
             PrivateMessagesSrv.delete(message_id)
                 .success(
-                function()
+                function(data)
                 {
+                    AppAlert.add("success", data.message);
                     switch($scope.displayMessageId)
                     {
                         case "inbox":
@@ -51,7 +52,9 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                             break;
                     }
                 }
-            );
+            ).error(function(data,status){
+                    AppAlert.add("danger", ErrorProvider.get_message(status,'Deleting private message.'));
+                });
         }
 
         function refreshUnreadCount() {
@@ -184,6 +187,7 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                     function(data){
                         if (data.success){
                             $location.path('/pm/outbox');
+                            AppAlert.add("success", data.message);
                         }
                         else {
                             AppAlert.add("danger", data.message);

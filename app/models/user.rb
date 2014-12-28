@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :answers, :foreign_key => 'author_id'
   has_many :sent_private_messages, :foreign_key => 'sender_id', :class_name => 'PrivateMessage'
   has_many :received_private_messages, :foreign_key => 'receiver_id', :class_name => 'PrivateMessage'
+  has_many :followings, :foreign_key => 'user_id', :class_name => 'Following'
 
   has_attached_file :image, :styles => {
       :thumb => "100x100#",

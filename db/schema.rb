@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140516020740) do
+ActiveRecord::Schema.define(version: 20141220162611) do
 
   create_table "answers", force: true do |t|
     t.integer  "author_id",                   null: false
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 20140516020740) do
   add_index "answers", ["author_id"], name: "answers_author_id_fk", using: :btree
   add_index "answers", ["editor_id"], name: "answers_editor_id_fk", using: :btree
   add_index "answers", ["question_id"], name: "answers_question_id_fk", using: :btree
+
+  create_table "followings", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "tag",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "followings", ["user_id"], name: "followings_user_id_fk", using: :btree
 
   create_table "logs", force: true do |t|
     t.string   "ip_address",  limit: 15, null: false
@@ -142,6 +151,8 @@ ActiveRecord::Schema.define(version: 20140516020740) do
   add_foreign_key "answers", "questions", name: "answers_question_id_fk"
   add_foreign_key "answers", "users", name: "answers_author_id_fk", column: "author_id"
   add_foreign_key "answers", "users", name: "answers_editor_id_fk", column: "editor_id"
+
+  add_foreign_key "followings", "users", name: "followings_user_id_fk"
 
   add_foreign_key "password_recovery_tokens", "users", name: "password_recovery_token_user_id_fk"
 

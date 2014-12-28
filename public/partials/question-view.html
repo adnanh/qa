@@ -9,114 +9,98 @@
 <div class="pull-left" style="width: 85%;">
 
 <div ng-controller="QuestionViewCtrl">
-    <fieldset>
-        <!-- question title -->
-        <legend>
-            <b>{{question.title}}</b>
-        </legend>
-        <div ng-show="!question.open">
-            <b>Question closed</b><br>
-            <i>Reason: {{question.status_description}}</i>
-            <hr>
-        </div>
-        <!-- question social -->
-        <div style="padding: 5px;">
-            <button class="btn btn-info btn-sm" ng-click="do_share()">Share on facebook</button>
-        </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-transform: none;">
+            <div my-position></div>
+            <div class="row">
+                <div class="col-md-1 btn-group-vertical">
+                    <a href="" class="btn btn-link btn-xs" ng-click="up_vote()" ng-class="{disabled: !can_vote()}"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="" class="btn btn-link btn-xs disabled"><span style="font-size: 16px; color: #3E3F3A;">{{question.upvotes - question.downvotes}}</span></a>
+                    <a href="" class="btn btn-link btn-xs" ng-click="down_vote()" ng-class="{disabled: !can_vote()}"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                </div>
+                <div class="col-md-8">
+                    <p class="lead" style="padding-top: 20px; color: #3E3F3A; font-weight: bold;">{{question.title}}</p>
+                </div>
+                <div class="col-md-3">
+                    <table style="width: 100%; margin-top: 10px;">
+                        <tr>
+                            <td style="width: 60px;">
+                                <img src="{{question.author.avatar}}" width="48" height="48" style="border-radius: 24px;"/>
+                            </td>
+                            <td>
+                                <a href="#/profile/{{question.author.id}}" style="font-size: 16px; font-weight: bold;">{{question.author.username}} <span ng-hide="question.author.karma_image==null">(<img src="{{question.author.karma_image}}" alt="Karma points: {{question.author.karma}}"
+                                                                                                                                                                                                 title="Karma points: {{question.author.karma}}" ng-if="question.author.karma_image !== null"/>)</span></a>
+                                <br/>
+                                <span class="text-muted"><i class="glyphicon glyphicon-time"></i> {{question.created_at | moment: 'fromNow'}}</span>
+                            </td>
 
-        <!-- question main-->
-        <div class="qa-display-item">
-            <!-- left sidebar with votecounts, options -->
-            <div class="qa-item-left-small" style="padding: 10px;">
-                <b>{{question.upvotes-question.downvotes}}</b>
-                <span>(+{{question.upvotes}}, -{{question.downvotes}})</span>
-
-                <div class="btn-group-vertical">
-
-                    <div class="btn-group-horizontal">
-                        <button type="button" class="btn btn-success btn-xs" ng-click="up_vote()" ng-show="can_vote()">+
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="down_vote()" ng-show="can_vote()">-
-                        </button>
-                    </div>
-
-                    <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit()"
-                            ng-click="do_edit()">Edit
-                    </button>
-
-                    <button type="button" class="btn btn-info btn-xs" ng-show="can_vote()"
-                            ng-click="report(question.id)">Report
-                    </button>
-
-                    <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
-                            ng-click="do_delete()">Delete
-                    </button>
-
+                        </tr>
+                    </table>
                 </div>
             </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- display question content if not in edit mode -->
+                    <div mathjax-bind="question.content" ng-hide="question.edit_mode" style="text-align: justify;"></div>
 
-            <!-- right part is the question content -->
-            <div class="qa-item-right-big">
-                <!-- display question content if not in edit mode -->
-                <div class="post" mathjax-bind="question.content" ng-hide="question.edit_mode"></div>
-
-                <!-- display question editing form if in edit mode -->
-                <div class="clearfix" ng-show="question.edit_mode">
-                    <form name="question_edit_form" class="form-horizontal" role="form">
-                        <!-- question title -->
-                        <div class="col-sm-12 form-group"
-                             ng-class="{ 'has-error' : question_edit_form.title.$invalid }">
-                            <div>
-                                <input ng-model="question.edited_title" type="text" class="form-control"
-                                       id="question-title" name="title" placeholder="Enter the title of your question"
-                                       required autofocus ng-minlength="6" ng-maxlength="255">
-                            </div>
+                    <!-- display question editing form if in edit mode -->
+                    <div class="clearfix" ng-show="question.edit_mode">
+                        <form name="question_edit_form" class="form-horizontal" role="form">
+                            <!-- question title -->
+                            <div class="col-sm-12 form-group"
+                                 ng-class="{ 'has-error' : question_edit_form.title.$invalid }">
+                                <div>
+                                    <input ng-model="question.edited_title" type="text" class="form-control"
+                                           id="question-title" name="title" placeholder="Enter the title of your question"
+                                           required autofocus ng-minlength="6" ng-maxlength="255">
+                                </div>
                                 <span class="help-block" ng-show="question_edit_form.title.$invalid">
                                     Question title must be at least 6 characters long (maximum of 255).
                                 </span>
-                        </div>
-                        <!-- question content editor -->
-                        <div class="col-sm-12 form-group">
-                            <div text-angular="text-angular" name="question_edit"
-                                 ng-model="question.edited_content"
-                                 ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
-                                 placeholder="Editing question"></div>
-                        </div>
+                            </div>
+                            <!-- question content editor -->
+                            <div class="col-sm-12 form-group">
+                                <div text-angular="text-angular" name="question_edit"
+                                     ng-model="question.edited_content"
+                                     ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
+                                     placeholder="Editing question"></div>
+                            </div>
 
-                        <!-- question edit submit  -->
-                        <div class="col-sm-10 form-group">
-                            <button type="submit" class="btn btn-default" ng-click="submit_edit()">
-                                Submit edit
-                            </button>
-                            <button class="btn btn-default" ng-click="cancel_edit()">Cancel editing
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- below go them tags -->
-                <div>
-                    <b>Tags:</b> <span class="bg-primary"
-                                       style="margin-left:5px; padding-left: 5px; padding-right: 5px;"
-                                       ng-repeat="tag in question.tags_list">{{tag}}</span>
+                            <!-- question edit submit  -->
+                            <div class="col-sm-10 form-group">
+                                <button type="submit" class="btn btn-default" ng-click="submit_edit()">
+                                    Submit edit
+                                </button>
+                                <button class="btn btn-default" ng-click="cancel_edit()">Cancel editing
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="pull-right">
-            <b>By <a href="{{'#/profile/'+question.author.id}}">{{question.author.username}}</a><img
-                    src="{{question.author.karma_image}}" alt="Karma points: {{question.author.karma}}"
-                    title="Karma points: {{question.author.karma}}" ng-if="question.author.karma_image !== null"/> on
-                {{question.created_at}}</b>
-            <b ng-show="question.editor"> | Edited by <a href="{{'#/profile/'+question.editor.id}}">{{question.editor.username}}</a><img
-                    src="{{question.editor.karma_image}}" alt="Karma points: {{question.editor.karma}}"
-                    title="Karma points: {{question.editor.karma}}" ng-if="question.editor.karma_image !== null"/>
-                on {{question.edited_at}}</b>
-        </div>
-        <div class="clearfix">
-            <hr>
-        </div>
-    </fieldset>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="label label-success" style="margin-left:5px; padding-left: 5px; padding-right: 5px;" ng-repeat="tag in question.tags_list">{{tag}}</span>
+                </div>
+                <div class="col-md-4">
 
+                </div>
+
+                <div class="col-md-4">
+                    <div class="btn-group-horizontal pull-right">
+                        <a href="" class="btn btn-primary btn-xs" ng-show="can_attempt_edit()" ng-click="do_edit()"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                        <a href="" class="btn btn-danger btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete()"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                        <a href="" class="btn btn-warning btn-xs" ng-show="can_attempt_report()" ng-click="report(question.id)"><i class="glyphicon glyphicon-warning-sign"></i> Report</a>
+                        <a href="#/q/{{question.id}}" class="btn btn-default btn-xs" ng-click="to_permalink_q(question.id);"><i class="glyphicon glyphicon-link"></i> Permalink</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- area to display paginated answers WITH OPTIONS FOR:
@@ -148,95 +132,85 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <hr>
+            <br/>
 
             <!-- iterate through the array and display all answers -->
             <div ng-repeat="answer in answers">
-                <div class="qa-display-item">
-                    <!-- left sidebar with votecounts, options -->
-                    <div class="qa-item-left-small" style="padding: 10px;">
-                        <b>{{answer.upvotes-answer.downvotes}}</b>
-                        <span>(+{{answer.upvotes}}, -{{answer.downvotes}})</span>
-
-                        <div class="btn-group-vertical">
-                            <div class="btn-group-horizontal">
-                                <button type="button" class="btn btn-success btn-xs" ng-show="can_vote()"
-                                        ng-click="up_vote(answer)">+
-                                </button>
-                                <button type="button" class="btn btn-danger btn-xs" ng-show="can_vote()"
-                                        ng-click="down_vote(answer)">-
-                                </button>
-                            </div>
-
-                            <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_edit(answer)"
-                                    ng-click="do_edit(answer)">Edit
-                            </button>
-
-                            <button type="button" class="btn btn-info btn-xs" ng-show="can_vote()"
-                                    ng-click="report(question.id, answer.id)">Report
-                            </button>
-
-                            <button type="button" class="btn btn-info btn-xs" ng-show="can_attempt_delete()"
-                                    ng-click="do_delete(answer)">Delete
-                            </button>
-
-                            <button  type="button" class="btn btn-success btn-xs" ng-show="canPick(answer)" ng-click="pick(answer)">
-                                Pick</button>
-
-
-                            <button  type="button" class="btn btn-danger btn-xs" ng-show="canUnpick(answer)" ng-click="unpick(answer)">
-                                Unpick</button>
-                        </div>
-                    </div>
-
-                    <!-- right part is the answer content  OR editor if in edit mode-->
-                    <div class="qa-item-right-big">
-                        <div class="upper-line" ng-show="isAccepted(answer)"><span style="color:blue">Answer marked as correct</span></div>
-                        <div ng-switch="answer.id==highlight_answer_id">
-                            <div ng-switch-when="true">
-                                <!-- a bit hackish but who cares :-) -->
-
-                                <div my-position></div>
-
-                            </div>
-                        </div>
-                        <div ng-class="{higlighted_answer: answer.id==highlight_answer_id}" class="post" mathjax-bind="answer.content" ng-hide="answer.edit_mode"></div>
-
-                        <form name="answer_edit_form" class="form-horizontal" role="form"
-                              ng-show="answer.edit_mode">
-                            <!-- answer content editor -->
-                            <div class="col-sm-12 form-group">
-                                <div text-angular="text-angular" name="{{'content'+$index}}"
-                                     ng-model="answer.edited_content"
-                                     ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
-                                     placeholder="Editing answer"></div>
-                            </div>
-
-                            <!-- answer edit submit  -->
-                            <div class="col-sm-10 form-group">
-                                <button type="submit" class="btn btn-default" ng-click="submit_edit(answer)">
-                                    Submit edit
-                                </button>
-                                <button class="btn btn-default" ng-click="cancel_edit(answer)">Cancel editing
-                                </button>
-                            </div>
-                        </form>
+                <div ng-switch="answer.id==highlight_answer_id">
+                    <div ng-switch-when="true">
+                        <!-- a bit hackish but who cares :-) -->
+                        <div my-position></div>
                     </div>
                 </div>
-                <div class="pull-right">
-                    <b>By <a href="{{'#/profile/'+answer.author.id}}">{{answer.author.username}}</a><img
-                            src="{{answer.author.karma_image}}" alt="Karma points: {{answer.author.karma}}"
-                            title="Karma points: {{answer.author.karma}}" ng-if="answer.author.karma_image !== null"/>
-                        on
-                        {{answer.created_at}}</b>
-                    <b ng-show="answer.editor"> | Edited by <a href="{{'#/profile/'+answer.editor.id}}">{{answer.editor.username}}</a><img
-                            src="{{answer.editor.karma_image}}" alt="Karma points: {{answer.editor.karma}}"
-                            title="Karma points: {{answer.editor.karma}}" ng-if="answer.editor.karma_image !== null"/>
-                        on {{answer.edited_at}}</b>
-                    <span>&nbsp;&nbsp;<a href="" ng-click="to_permalink(answer.id)">permalink</a></span>
-                </div>
-                <div class="clearfix">
-                    <hr>
+
+                <div class="panel" ng-class="{'panel-success': isAccepted(answer), 'panel-default': !isAccepted(answer)}">
+                    <div class="panel-heading" ng-show="isAccepted(answer)">
+                        <i class="glyphicon glyphicon-ok"></i> This answer has been marked as correct by the question author.
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-1 btn-group-vertical">
+                                <a href="" class="btn btn-link btn-xs" ng-click="up_vote(answer)" ng-class="{disabled: !can_vote(answer)}"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="" class="btn btn-link btn-xs disabled"><span style="font-size: 16px; color: #3E3F3A;">{{answer.upvotes-answer.downvotes}}</span></a>
+                                <a href="" class="btn btn-link btn-xs" ng-click="down_vote(answer)" ng-class="{disabled: !can_vote(answer)}"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                            </div>
+                            <div class="col-md-8">
+                                <div mathjax-bind="answer.content" ng-hide="answer.edit_mode" style="padding-top: 10px;"></div>
+
+                                <form name="answer_edit_form" class="form-horizontal" role="form"
+                                      ng-show="answer.edit_mode">
+                                    <!-- answer content editor -->
+                                    <div class="col-sm-12 form-group">
+                                        <div text-angular="text-angular" name="{{'content'+$index}}"
+                                             ng-model="answer.edited_content"
+                                             ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
+                                             placeholder="Editing answer"></div>
+                                    </div>
+
+                                    <!-- answer edit submit  -->
+                                    <div class="col-sm-10 form-group">
+                                        <button type="submit" class="btn btn-default" ng-click="submit_edit(answer)">
+                                            Submit edit
+                                        </button>
+                                        <button class="btn btn-default" ng-click="cancel_edit(answer)">Cancel editing
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <table style="width: 100%; margin-top: 10px;">
+                                    <tr>
+                                        <td style="width: 60px;">
+                                            <img src="{{answer.author.avatar}}" width="48" height="48" style="border-radius: 24px;"/>
+                                        </td>
+                                        <td>
+                                            <a href="#/profile/{{answer.author.id}}" style="font-size: 16px; font-weight: bold;">{{answer.author.username}} <span ng-hide="answer.author.karma_image==null">(<img src="{{answer.author.karma_image}}" alt="Karma points: {{answer.author.karma}}"
+                                                                                                                                                                                                         title="Karma points: {{answer.author.karma}}" ng-if="answer.author.karma_image !== null"/>)</span></a>
+                                            <br/>
+                                            <span class="text-muted"><i class="glyphicon glyphicon-time"></i> {{answer.created_at | moment: 'fromNow'}}</span>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="btn-group-horizontal pull-left">
+                                    <a href="" class="btn btn-success btn-xs" ng-show="canPick(answer)" ng-click="pick(answer)"><i class="glyphicon glyphicon-ok"></i> Mark as correct</a>
+                                    <a href="" class="btn btn-danger btn-xs" ng-show="canUnpick(answer)" ng-click="unpick(answer)"><i class="glyphicon glyphicon-remove"></i> Unmark as correct</a>
+                                </div>
+                                <div class="btn-group-horizontal pull-right">
+                                    <a href="" class="btn btn-primary btn-xs" ng-show="can_attempt_edit(answer)" ng-click="do_edit(answer)"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                                    <a href="" class="btn btn-danger btn-xs" ng-show="can_attempt_delete()" ng-click="do_delete(answer)"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                                    <a href="" class="btn btn-warning btn-xs" ng-show="can_attempt_report(answer)" ng-click="report(question.id, answer.id)"><i class="glyphicon glyphicon-warning-sign"></i> Report</a>
+                                    <a href="#/q/{{question.id}}/a/{{answer.id}}" class="btn btn-default btn-xs" ng-click="to_permalink(answer.id);"><i class="glyphicon glyphicon-link"></i> Permalink</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- area to display paginator -->
@@ -257,16 +231,14 @@
 <!-- area to display answer-posting container for registered users only
      consists of content only (no title, no tags) -->
 <div ng-controller="AnswerCtrl" ng-show="canAnswer()">
-    <accordion>
-        <accordion-group is-open="poster.open">
-            <accordion-heading>
-                You know the answer? Share it with us! :-) <i class="pull-right glyphicon"
-                                                              ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
-            </accordion-heading>
-            <form name="answer_submit_form" class="form-horizontal" role="form" ng-submit="post_answer()">
 
-                <div class="col-sm-12 form-group"
-                     ng-class="{ 'has-error': content_invalid(answer_submit_form) }">
+    <div class="panel panel-default">
+        <div class="panel-heading">You know the answer? Share it with us! :-)</div>
+        <div class="panel-body">
+            <form name="answer_submit_form" class="form-horizontal" role="form" ng-submit="post_answer()">
+                <!-- answer content editor -->
+                <div class="row"
+                     ng-class="{ 'has-error': content_invalid(answer_submit_form) }" style="padding-left: 18px; padding-right: 18px;">
                     <div text-angular="text-angular" name="content" ng-model="answer.content"
                          ta-toolbar="[['p','h1','h2'],['bold','italics','pre','quote'],['ul','ol'],['undo','redo'],['insertImage','insertLink']]"
                          placeholder="Enter your answer"></div>
@@ -275,17 +247,20 @@
                     </span>
                 </div>
 
+                <br/>
 
-                <div class="col-sm-10 form-group">
+                <!-- answer submit  -->
+                <div class="pull-right">
                     <button type="submit" class="btn btn-default" ng-click="submit(answer_submit_form)"
                             ng-disabled="answer_submit_form.$invalid">Submit answer
                     </button>
+
                     <button class="btn btn-default" ng-click="reset_form(answer_submit_form)">Clear answer
                     </button>
                 </div>
             </form>
-        </accordion-group>
-    </accordion>
+        </div>
+    </div>
 </div>
 <div ng-show="isAdmin()" >
     <hr>
@@ -295,19 +270,19 @@
                 Question administration <i class="pull-right glyphicon"
                                            ng-class="{'glyphicon-chevron-down': poster.open, 'glyphicon-chevron-right': !poster.open}"></i>
             </accordion-heading>
-                <div class="col-sm-12 form-group" role="form" ng-show="canClose()">
-                    <div>
-                        <input ng-model="question.status_description" type="text" class="form-control"  name="close_reason"  placeholder="Reason for closing" type="text" required autofocus ng-minlength="4" ng-maxlength="255">
-                    </div>
+            <div class="col-sm-12 form-group" role="form" ng-show="canClose()">
+                <div>
+                    <input ng-model="question.status_description" type="text" class="form-control"  name="close_reason"  placeholder="Reason for closing" type="text" required autofocus ng-minlength="4" ng-maxlength="255">
+                </div>
                 <span class="help-block" ng-show="title_invalid(question_submit_form)">
                     Reason must be at least 6 characters long (maximum of 255).
                 </span>
-                </div>
-                <div class="col-sm-10 form-group" style="float: right">
-                    <button type="submit" class="btn btn-default pull-right" ng-show="canClose()" ng-click="close_question()">
-                        Close question
-                    </button>
-                </div>
+            </div>
+            <div class="col-sm-10 form-group" style="float: right">
+                <button type="submit" class="btn btn-default pull-right" ng-show="canClose()" ng-click="close_question()">
+                    Close question
+                </button>
+            </div>
             <div ng-show="canOpen()">
                 <h2>Closure reason: {{question.status_description}}</h2>
 

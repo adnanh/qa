@@ -18,7 +18,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             isopen: false
         };
         // allowed values: newest-first, oldest-first, best-first
-        $scope.order_by = 'newest-first';
+        $scope.order_by = 'best-first';
 
         $scope.reorder = function (new_order) {
             $scope.order_by = new_order;
@@ -66,10 +66,15 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
 
         };
 
-        $scope.can_vote = function()
+        $scope.can_vote = function(answer)
         {
-            return $cookies.logged_in
-        }
+            return $cookies.logged_in && answer.author.id != $cookies.user_id;
+        };
+
+        $scope.can_attempt_report = function(answer)
+        {
+            return $cookies.logged_in && answer.author.id != $cookies.user_id;
+        };
 
         $scope.page_selected = function (page) {
             $scope.get_page(page, $scope.question.id, $scope.order_by);
@@ -82,7 +87,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
             if (!$cookies.logged_in || !$cookies.user_id || !$cookies.privilege_id || !$scope.question.author)
                 return false;
             else {
-                var is_author = $scope.question.author.id == $cookies.user_id;
+                var is_author = answer.author.id == $cookies.user_id;
                 var is_admin = $cookies.privilege_id == 2; // USER 1 ADMIN 2
                 return (is_author || is_admin) && $scope.question.open ;
             }
@@ -123,6 +128,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                             // just apply changes locally, no need for going to ws
                             AppAlert.add("success",data.message);
                             answer.content = answer.edited_content;
+                            $scope.cancel_edit(answer);
                         }
                         else {
                             AppAlert.add("danger", data.message);
@@ -174,7 +180,13 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                     if (data.success){
                         // deletion was successful, redirect to home
                         AppAlert.add("success", data.message);
-                        answer.upvotes++;
+                        if (data.new)
+                            answer.upvotes++;
+                        else {
+                            answer.downvotes--;
+                            answer.upvotes++;
+                        }
+
                         //$location.path('home');
                     }
                     else {
@@ -197,7 +209,12 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
                         // deletion was successful, redirect to home
                         AppAlert.add("success", data.message);
                         //$location.path('home');
-                        answer.downvotes++;
+                        if (data.new)
+                            answer.downvotes++;
+                        else {
+                            answer.downvotes++;
+                            answer.upvotes--;
+                        }
                     }
                     else {
                         AppAlert.add("danger", data.message);
@@ -213,6 +230,7 @@ ctrl_module.controller('AnswersViewCtrl', ['$scope', '$cookies', 'i18n', 'Answer
 
         $scope.to_permalink = function (answer_id){
             $location.path('q/'+$scope.question.id+"/a/"+answer_id);
+            return false;
         };
 
         $scope.pick = function(answer){

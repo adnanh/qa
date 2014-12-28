@@ -6,9 +6,10 @@
         "author": {
             "id": <%= @question.author_id %>,
             "username": "<%= @question.author.username %>",
-            "karma": <%= @question.author.karma %>
+            "karma": <%= @question.author.karma %>,
+            "avatar": "<%= @question.author.image.url(:thumb) %>"
         },
-        "created_at": "<%= @question.created_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>",
+        "created_at": "<%= @question.created_at.to_formatted_s(:momentjs_format) %>",
         "title": <%= @question.title.to_json.html_safe %>,
         "content": <%= @question.content.to_json.html_safe %>,
         "tags": "<%= @question.tags %>",
@@ -30,9 +31,10 @@
         "editor": {
             "id": <%= @question.editor_id %>,
             "username": "<%= @question.editor.username %>",
-            "karma": <%= @question.editor.karma %>
+            "karma": <%= @question.editor.karma %>,
+            "avatar": "<%= @question.editor.image.url(:thumb) %>"
         },
-        "edited_at": "<%= @question.updated_at.to_formatted_s(:ddmmyyyyhhmmss_format) %>"
+        "edited_at": "<%= @question.updated_at.to_formatted_s(:momentjs_format) %>"
         <% end %>
     }
 }

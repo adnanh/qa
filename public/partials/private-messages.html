@@ -18,8 +18,8 @@
                 <span ng-click="markAsRead(message)"><span class="label label-success" ng-show="message.status == 'unread'">{{message.sent_at | date:'MM/dd/yyyy @ h:mma'}}</span><span class="label label-default" ng-show="message.status != 'unread'">{{message.sent_at | date:'MM/dd/yyyy @ h:mma'}}</span> <span class="label label-primary">{{message.sender_username}}</span> {{message.title}}</span>
             </accordion-heading>
 
-            <div class="well well-sm">
-                {{message.content}}
+            <div class="well well-sm" mathjax-bind="message.content">
+
             </div>
 
             <div class="text-right">
@@ -36,8 +36,7 @@
                 <span class="label label-default">{{message.sent_at | date:'MM/dd/yyyy @ h:mma'}}</span> <span class="label label-primary">{{message.receiver_username}}</span> {{message.title}}
             </accordion-heading>
 
-            <div class="well well-sm">
-                {{message.content}}
+            <div class="well well-sm" mathjax-bind="message.content">
             </div>
 
             <div class="text-right">
@@ -60,7 +59,7 @@
         </div>
 
         <div class="text-right">
-            <button ng-click="sendMessage()" class="btn btn-primary btn-default">Send</button>
+            <button ng-click="sendMessage()" class="btn btn-default">Send</button>
         </div>
     </div>
 
