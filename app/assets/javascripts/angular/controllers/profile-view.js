@@ -1,7 +1,7 @@
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('ProfileViewCtrl', ['$scope', '$routeParams', '$location', 'i18n', 'AppAlert', 'ErrorProvider', 'User', 'Kudo',
-    function ($scope, $routeParams, $location, i18n, AppAlert, ErrorProvider, User, Kudo) {
+ctrl_module.controller('ProfileViewCtrl', ['$scope', '$routeParams', '$location', 'i18n', 'AppAlert', 'ErrorProvider', 'User', 'Kudo', '$cookies',
+    function ($scope, $routeParams, $location, i18n, AppAlert, ErrorProvider, User, Kudo,$cookies) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -36,5 +36,9 @@ ctrl_module.controller('ProfileViewCtrl', ['$scope', '$routeParams', '$location'
         };
 
         load_user($scope.user_id);
+
+        $scope.canSendPM = function(){
+            return $cookies.privilege_id > 0; // USER 1 ADMIN 2
+        };
     }
 ]);
