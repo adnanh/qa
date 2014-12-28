@@ -2,8 +2,8 @@
 
 var ctrl_module = angular.module('qa.controllers');
 
-ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$timeout', '$location', '$rootScope', 'Syncer',
-    function ($scope, i18n, PrivateMessages, $timeout, $location, $rootScope, Syncer) {
+ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$timeout', '$location', '$rootScope', 'Syncer', '$cookies',
+    function ($scope, i18n, PrivateMessages, $timeout, $location, $rootScope, Syncer, $cookies) {
         // include i18n reference to current scope
         $scope.i18n = i18n;
 
@@ -15,6 +15,7 @@ ctrl_module.controller('HeaderCtrl', ['$scope', 'i18n', 'PrivateMessages', '$tim
         $scope.inboxUnreadCount = 0;
 
         (function refreshInboxUnreadCountPeriodically() {
+            if (!($cookies.privilege_id > 0)) return;
             PrivateMessages.countUnreadMessages()
                 .success(
                     function(data){
