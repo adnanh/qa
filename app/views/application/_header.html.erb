@@ -12,7 +12,10 @@
 
       <form ng-show="can_search()" class="navbar-form navbar-left" ng-submit="do_search()">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Find an answer..." style="width: 350px;" ng-model="search_term">
+          <input type="text" class="form-control" placeholder="Find an answer..." style="width: 330px;" ng-model="search_term">
+          <button type="submit" class="btn btn-xl btn-info" style="margin-left: -10px;">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
         </div>
       </form>
 
