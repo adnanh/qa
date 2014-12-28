@@ -61,6 +61,7 @@ ctrl_module.controller('QuestionViewCtrl', ['$scope', '$cookies', '$location', '
                             AppAlert.add("success",data.message);
                             $scope.question.content = $scope.question.edited_content;
                             $scope.question.title = $scope.question.edited_title;
+                            $scope.cancel_edit();
                         }
                         else {
                             AppAlert.add("danger", data.message);
