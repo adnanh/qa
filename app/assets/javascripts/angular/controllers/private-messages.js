@@ -193,7 +193,9 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                             AppAlert.add("danger", data.message);
                         }
                     }
-                );
+                ).error(function(data,status){
+                        AppAlert.add("danger", ErrorProvider.get_message(status,'Sending private message.'));
+                    });
             }
         }
 
