@@ -1,5 +1,5 @@
 class PrivateMessageController < ApplicationController
-  QaHelper
+  include QaHelper
   before_filter :require_logged_in, :except => []
 
   def create
