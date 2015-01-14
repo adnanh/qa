@@ -187,7 +187,7 @@ ctrl_module.controller('PrivateMessagesCtrl', ['$scope', '$routeParams', '$locat
                     function(data){
                         if (data.success){
                             $location.path('/pm/outbox');
-                            AppAlert.add("success", data.message);
+                            AppAlert.add("success", 'Message successfully sent.');
                         }
                         else {
                             AppAlert.add("danger", data.message);
